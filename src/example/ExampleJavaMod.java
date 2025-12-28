@@ -1,12 +1,14 @@
 package example;
 
 import arc.*;
+import arc.graphics.Color;
 import arc.util.*;
 import mindustry.*;
 import mindustry.content.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.mod.*;
+import mindustry.type.Item;
 import mindustry.ui.dialogs.*;
 
 public class ExampleJavaMod extends Mod{
@@ -31,6 +33,10 @@ public class ExampleJavaMod extends Mod{
     @Override
     public void loadContent(){
         Log.info("Loading some example content.");
+        new Item("tutorial-item", Color.HSVtoRGB(4,100,60)){{
+            explosiveness=2.2f;
+            flammability=1.6f;
+        }};
     }
 
 }

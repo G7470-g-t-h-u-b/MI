@@ -2,7 +2,7 @@
 displayName: "Java Mod Template"
 
 #the internal name of your mod
-name: "example-java-mod"
+name: "g7470mod-1"
 
 #your name
 author: "You"
@@ -14,10 +14,10 @@ main: "example.ExampleJavaMod"
 description: "A Mindustry Java mod template."
 
 #the mod version
-version: 1.0
+version: 0.1
 
 #the minimum game build required to run this mod
-minGameVersion: 150
+minGameVersion: 154
 
 #this is a java mod
 java: true
