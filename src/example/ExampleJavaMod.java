@@ -8,10 +8,18 @@ import mindustry.content.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.mod.*;
+import mindustry.type.Category;
 import mindustry.type.Item;
+import mindustry.type.ItemStack;
 import mindustry.ui.dialogs.*;
+import mindustry.world.blocks.production.GenericCrafter;
+
+import javax.naming.directory.ModificationItem;
+
+import static arc.input.KeyCode.f;
 
 public class ExampleJavaMod extends Mod{
+    Item experimentalExplosives;
 
     public ExampleJavaMod(){
         Log.info("Loaded ExampleJavaMod constructor.");
@@ -33,9 +41,18 @@ public class ExampleJavaMod extends Mod{
     @Override
     public void loadContent(){
         Log.info("Loading some example content.");
-        new Item("tutorial-item", Color.HSVtoRGB(4,100,60)){{
+        experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
             explosiveness=2.2f;
             flammability=1.6f;
+        }};
+        new GenericCrafter("laboratory"){{
+            health=180;
+            size=2;
+            requirements(Category.crafting, ItemStack.with(Items.copper,50,Items.lead,20,Items.titanium,10));
+            consumeItem(Items.blastCompound,2);
+            consumeLiquid(Liquids.oil,2f);
+            consumePower(1f);
+            outputItem = new ItemStack(experimentalExplosives,2);
         }};
     }
 
