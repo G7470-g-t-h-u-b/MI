@@ -20,6 +20,7 @@ import static arc.input.KeyCode.f;
 
 public class ExampleJavaMod extends Mod{
     Item experimentalExplosives;
+    Item tin;
 
     public ExampleJavaMod(){
         Log.info("Loaded ExampleJavaMod constructor.");
@@ -45,6 +46,7 @@ public class ExampleJavaMod extends Mod{
             explosiveness=2.2f;
             flammability=1.6f;
         }};
+        tin=new Item("tin",Color.HSVtoRGB(233,16,44));
         new GenericCrafter("laboratory"){{
             health=180;
             size=2;
