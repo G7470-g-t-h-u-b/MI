@@ -11,7 +11,7 @@ author: "G7470"
 main: "example.ExampleJavaMod"
 
 #the mod description as seen in the mod dialog
-description: "A Mindustry Java mod template."
+description: "A Mindustry Java mod"
 
 #the mod version
 version: 0.1.2

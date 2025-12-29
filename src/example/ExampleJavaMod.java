@@ -52,7 +52,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
             requirements(Category.crafting, ItemStack.with(Items.copper,50,Items.lead,20,Items.titanium,10));
             consumeItem(Items.blastCompound,2);
-            consumeLiquid(Liquids.oil,2f);
+            consumeLiquid(Liquids.oil,0.1f);
             consumePower(1f);
             outputItem = new ItemStack(experimentalExplosives,2);
         }};
