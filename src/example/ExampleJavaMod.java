@@ -47,6 +47,11 @@ public class ExampleJavaMod extends Mod{
             explosiveness=2.8f;
             flammability=1.6f;
         }};
+        ModItems.uranium=new Item("uranium",Color.HSVtoRGB(125,47,70)){{
+            explosiveness=0.2f;
+            radioactivity=1.2f;
+            hardness=4;
+        }};
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
             health=180;
             size=2;
@@ -57,8 +62,7 @@ public class ExampleJavaMod extends Mod{
             outputItem = new ItemStack(ModItems.experimentalExplosives,2);
         }};
         ModItems.tin=new Item("tin",Color.HSVtoRGB(233,16,44));
-        nodeRoot("tutorial", ModItems.tin, () -> {});
-        nodeRoot("tutorial", ModItems.tin, () -> {
+        nodeRoot("eee", ModItems.tin, () -> {
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
         });

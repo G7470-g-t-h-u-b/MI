@@ -5,5 +5,6 @@ import mindustry.type.Item;
 public class ModItems {
     public static Item experimentalExplosives;
     public static Item tin;
+    public static Item uranium;
 }
 //
