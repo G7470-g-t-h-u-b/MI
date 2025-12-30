@@ -64,3 +64,4 @@ public class ExampleJavaMod extends Mod{
         });
     }
 }
+//

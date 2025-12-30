@@ -9,3 +9,4 @@ import mindustry.world.Block;
 public class ModBlocks {
     public static Block laboratory;
 }
+//
