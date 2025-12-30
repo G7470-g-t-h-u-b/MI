@@ -12,15 +12,16 @@ import mindustry.type.Category;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.ui.dialogs.*;
+import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
+import example.ModItems;
 
 import javax.naming.directory.ModificationItem;
 
 import static arc.input.KeyCode.f;
+import static mindustry.content.TechTree.*;
 
 public class ExampleJavaMod extends Mod{
-    Item experimentalExplosives;
-    Item tin;
 
     public ExampleJavaMod(){
         Log.info("Loaded ExampleJavaMod constructor.");
@@ -42,20 +43,24 @@ public class ExampleJavaMod extends Mod{
     @Override
     public void loadContent(){
         Log.info("Loading some example content.");
-        experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
-            explosiveness=2.2f;
+        ModItems.experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
+            explosiveness=2.8f;
             flammability=1.6f;
         }};
-        tin=new Item("tin",Color.HSVtoRGB(233,16,44));
-        new GenericCrafter("laboratory"){{
+        ModBlocks.laboratory=new GenericCrafter("laboratory"){{
             health=180;
             size=2;
             requirements(Category.crafting, ItemStack.with(Items.copper,50,Items.lead,20,Items.titanium,10));
             consumeItem(Items.blastCompound,2);
             consumeLiquid(Liquids.oil,0.1f);
             consumePower(1f);
-            outputItem = new ItemStack(experimentalExplosives,2);
+            outputItem = new ItemStack(ModItems.experimentalExplosives,2);
         }};
+        ModItems.tin=new Item("tin",Color.HSVtoRGB(233,16,44));
+        nodeRoot("tutorial", ModItems.tin, () -> {});
+        nodeRoot("tutorial", ModItems.tin, () -> {
+            nodeProduce(ModItems.experimentalExplosives,()->{});
+            node(ModBlocks.laboratory, () ->{});
+        });
     }
-
 }
