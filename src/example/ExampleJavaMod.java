@@ -49,7 +49,7 @@ public class ExampleJavaMod extends Mod{
         }};
         ModItems.uranium=new Item("uranium",Color.HSVtoRGB(125,47,70)){{
             explosiveness=0.2f;
-            radioactivity=1.2f;
+            radioactivity=1.5f;
             hardness=4;
         }};
         ModItems.tin=new Item("tin",Color.HSVtoRGB(233,16,44)){{
@@ -94,11 +94,18 @@ public class ExampleJavaMod extends Mod{
         nodeRoot("eee", Items.copper, () -> {
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
-            nodeProduce(Items.lead,()->{});
+            nodeProduce(Items.lead,()->{
+                nodeProduce(Items.titanium,()->{
+                    nodeProduce(Items.thorium,()->{});
+                });
+            });
             nodeProduce(ModItems.zinc,()->{});
             nodeProduce(Items.coal,()->{
-                nodeProduce(Items.silicon,()->{});
+                nodeProduce(Items.silicon,()->{
+                    nodeProduce(ModItems.siliconSteel,()->{});
+                });
             });
+            nodeProduce(ModItems.gold,()->{});
         });
     }
 }
