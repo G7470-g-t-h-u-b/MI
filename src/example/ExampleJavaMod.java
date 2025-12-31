@@ -9,6 +9,7 @@ import mindustry.game.EventType.*;
 import mindustry.gen.Bullet;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.NoiseMesh;
+import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.mod.*;
 import mindustry.type.*;
 import mindustry.ui.dialogs.*;
@@ -111,8 +112,8 @@ public class ExampleJavaMod extends Mod{
 
         ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
             new NoiseMesh(ModPlanets.planetEee,1,1,Color.red,1,1,1f,1f,1f);
-//            meshLoader = () -> new HexMesh(this, 6);
-            new SectorPreset("testSector", Planets.serpulo, 15);
+            meshLoader = () -> new HexMesh(this, 6);
+            new SectorPreset("testSector", ModPlanets.planetEee, 15);
         }};
     }
 }
