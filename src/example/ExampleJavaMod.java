@@ -4,19 +4,15 @@ import arc.*;
 import arc.graphics.Color;
 import arc.util.*;
 import mindustry.content.*;
-import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
-import mindustry.gen.Bullet;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.NoiseMesh;
-import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.mod.*;
 import mindustry.type.*;
 import mindustry.ui.dialogs.*;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.draw.DrawTurret;
 
 import static mindustry.content.TechTree.*;
 import static mindustry.type.ItemStack.with;
@@ -92,6 +88,11 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
+        ModBlocks.oreGold=new OreBlock("ore-gold");
+        ModBlocks.oreZinc=new OreBlock("ore-zinc");
+        ModBlocks.oreTin=new OreBlock("ore-tin");
+
+
         nodeRoot("eee", Items.copper, () -> {
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
@@ -114,6 +115,7 @@ public class ExampleJavaMod extends Mod{
             new NoiseMesh(ModPlanets.planetEee,1,1,Color.red,1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(this, 6);
             new SectorPreset("testSector", ModPlanets.planetEee, 15);
+            new SectorPreset("t1",ModPlanets.planetEee,1);
         }};
     }
 }
