@@ -13,6 +13,7 @@ import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.ui.dialogs.*;
 import mindustry.world.Block;
+import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.production.GenericCrafter;
 import example.ModItems;
 
@@ -20,6 +21,7 @@ import javax.naming.directory.ModificationItem;
 
 import static arc.input.KeyCode.f;
 import static mindustry.content.TechTree.*;
+import static mindustry.type.ItemStack.with;
 
 public class ExampleJavaMod extends Mod{
 
@@ -46,25 +48,44 @@ public class ExampleJavaMod extends Mod{
         ModItems.experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
             explosiveness=2.8f;
             flammability=1.6f;
+            hardness=0;
         }};
         ModItems.uranium=new Item("uranium",Color.HSVtoRGB(125,47,70)){{
             explosiveness=0.2f;
             radioactivity=1.2f;
             hardness=4;
         }};
+        ModItems.tin=new Item("tin",Color.HSVtoRGB(233,16,44)){{
+            hardness=0;
+        }};
+        ModItems.zinc=new Item("zinc",Color.HSVtoRGB(240,12,71)){{
+            hardness=1;
+        }};
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
             health=180;
             size=2;
-            requirements(Category.crafting, ItemStack.with(Items.copper,50,Items.lead,20,Items.titanium,10));
+            requirements(Category.crafting, with(Items.copper,50,Items.lead,20,Items.titanium,10));
             consumeItem(Items.blastCompound,2);
             consumeLiquid(Liquids.oil,0.1f);
             consumePower(1f);
             outputItem = new ItemStack(ModItems.experimentalExplosives,2);
         }};
-        ModItems.tin=new Item("tin",Color.HSVtoRGB(233,16,44));
-        nodeRoot("eee", ModItems.tin, () -> {
+        ModBlocks.LaserEnergyNode=new BeamNode("laser-energy-node"){{
+            health=100;
+            size=1;
+            requirements(Category.power, with(Items.copper, 8,Items.lead,5,ModItems.zinc,5));
+            range=12;
+            consumesPower=outputsPower=true;
+            consumePowerBuffered(1000f);
+        }};
+        nodeRoot("eee", Items.copper, () -> {
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
+            nodeProduce(Items.lead,()->{});
+            nodeProduce(ModItems.zinc,()->{});
+            nodeProduce(Items.coal,()->{
+                nodeProduce(Items.silicon,()->{});
+            });
         });
     }
 }
