@@ -88,7 +88,7 @@ public class ExampleJavaMod extends Mod{
             health=100;
             size=1;
             requirements(Category.power, with(Items.copper, 8,Items.lead,5,ModItems.zinc,5));
-            range=12;
+            range=15;
             consumesPower=outputsPower=true;
             consumePowerBuffered(1000f);
         }};
@@ -114,7 +114,7 @@ public class ExampleJavaMod extends Mod{
 
         ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
             new NoiseMesh(ModPlanets.planetEee,1,1,Color.red,1,1,1f,1f,1f);
-            meshLoader = () -> new HexMesh(this, 6);
+//            meshLoader = () -> new HexMesh(this, 6);
         }};
     }
 }
