@@ -9,6 +9,7 @@ import mindustry.world.blocks.power.BeamNode;
 
 public class ModBlocks {
     public static Block laboratory;
+    public static Block siliconSteelMixer;
     public static BeamNode LaserEnergyNode;
 }
 //

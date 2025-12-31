@@ -61,14 +61,23 @@ public class ExampleJavaMod extends Mod{
         ModItems.zinc=new Item("zinc",Color.HSVtoRGB(240,12,71)){{
             hardness=1;
         }};
+        ModItems.siliconSteel=new Item("silicon-steel",Color.HSVtoRGB(240,14,53));
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
             health=180;
             size=2;
-            requirements(Category.crafting, with(Items.copper,50,Items.lead,20,Items.titanium,10));
+            requirements(Category.crafting, with(Items.copper,30,Items.lead,20,Items.titanium,10));
             consumeItem(Items.blastCompound,2);
             consumeLiquid(Liquids.oil,0.1f);
             consumePower(1f);
             outputItem = new ItemStack(ModItems.experimentalExplosives,2);
+        }};
+        ModBlocks.siliconSteelMixer=new GenericCrafter("silicon-steel-mixer"){{
+            health=180;
+            size=2;
+            requirements(Category.crafting,with(Items.copper,30,Items.lead,20,ModItems.tin,10,ModItems.zinc,10));
+            consumeItems(ItemStack.with(Items.silicon,2,ModItems.zinc,1));
+            consumePower(1.5f);
+            outputItem=new ItemStack(ModItems.siliconSteel,2);
         }};
         ModBlocks.LaserEnergyNode=new BeamNode("laser-energy-node"){{
             health=100;
