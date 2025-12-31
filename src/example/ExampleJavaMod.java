@@ -7,10 +7,13 @@ import mindustry.content.*;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
 import mindustry.gen.Bullet;
+import mindustry.graphics.g3d.HexMesh;
+import mindustry.graphics.g3d.NoiseMesh;
 import mindustry.mod.*;
 import mindustry.type.Category;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
+import mindustry.type.Planet;
 import mindustry.ui.dialogs.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.power.BeamNode;
@@ -107,6 +110,12 @@ public class ExampleJavaMod extends Mod{
             });
             nodeProduce(ModItems.gold,()->{});
         });
+
+
+        ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
+            new NoiseMesh(ModPlanets.planetEee,1,1,Color.red,1,1,1f,1f,1f);
+            meshLoader = () -> new HexMesh(this, 6);
+        }};
     }
 }
 //
