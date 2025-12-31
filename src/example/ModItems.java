@@ -8,5 +8,6 @@ public class ModItems {
     public static Item uranium;
     public static Item zinc;
     public static Item siliconSteel;
+    public static Item gold;
 }
 //

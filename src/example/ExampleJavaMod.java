@@ -3,23 +3,20 @@ package example;
 import arc.*;
 import arc.graphics.Color;
 import arc.util.*;
-import mindustry.*;
 import mindustry.content.*;
+import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
-import mindustry.gen.*;
+import mindustry.gen.Bullet;
 import mindustry.mod.*;
 import mindustry.type.Category;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.ui.dialogs.*;
-import mindustry.world.Block;
+import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.production.GenericCrafter;
-import example.ModItems;
+import mindustry.world.draw.DrawTurret;
 
-import javax.naming.directory.ModificationItem;
-
-import static arc.input.KeyCode.f;
 import static mindustry.content.TechTree.*;
 import static mindustry.type.ItemStack.with;
 
@@ -62,6 +59,11 @@ public class ExampleJavaMod extends Mod{
             hardness=1;
         }};
         ModItems.siliconSteel=new Item("silicon-steel",Color.HSVtoRGB(240,14,53));
+        ModItems.gold=new Item("gold",Color.HSVtoRGB(50,93,100)){{
+            hardness=1;
+        }};
+
+
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
             health=180;
             size=2;
@@ -87,6 +89,8 @@ public class ExampleJavaMod extends Mod{
             consumesPower=outputsPower=true;
             consumePowerBuffered(1000f);
         }};
+
+
         nodeRoot("eee", Items.copper, () -> {
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
