@@ -2,6 +2,7 @@ package example;
 
 import arc.*;
 import arc.graphics.Color;
+import arc.struct.Seq;
 import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.UnitSorts;
@@ -17,6 +18,7 @@ import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
+import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.DrawTurret;
 
@@ -59,7 +61,7 @@ public class ExampleJavaMod extends Mod{
             hardness=0;
         }};
         ModItems.zinc=new Item("zinc",Color.HSVtoRGB(240,12,71)){{
-            hardness=1;
+            hardness=2;
         }};
         ModItems.siliconSteel=new Item("silicon-steel",Color.HSVtoRGB(240,14,53));
         ModItems.gold=new Item("gold",Color.HSVtoRGB(50,93,100)){{
@@ -84,13 +86,20 @@ public class ExampleJavaMod extends Mod{
             consumePower(1.5f);
             outputItem=new ItemStack(ModItems.siliconSteel,2);
         }};
-        ModBlocks.LaserEnergyNode=new BeamNode("laser-energy-node"){{
+        ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
             size=1;
             requirements(Category.power, with(Items.copper, 8,Items.lead,5,ModItems.zinc,5));
             range=15;
             consumesPower=outputsPower=true;
             consumePowerBuffered(1000f);
+        }};
+        ModBlocks.smallDrillBit=new Drill("small-drill-bit"){{
+            health=65;
+            size=1;
+            requirements(Category.production,with(Items.copper,10,Items.graphite,5));
+            drillTime=400f;
+            blockedItems=Seq.with(ModItems.uranium,Items.thorium);
         }};
 
 
@@ -226,7 +235,7 @@ public class ExampleJavaMod extends Mod{
                     });
                 });
                 node(Blocks.combustionGenerator,()->{
-                    node(ModBlocks.LaserEnergyNode,()->{
+                    node(ModBlocks.laserEnergyNode,()->{
                         node(Blocks.steamGenerator,()->{});
                     });
                 });
