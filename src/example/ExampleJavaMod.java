@@ -149,7 +149,8 @@ public class ExampleJavaMod extends Mod{
             reload=2;
         }};
         ModTurrets.itemTurret5=new ItemTurret("item-turret-5"){{
-            requirements(Category.turret,with());
+            requirements(Category.turret,with(Items.copper,600,Items.titanium,400,
+                    ModItems.zinc,350,Items.surgeAlloy,50));
             ammo(Items.surgeAlloy,new RailBulletType(){{
                 ammoMultiplier=3;
                 damage=720;
@@ -169,6 +170,8 @@ public class ExampleJavaMod extends Mod{
             consumePower(5f);
             size=2;
             reload=30;
+            shootEffect = Fx.instShoot;
+            smokeEffect = Fx.smokeCloud;
             shootType= new LaserBulletType(45){{
                 colors= new Color[]{Color.HSVtoRGB(210,70,100)};
                 hitSize=4f;
@@ -192,9 +195,26 @@ public class ExampleJavaMod extends Mod{
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
             node(Blocks.duo,()->{
+                node(Blocks.copperWall,()->{
+                    node(Blocks.copperWallLarge,()->{
+                        node(Blocks.titaniumWall,()->{
+                           node(Blocks.titaniumWallLarge,()->{});
+                        });
+                    });
+                });
+                node(Blocks.hail,()->{});
                 node(Blocks.scatter,()->{});
                 node(ModTurrets.itemTurret3,()->{
                     node(ModTurrets.itemTurret2,()->{});
+                });
+                node(Blocks.arc,()->{
+                    node(Blocks.wave,()->{});
+                    node(Blocks.lancer,()->{
+                        node(Blocks.foreshadow);
+                        node(ModTurrets.itemTurret5);
+                        node(Blocks.meltdown);
+                    });
+                    node(ModTurrets.powerTurret4,()->{});
                 });
             });
             nodeProduce(Items.copper,()->{
