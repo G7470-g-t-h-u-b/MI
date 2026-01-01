@@ -133,10 +133,6 @@ public class ExampleJavaMod extends Mod{
             size=2;
         }};
         ModTurrets.itemTurret3=new ItemTurret("item-turret-3"){{
-            requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
-            ammo(Items.lead,new FlakBulletType(1.7f,12){{
-                ammoMultiplier=2;
-            }},ModItems.siliconSteel,new MissileBulletType(1.5f,11));
             targetGround=false;
             range=192;
             inaccuracy=3f;
@@ -146,31 +142,15 @@ public class ExampleJavaMod extends Mod{
             }};
             size=2;
             reload=2;
+            requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
+            ammo(Items.lead,new FlakBulletType(1.7f,12){{
+                ammoMultiplier=2;
+            }},ModItems.siliconSteel,new MissileBulletType(1.5f,11));
+
         }};
         ModTurrets.itemTurret5=new ItemTurret("item-turret-5"){{
             requirements(Category.turret,with(Items.copper,600,Items.titanium,400,
                     ModItems.zinc,350,Items.surgeAlloy,50));
-            ammo(Items.surgeAlloy,new RailBulletType(){{
-                hitEffect = Fx.hitLancer;
-                shootEffect = Fx.instShoot;
-                smokeEffect = Fx.smokeCloud;
-                maxRange=560;
-                range=520;
-                ammoMultiplier=3;
-                damage=720;
-                collidesTiles=false;
-                collideTerrain=false;
-            }},Items.titanium,new RailBulletType(){{
-                maxRange=560;
-                range=520;
-                hitEffect = Fx.hitLancer;
-                shootEffect = Fx.instShoot;
-                smokeEffect = Fx.smokeCloud;
-                damage=560;
-                ammoMultiplier=2;
-                collidesTiles=false;
-                collideTerrain=false;
-            }});
             shootEffect = Fx.instShoot;
             smokeEffect = Fx.smokeCloud;
             range=550;
@@ -181,6 +161,30 @@ public class ExampleJavaMod extends Mod{
             size=4;
             reload=110;
             consumePower(4.5f);
+            ammo(Items.surgeAlloy,new RailBulletType(){{
+                hitEffect = Fx.hitLancer;
+                shootEffect = Fx.instShoot;
+                smokeEffect = Fx.smokeCloud;
+                pierceEffect = Fx.railHit;
+                maxRange=560;
+                range=520;
+                ammoMultiplier=3;
+                damage=720;
+                collidesTiles=false;
+                collideTerrain=false;
+            }},Items.titanium,new RailBulletType(){{
+                maxRange=560;
+                range=520;
+
+                hitEffect = Fx.hitLancer;
+                shootEffect = Fx.instShoot;
+                smokeEffect = Fx.smokeCloud;
+                pierceEffect = Fx.railHit;
+                damage=560;
+                ammoMultiplier=2;
+                collidesTiles=false;
+                collideTerrain=false;
+            }});
         }};
         ModTurrets.powerTurret4 =new PowerTurret("power-turret-4"){{
             requirements(Category.turret,with(Items.copper,50,ModItems.siliconSteel,20,Items.titanium,15));
@@ -189,6 +193,9 @@ public class ExampleJavaMod extends Mod{
             reload=30;
             rotateSpeed=2.3f;
             range=176;
+            drawer = new DrawTurret(){{
+                parts.addAll();
+            }};
             shootType= new LaserBulletType(45){{
                 shootEffect = Fx.instShoot;
                 smokeEffect = Fx.smokeCloud;
@@ -198,9 +205,7 @@ public class ExampleJavaMod extends Mod{
                 range=176;
                 maxRange=28;
             }};
-            drawer = new DrawTurret(){{
-                parts.addAll();
-            }};
+
         }};
 
 
@@ -245,6 +250,7 @@ public class ExampleJavaMod extends Mod{
                         nodeProduce(Items.thorium,()->{});
                     });
                 });
+                nodeProduce(ModItems.tin,()->{});
                 nodeProduce(ModItems.zinc,()->{});
                 nodeProduce(Items.coal,()->{
                     nodeProduce(Items.sand,()->{});
