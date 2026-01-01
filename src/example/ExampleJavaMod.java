@@ -4,10 +4,8 @@ import arc.*;
 import arc.graphics.Color;
 import arc.util.*;
 import mindustry.content.*;
-import mindustry.entities.bullet.FlakBulletType;
-import mindustry.entities.bullet.LaserBoltBulletType;
-import mindustry.entities.bullet.LaserBulletType;
-import mindustry.entities.bullet.MissileBulletType;
+import mindustry.entities.UnitSorts;
+import mindustry.entities.bullet.*;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
 import mindustry.graphics.g3d.HexMesh;
@@ -137,9 +135,9 @@ public class ExampleJavaMod extends Mod{
         }};
         ModTurrets.itemTurret3=new ItemTurret("item-turret-3"){{
             requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
-            ammo(Items.lead,new FlakBulletType(1.7f,20){{
+            ammo(Items.lead,new FlakBulletType(1.7f,12){{
                 ammoMultiplier=2;
-            }},ModItems.siliconSteel,new MissileBulletType(1.5f,16));
+            }},ModItems.siliconSteel,new MissileBulletType(1.5f,11));
             targetGround=false;
             range=18;
             inaccuracy=3f;
@@ -148,6 +146,23 @@ public class ExampleJavaMod extends Mod{
                 parts.addAll();
             }};
             size=2;
+            reload=2;
+        }};
+        ModTurrets.itemTurret5=new ItemTurret("item-turret-5"){{
+            requirements(Category.turret,with());
+            ammo(Items.surgeAlloy,new RailBulletType(){{
+                ammoMultiplier=3;
+                damage=720;
+            }},Items.titanium,new RailBulletType(){{
+                damage=560;
+                ammoMultiplier=2;
+            }});
+            range=65;
+            maxAmmo=30;
+            unitSort=UnitSorts.strongest;
+            drawer=new DrawTurret(){{parts.addAll();}};
+            size=4;
+            reload=110;
         }};
         ModTurrets.powerTurret4 =new PowerTurret("power-turret-4"){{
             requirements(Category.turret,with(Items.copper,50,ModItems.siliconSteel,20,Items.titanium,15));
@@ -155,7 +170,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
             reload=30;
             shootType= new LaserBulletType(45){{
-                colors= new Color[]{Color.blue};
+                colors= new Color[]{Color.HSVtoRGB(210,70,100)};
                 hitSize=4f;
             }};
             drawer = new DrawTurret(){{
