@@ -130,7 +130,7 @@ public class ExampleJavaMod extends Mod{
         });
 
 
-        new ItemTurret("tutorial-item-turret"){{
+        new ItemTurret("item-turret-eee"){{
             requirements(Category.turret, with(Items.copper, 39));
             ammo(Items.copper, new MissileBulletType(1.5f,9));
             shoot = new ShootPattern();
@@ -146,8 +146,8 @@ public class ExampleJavaMod extends Mod{
             new NoiseMesh(Planets.serpulo,1,1,Color.white,
                     1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
-            new SectorPreset("testSector", ModPlanets.planetEee, 15);
-            new SectorPreset("t1",ModPlanets.planetEee,155);
+            new SectorPreset("testSector", Planets.serpulo, 15);
+//            new SectorPreset("t1",ModPlanets.planetEee,155);
         }};
     }
 }
