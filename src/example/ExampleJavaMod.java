@@ -88,9 +88,9 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
-        ModBlocks.oreGold=new OreBlock("ore-gold");
-        ModBlocks.oreZinc=new OreBlock("ore-zinc");
-        ModBlocks.oreTin=new OreBlock("ore-tin");
+        ModBlocks.oreGold=new OreBlock("ore-gold",ModItems.gold);
+        ModBlocks.oreZinc=new OreBlock("ore-zinc",ModItems.zinc);
+        ModBlocks.oreTin=new OreBlock("ore-tin",ModItems.tin);
 
 
         nodeRoot("eee", Items.copper, () -> {
