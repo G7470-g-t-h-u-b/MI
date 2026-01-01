@@ -4,15 +4,20 @@ import arc.*;
 import arc.graphics.Color;
 import arc.util.*;
 import mindustry.content.*;
+import mindustry.entities.bullet.MissileBulletType;
+import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
+import mindustry.gen.Bullet;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.NoiseMesh;
 import mindustry.mod.*;
 import mindustry.type.*;
 import mindustry.ui.dialogs.*;
+import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.draw.DrawTurret;
 
 import static mindustry.content.TechTree.*;
 import static mindustry.type.ItemStack.with;
@@ -125,10 +130,21 @@ public class ExampleJavaMod extends Mod{
         });
 
 
+        new ItemTurret("tutorial-item-turret"){{
+            requirements(Category.turret, with(Items.copper, 39));
+            ammo(Items.copper, new MissileBulletType(1.5f,9));
+            shoot = new ShootPattern();
+            drawer = new DrawTurret(){{
+                parts.addAll();
+            }};
+            consumePower(40f);
+            coolant = consumeCoolant(0.1f);
+        }};
+
 
         ModPlanets.planetEee=new Planet("planet-eee", Planets.serpulo, 0.2f, 3){{
             new NoiseMesh(ModPlanets.planetEee,1,1,Color.white,1,1,1f,1f,1f);
-            meshLoader = () -> new HexMesh(this, 6);
+            meshLoader = () -> new HexMesh(Planets.serpulo, 6);
             new SectorPreset("testSector", ModPlanets.planetEee, 15);
             new SectorPreset("t1",ModPlanets.planetEee,155);
         }};
