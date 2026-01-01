@@ -131,13 +131,21 @@ public class ExampleJavaMod extends Mod{
 
 
         new ItemTurret("item-turret-eee"){{
-            requirements(Category.turret, with(Items.copper, 39));
-            ammo(Items.copper, new MissileBulletType(1.5f,9));
+            requirements(Category.turret, with(Items.copper, 40,ModItems.zinc,10,ModItems.gold,5));
+            ammo(ModItems.experimentalExplosives, new MissileBulletType(1.5f,32){{
+                ammoMultiplier=2;
+                splashDamage=4.5f;
+                splashDamageRadius=2.5f;
+                makeFire=true;
+            }});
+
+            displayAmmoMultiplier=true;
+            range=20;
             shoot = new ShootPattern();
             drawer = new DrawTurret(){{
                 parts.addAll();
             }};
-            consumePower(40f);
+            consumePower(2f);
             coolant = consumeCoolant(0.1f);
         }};
 
