@@ -126,9 +126,9 @@ public class ExampleJavaMod extends Mod{
 
 
 
-        ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
-            new NoiseMesh(ModPlanets.planetEee,1,1,Color.red,1,1,1f,1f,1f);
-//            meshLoader = () -> new HexMesh(this, 6);
+        ModPlanets.planetEee=new Planet("planet-eee", Planets.serpulo, 0.2f, 3){{
+            new NoiseMesh(ModPlanets.planetEee,1,1,Color.white,1,1,1f,1f,1f);
+            meshLoader = () -> new HexMesh(this, 6);
             new SectorPreset("testSector", ModPlanets.planetEee, 15);
             new SectorPreset("t1",ModPlanets.planetEee,155);
         }};
