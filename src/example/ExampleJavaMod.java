@@ -107,9 +107,8 @@ public class ExampleJavaMod extends Mod{
                 splashDamageRadius=2.5f;
                 makeFire=true;
             }});
-
             displayAmmoMultiplier=true;
-            range=20;
+            range=160;
             shoot = new ShootPattern();
             drawer = new DrawTurret(){{
                 parts.addAll();
@@ -125,7 +124,7 @@ public class ExampleJavaMod extends Mod{
                 splashDamage=1.2f;
                 splashDamageRadius=1f;
             }});
-            range=22;
+            range=176;
             inaccuracy=2f;
             drawer = new DrawTurret(){{
                 parts.addAll();
@@ -139,7 +138,7 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=2;
             }},ModItems.siliconSteel,new MissileBulletType(1.5f,11));
             targetGround=false;
-            range=32;
+            range=192;
             inaccuracy=3f;
             maxAmmo=16;
             drawer = new DrawTurret(){{
@@ -155,15 +154,15 @@ public class ExampleJavaMod extends Mod{
                 hitEffect = Fx.hitLancer;
                 shootEffect = Fx.instShoot;
                 smokeEffect = Fx.smokeCloud;
-                maxRange=70;
-                range=320;
+                maxRange=560;
+                range=520;
                 ammoMultiplier=3;
                 damage=720;
                 collidesTiles=false;
                 collideTerrain=false;
             }},Items.titanium,new RailBulletType(){{
-                maxRange=70;
-                range=320;
+                maxRange=560;
+                range=520;
                 hitEffect = Fx.hitLancer;
                 shootEffect = Fx.instShoot;
                 smokeEffect = Fx.smokeCloud;
@@ -174,7 +173,7 @@ public class ExampleJavaMod extends Mod{
             }});
             shootEffect = Fx.instShoot;
             smokeEffect = Fx.smokeCloud;
-            range=65;
+            range=550;
             recoil=4.5f;
             maxAmmo=30;
             unitSort=UnitSorts.strongest;
@@ -189,14 +188,14 @@ public class ExampleJavaMod extends Mod{
             size=2;
             reload=30;
             rotateSpeed=2.3f;
-            range=20;
+            range=176;
             shootType= new LaserBulletType(45){{
                 shootEffect = Fx.instShoot;
                 smokeEffect = Fx.smokeCloud;
                 hitEffect = Fx.hitLancer;
                 colors= new Color[]{Color.HSVtoRGB(210,70,100)};
                 hitSize=4f;
-                range=20;
+                range=176;
                 maxRange=28;
             }};
             drawer = new DrawTurret(){{
