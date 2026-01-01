@@ -139,7 +139,7 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=2;
             }},ModItems.siliconSteel,new MissileBulletType(1.5f,11));
             targetGround=false;
-            range=18;
+            range=32;
             inaccuracy=3f;
             maxAmmo=16;
             drawer = new DrawTurret(){{
@@ -152,29 +152,52 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.turret,with(Items.copper,600,Items.titanium,400,
                     ModItems.zinc,350,Items.surgeAlloy,50));
             ammo(Items.surgeAlloy,new RailBulletType(){{
+                hitEffect = Fx.hitLancer;
+                shootEffect = Fx.instShoot;
+                smokeEffect = Fx.smokeCloud;
+                maxRange=70;
+                range=320;
                 ammoMultiplier=3;
                 damage=720;
+                collidesTiles=false;
+                collideTerrain=false;
             }},Items.titanium,new RailBulletType(){{
+                maxRange=70;
+                range=320;
+                hitEffect = Fx.hitLancer;
+                shootEffect = Fx.instShoot;
+                smokeEffect = Fx.smokeCloud;
                 damage=560;
                 ammoMultiplier=2;
+                collidesTiles=false;
+                collideTerrain=false;
             }});
+            shootEffect = Fx.instShoot;
+            smokeEffect = Fx.smokeCloud;
             range=65;
+            recoil=4.5f;
             maxAmmo=30;
             unitSort=UnitSorts.strongest;
             drawer=new DrawTurret(){{parts.addAll();}};
             size=4;
             reload=110;
+            consumePower(4.5f);
         }};
         ModTurrets.powerTurret4 =new PowerTurret("power-turret-4"){{
             requirements(Category.turret,with(Items.copper,50,ModItems.siliconSteel,20,Items.titanium,15));
             consumePower(5f);
             size=2;
             reload=30;
-            shootEffect = Fx.instShoot;
-            smokeEffect = Fx.smokeCloud;
+            rotateSpeed=2.3f;
+            range=20;
             shootType= new LaserBulletType(45){{
+                shootEffect = Fx.instShoot;
+                smokeEffect = Fx.smokeCloud;
+                hitEffect = Fx.hitLancer;
                 colors= new Color[]{Color.HSVtoRGB(210,70,100)};
                 hitSize=4f;
+                range=20;
+                maxRange=28;
             }};
             drawer = new DrawTurret(){{
                 parts.addAll();
