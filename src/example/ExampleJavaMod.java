@@ -93,22 +93,37 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.oreTin=new OreBlock("ore-tin",ModItems.tin);
 
 
-        nodeRoot("eee", Items.copper, () -> {
+        nodeRoot("eee",Blocks.coreShard,()->{
+            node(Blocks.mechAssembler,()->{
+                node(Blocks.graphitePress,()->{
+                    node(Blocks.siliconSmelter,()->{
+                        node(Blocks.kiln,()->{});
+                        node(ModBlocks.siliconSteelMixer,()->{});
+                    });
+                });
+            });
+            node(Blocks.conveyor,()->{});
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
-            nodeProduce(Items.lead,()->{
-                nodeProduce(Items.titanium,()->{
-                    nodeProduce(Items.thorium,()->{});
+            nodeProduce(Items.copper,()->{
+                nodeProduce(Items.lead,()->{
+                    nodeProduce(Items.titanium,()->{
+                        nodeProduce(Items.thorium,()->{});
+                    });
                 });
-            });
-            nodeProduce(ModItems.zinc,()->{});
-            nodeProduce(Items.coal,()->{
-                nodeProduce(Items.silicon,()->{
-                    nodeProduce(ModItems.siliconSteel,()->{});
+                nodeProduce(ModItems.zinc,()->{});
+                nodeProduce(Items.coal,()->{
+                    nodeProduce(Items.sand,()->{});
+                    nodeProduce(Items.graphite,()->{});
+                    nodeProduce(Items.silicon,()->{
+                        nodeProduce(ModItems.siliconSteel,()->{});
+                    });
                 });
+                nodeProduce(ModItems.gold,()->{});
+                nodeProduce(Liquids.water,()->{});
             });
-            nodeProduce(ModItems.gold,()->{});
         });
+
 
 
 //        ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
