@@ -123,6 +123,10 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=3;
                 splashDamage=1.2f;
                 splashDamageRadius=1f;
+            }},ModItems.siliconSteel,new MissileBulletType(1.7f,28){{
+                ammoMultiplier=4;
+                splashDamage=1.2f;
+                splashDamageRadius=1.2f;
             }});
             range=176;
             inaccuracy=2f;
@@ -212,9 +216,18 @@ public class ExampleJavaMod extends Mod{
         nodeRoot("eee",Blocks.coreShard,()->{
             node(Blocks.mechanicalDrill,()->{
                 node(Blocks.graphitePress,()->{
+                    node(Blocks.pneumaticDrill,()->{
+                        node(Blocks.laserDrill,()->{});
+                    });
                     node(Blocks.siliconSmelter,()->{
+                        node(Blocks.illuminator,()->{});
                         node(Blocks.kiln,()->{});
                         node(ModBlocks.siliconSteelMixer,()->{});
+                    });
+                });
+                node(Blocks.combustionGenerator,()->{
+                    node(ModBlocks.LaserEnergyNode,()->{
+                        node(Blocks.steamGenerator,()->{});
                     });
                 });
             });
@@ -229,7 +242,10 @@ public class ExampleJavaMod extends Mod{
                         });
                     });
                 });
-                node(Blocks.hail,()->{});
+                node(Blocks.hail,()->{
+                    node(Blocks.salvo,()->{});
+                    node(Blocks.scorch,()->{});
+                });
                 node(Blocks.scatter,()->{});
                 node(ModTurrets.itemTurret3,()->{
                     node(ModTurrets.itemTurret2,()->{});
@@ -256,7 +272,8 @@ public class ExampleJavaMod extends Mod{
                     nodeProduce(Items.sand,()->{});
                     nodeProduce(Items.graphite,()->{});
                     nodeProduce(Items.silicon,()->{
-                        nodeProduce(ModItems.siliconSteel,()->{});
+                        nodeProduce(ModItems.siliconSteel,()->{
+                        });
                     });
                 });
                 nodeProduce(ModItems.gold,()->{});
