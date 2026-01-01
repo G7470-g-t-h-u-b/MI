@@ -47,7 +47,7 @@ public class ExampleJavaMod extends Mod{
         Log.info("Loading some example content.");
         ModItems.experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
             explosiveness=2.8f;
-            flammability=1.6f;
+            flammability=1.8f;
             hardness=0;
         }};
         ModItems.uranium=new Item("uranium",Color.HSVtoRGB(125,47,70)){{
@@ -128,6 +128,7 @@ public class ExampleJavaMod extends Mod{
             range=22;
             inaccuracy=2f;
             maxAmmo=20;
+            size=2;
         }};
         ModTurrets.itemTurret3=new ItemTurret("item-turret-3"){{
             requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
@@ -138,6 +139,7 @@ public class ExampleJavaMod extends Mod{
             range=18;
             inaccuracy=3f;
             maxAmmo=16;
+            size=2;
         }};
 
 
