@@ -5,16 +5,18 @@ import arc.graphics.Color;
 import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.bullet.FlakBulletType;
+import mindustry.entities.bullet.LaserBoltBulletType;
+import mindustry.entities.bullet.LaserBulletType;
 import mindustry.entities.bullet.MissileBulletType;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
-import mindustry.gen.Bullet;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.NoiseMesh;
 import mindustry.mod.*;
 import mindustry.type.*;
 import mindustry.ui.dialogs.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.production.GenericCrafter;
@@ -127,6 +129,9 @@ public class ExampleJavaMod extends Mod{
             }});
             range=22;
             inaccuracy=2f;
+            drawer = new DrawTurret(){{
+                parts.addAll();
+            }};
             maxAmmo=20;
             size=2;
         }};
@@ -139,7 +144,23 @@ public class ExampleJavaMod extends Mod{
             range=18;
             inaccuracy=3f;
             maxAmmo=16;
+            drawer = new DrawTurret(){{
+                parts.addAll();
+            }};
             size=2;
+        }};
+        ModTurrets.powerTurret4 =new PowerTurret("power-turret-4"){{
+            requirements(Category.turret,with(Items.copper,50,ModItems.siliconSteel,20,Items.titanium,15));
+            consumePower(5f);
+            size=2;
+            reload=30;
+            shootType= new LaserBulletType(45){{
+                colors= new Color[]{Color.blue};
+                hitSize=4f;
+            }};
+            drawer = new DrawTurret(){{
+                parts.addAll();
+            }};
         }};
 
 
@@ -157,7 +178,9 @@ public class ExampleJavaMod extends Mod{
             node(ModBlocks.laboratory, () ->{});
             node(Blocks.duo,()->{
                 node(Blocks.scatter,()->{});
-                node(ModTurrets.itemTurret3,()->{});
+                node(ModTurrets.itemTurret3,()->{
+                    node(ModTurrets.itemTurret2,()->{});
+                });
             });
             nodeProduce(Items.copper,()->{
                 nodeProduce(Items.lead,()->{
