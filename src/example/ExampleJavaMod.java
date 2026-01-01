@@ -136,6 +136,8 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=4;
                 splashDamage=1.2f;
                 splashDamageRadius=1.2f;
+            }},ModItems.zinc,new BasicBulletType(1.7f,21){{
+                ammoMultiplier=5;
             }});
             range=176;
             inaccuracy=2f;
@@ -149,7 +151,7 @@ public class ExampleJavaMod extends Mod{
             targetGround=false;
             range=192;
             inaccuracy=3f;
-            maxAmmo=16;
+            maxAmmo=30;
             drawer = new DrawTurret(){{
                 parts.addAll();
             }};
@@ -157,8 +159,10 @@ public class ExampleJavaMod extends Mod{
             reload=2;
             requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
             ammo(Items.lead,new FlakBulletType(1.7f,12){{
-                ammoMultiplier=2;
-            }},ModItems.siliconSteel,new MissileBulletType(1.5f,11));
+                ammoMultiplier=3;
+            }},ModItems.siliconSteel,new MissileBulletType(1.5f,11){{
+                ammoMultiplier=5;
+            }});
 
         }};
         ModTurrets.itemTurret5=new ItemTurret("item-turret-5"){{
@@ -175,10 +179,12 @@ public class ExampleJavaMod extends Mod{
             reload=110;
             consumePower(4.5f);
             ammo(Items.surgeAlloy,new RailBulletType(){{
-                hitEffect = Fx.hitLancer;
+                hitEffect = Fx.instHit;
+                despawnEffect = Fx.instBomb;;
                 shootEffect = Fx.instShoot;
                 smokeEffect = Fx.smokeCloud;
                 pierceEffect = Fx.railHit;
+                pointEffect = Fx.instTrail;
                 maxRange=560;
                 range=520;
                 ammoMultiplier=3;
@@ -188,11 +194,12 @@ public class ExampleJavaMod extends Mod{
             }},Items.titanium,new RailBulletType(){{
                 maxRange=560;
                 range=520;
-
-                hitEffect = Fx.hitLancer;
+                hitEffect = Fx.instHit;
+                despawnEffect = Fx.instBomb;;
                 shootEffect = Fx.instShoot;
                 smokeEffect = Fx.smokeCloud;
                 pierceEffect = Fx.railHit;
+                pointEffect = Fx.instTrail;
                 damage=560;
                 ammoMultiplier=2;
                 collidesTiles=false;
