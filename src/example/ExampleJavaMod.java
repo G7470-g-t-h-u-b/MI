@@ -4,6 +4,7 @@ import arc.*;
 import arc.graphics.Color;
 import arc.util.*;
 import mindustry.content.*;
+import mindustry.entities.bullet.FlakBulletType;
 import mindustry.entities.bullet.MissileBulletType;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
@@ -98,6 +99,48 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.oreTin=new OreBlock("ore-tin",ModItems.tin);
 
 
+        ModTurrets.itemTurret1=new ItemTurret("item-turret-1"){{
+            requirements(Category.turret, with(Items.copper, 40,ModItems.zinc,10,ModItems.gold,5));
+            ammo(ModItems.experimentalExplosives, new MissileBulletType(1.5f,32){{
+                ammoMultiplier=2;
+                splashDamage=4.5f;
+                splashDamageRadius=2.5f;
+                makeFire=true;
+            }});
+
+            displayAmmoMultiplier=true;
+            range=20;
+            shoot = new ShootPattern();
+            drawer = new DrawTurret(){{
+                parts.addAll();
+            }};
+            consumePower(2f);
+            coolant = consumeCoolant(0.1f);
+        }};
+        ModTurrets.itemTurret2=new ItemTurret("item-turret-2"){{
+            requirements(Category.turret,with(Items.copper,45,ModItems.zinc,20
+                    ,ModItems.siliconSteel,10,ModItems.gold,5));
+            ammo(Items.silicon,new MissileBulletType(1.6f,25){{
+                ammoMultiplier=3;
+                splashDamage=1.2f;
+                splashDamageRadius=1f;
+            }});
+            range=22;
+            inaccuracy=2f;
+            maxAmmo=20;
+        }};
+        ModTurrets.itemTurret3=new ItemTurret("item-turret-3"){{
+            requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
+            ammo(Items.lead,new FlakBulletType(1.7f,20){{
+                ammoMultiplier=2;
+            }},ModItems.siliconSteel,new MissileBulletType(1.5f,16));
+            targetGround=false;
+            range=18;
+            inaccuracy=3f;
+            maxAmmo=16;
+        }};
+
+
         nodeRoot("eee",Blocks.coreShard,()->{
             node(Blocks.mechanicalDrill,()->{
                 node(Blocks.graphitePress,()->{
@@ -110,6 +153,10 @@ public class ExampleJavaMod extends Mod{
             node(Blocks.conveyor,()->{});
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
+            node(Blocks.duo,()->{
+                node(Blocks.scatter,()->{});
+                node(ModTurrets.itemTurret3,()->{});
+            });
             nodeProduce(Items.copper,()->{
                 nodeProduce(Items.lead,()->{
                     nodeProduce(Items.titanium,()->{
@@ -128,26 +175,6 @@ public class ExampleJavaMod extends Mod{
                 nodeProduce(Liquids.water,()->{});
             });
         });
-
-
-        new ItemTurret("item-turret-eee"){{
-            requirements(Category.turret, with(Items.copper, 40,ModItems.zinc,10,ModItems.gold,5));
-            ammo(ModItems.experimentalExplosives, new MissileBulletType(1.5f,32){{
-                ammoMultiplier=2;
-                splashDamage=4.5f;
-                splashDamageRadius=2.5f;
-                makeFire=true;
-            }});
-
-            displayAmmoMultiplier=true;
-            range=20;
-            shoot = new ShootPattern();
-            drawer = new DrawTurret(){{
-                parts.addAll();
-            }};
-            consumePower(2f);
-            coolant = consumeCoolant(0.1f);
-        }};
 
 
         ModPlanets.planetEee=new Planet("planet-eee", Planets.serpulo, 0.2f, 3){{
