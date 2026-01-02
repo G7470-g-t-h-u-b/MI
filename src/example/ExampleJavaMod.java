@@ -9,6 +9,7 @@ import mindustry.entities.UnitSorts;
 import mindustry.entities.bullet.*;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
+import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.NoiseMesh;
 import mindustry.mod.*;
@@ -129,14 +130,17 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.turret,with(Items.copper,45,ModItems.zinc,20
                     ,ModItems.siliconSteel,10,ModItems.gold,5));
             ammo(Items.silicon,new MissileBulletType(1.6f,25){{
+                hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=3;
                 splashDamage=1.2f;
                 splashDamageRadius=1f;
             }},ModItems.siliconSteel,new MissileBulletType(1.7f,28){{
+                hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=4;
                 splashDamage=1.2f;
                 splashDamageRadius=1.2f;
             }},ModItems.zinc,new BasicBulletType(1.7f,21){{
+                hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=5;
             }});
             range=176;
@@ -159,11 +163,13 @@ public class ExampleJavaMod extends Mod{
             reload=2;
             requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
             ammo(Items.lead,new FlakBulletType(1.7f,12){{
+                hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=3;
-                range=192;
+//                range=192;
             }},ModItems.siliconSteel,new MissileBulletType(1.5f,11){{
+                hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=5;
-                range=192;
+//                range=192;
             }});
 
         }};
@@ -181,6 +187,7 @@ public class ExampleJavaMod extends Mod{
             reload=110;
             consumePower(4.5f);
             ammo(Items.surgeAlloy,new RailBulletType(){{
+                hitColor=trailColor = Pal.blastAmmoBack;
                 hitEffect = Fx.instHit;
                 despawnEffect = Fx.instBomb;;
                 shootEffect = Fx.instShoot;
@@ -188,15 +195,16 @@ public class ExampleJavaMod extends Mod{
                 pierceEffect = Fx.railHit;
                 pointEffect = Fx.instTrail;
                 buildingDamageMultiplier=0.7f;
-                maxRange=560;
-                range=520;
+//                maxRange=560;
+//                range=520;
                 ammoMultiplier=3;
                 damage=720;
                 collidesTiles=false;
                 collideTerrain=false;
             }},Items.titanium,new RailBulletType(){{
-                maxRange=560;
-                range=520;
+//                maxRange=560;
+//                range=520;
+                hitColor=trailColor=Pal.blastAmmoBack;
                 hitEffect = Fx.instHit;
                 despawnEffect = Fx.instBomb;;
                 shootEffect = Fx.instShoot;
