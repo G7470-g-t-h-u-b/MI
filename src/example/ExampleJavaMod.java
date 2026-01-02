@@ -25,15 +25,6 @@ import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.DrawTurret;
 
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.type.TypeKind;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVisitor;
-import javax.lang.model.type.UnionType;
-
-import java.lang.annotation.Annotation;
-import java.util.List;
-
 import static mindustry.content.TechTree.*;
 import static mindustry.type.ItemStack.with;
 
