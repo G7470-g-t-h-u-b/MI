@@ -23,6 +23,8 @@ import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.draw.DrawLiquidTile;
+import mindustry.world.draw.DrawMulti;
 import mindustry.world.draw.DrawTurret;
 
 import static mindustry.content.TechTree.*;
@@ -88,6 +90,17 @@ public class ExampleJavaMod extends Mod{
             consumeItems(ItemStack.with(Items.silicon,2,ModItems.zinc,1));
             consumePower(1.5f);
             outputItem=new ItemStack(ModItems.siliconSteel,2);
+        }};
+        ModBlocks.electrolyticSeparator=new GenericCrafter("electrolytic-separator"){{
+            health=180;
+            size=2;
+            requirements(Category.crafting,with(Items.titanium,30,Items.copper,20,ModItems.zinc,15));
+            consumeLiquids(LiquidStack.with(Liquids.water,0.3f));
+            consumePower(1f);
+            outputLiquids=new LiquidStack[]{new LiquidStack(Liquids.hydrogen, 0.2f)};
+            drawer=new DrawMulti(){{
+                new DrawLiquidTile(Liquids.water);
+            }};
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
