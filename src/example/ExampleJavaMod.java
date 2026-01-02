@@ -101,7 +101,7 @@ public class ExampleJavaMod extends Mod{
             outputLiquids=new LiquidStack[]{new LiquidStack(Liquids.hydrogen, 0.2f)};
             drawer=new DrawMulti(){{
                 new DrawDefault();
-                new DrawLiquidTile(Liquids.water);
+                new DrawLiquidTile(Liquids.water,1f);
             }};
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
@@ -287,12 +287,14 @@ public class ExampleJavaMod extends Mod{
                     node(Blocks.siliconSmelter,()->{
                         node(Blocks.illuminator,()->{});
                         node(Blocks.kiln,()->{});
-                        node(ModBlocks.siliconSteelMixer,()->{});
+                        node(ModBlocks.siliconSteelMixer,()->{//硅钢混合机
+                            node(ModBlocks.electrolyticSeparator,()->{});//电解分离机
+                        });
                     });
                 });
                 node(Blocks.combustionGenerator,()->{
-                    node(ModBlocks.laserEnergyNode,()->{
-                        node(Blocks.steamGenerator,()->{});
+                    node(ModBlocks.laserEnergyNode,()->{//激光电力节点
+                        node(Blocks.steamGenerator,()->{});//涡轮发电机
                     });
                 });
             });
