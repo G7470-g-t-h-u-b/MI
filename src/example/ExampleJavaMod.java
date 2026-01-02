@@ -112,6 +112,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.production,with(Items.copper,10,Items.graphite,5));
             drillTime=400f;
             blockedItems=Seq.with(ModItems.uranium,Items.thorium);
+            hardnessDrillMultiplier=2;
         }};
 
 
@@ -127,6 +128,7 @@ public class ExampleJavaMod extends Mod{
                 splashDamage=4.5f;
                 splashDamageRadius=2.5f;
                 makeFire=true;
+                lifetime=160;
             }});
             displayAmmoMultiplier=true;
             range=160;
@@ -145,14 +147,17 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=3;
                 splashDamage=1.2f;
                 splashDamageRadius=1f;
+                lifetime=160;
             }},ModItems.siliconSteel,new MissileBulletType(1.7f,28){{
                 hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=4;
                 splashDamage=1.2f;
                 splashDamageRadius=1.2f;
+                lifetime=160;
             }},ModItems.zinc,new BasicBulletType(1.7f,21){{
                 hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=5;
+                lifetime=160;
             }});
             range=176;
             inaccuracy=2f;
@@ -176,11 +181,13 @@ public class ExampleJavaMod extends Mod{
             ammo(Items.lead,new FlakBulletType(1.7f,12){{
                 hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=3;
+                lifetime=160;
 //                range=192;
             }},ModItems.siliconSteel,new MissileBulletType(1.5f,11){{
                 hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=5;
 //                range=192;
+                lifetime=160;
             }});
 
         }};
@@ -206,6 +213,7 @@ public class ExampleJavaMod extends Mod{
                 pierceEffect = Fx.railHit;
                 pointEffect = Fx.instTrail;
                 buildingDamageMultiplier=0.7f;
+                lifetime=290;
 //                maxRange=560;
 //                range=520;
                 ammoMultiplier=3;
@@ -215,6 +223,7 @@ public class ExampleJavaMod extends Mod{
             }},Items.titanium,new RailBulletType(){{
 //                maxRange=560;
 //                range=520;
+                lifetime=290;
                 hitColor=trailColor=Pal.blastAmmoBack;
                 hitEffect = Fx.instHit;
                 despawnEffect = Fx.instBomb;;
