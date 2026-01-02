@@ -160,8 +160,10 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
             ammo(Items.lead,new FlakBulletType(1.7f,12){{
                 ammoMultiplier=3;
+                range=192;
             }},ModItems.siliconSteel,new MissileBulletType(1.5f,11){{
                 ammoMultiplier=5;
+                range=192;
             }});
 
         }};
@@ -185,6 +187,7 @@ public class ExampleJavaMod extends Mod{
                 smokeEffect = Fx.smokeCloud;
                 pierceEffect = Fx.railHit;
                 pointEffect = Fx.instTrail;
+                buildingDamageMultiplier=0.7f;
                 maxRange=560;
                 range=520;
                 ammoMultiplier=3;
