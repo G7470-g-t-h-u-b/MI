@@ -99,10 +99,10 @@ public class ExampleJavaMod extends Mod{
             consumeLiquids(LiquidStack.with(Liquids.water,0.3f));
             consumePower(1f);
             outputLiquids=new LiquidStack[]{new LiquidStack(Liquids.hydrogen, 0.2f)};
-            drawer=new DrawMulti(){{
-                new DrawDefault();
-                new DrawLiquidTile(Liquids.water,1f);
-            }};
+//            drawer=new DrawMulti(){{
+//                new DrawDefault();
+//                new DrawLiquidTile(Liquids.water,1f);
+//            }};
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
@@ -298,7 +298,9 @@ public class ExampleJavaMod extends Mod{
                     });
                 });
             });
-            node(Blocks.conveyor,()->{});
+            node(Blocks.conveyor,()->{
+                node(Blocks.titaniumConveyor,()->{});
+            });
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
             node(Blocks.duo,()->{
