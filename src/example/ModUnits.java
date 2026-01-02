@@ -1,0 +1,7 @@
+package example;
+
+import mindustry.type.UnitType;
+
+public class ModUnits {
+    public static UnitType unitType1;
+}
