@@ -24,9 +24,6 @@ import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
-import mindustry.world.draw.DrawDefault;
-import mindustry.world.draw.DrawLiquidTile;
-import mindustry.world.draw.DrawMulti;
 import mindustry.world.draw.DrawTurret;
 
 import static mindustry.content.TechTree.*;
@@ -110,47 +107,47 @@ public class ExampleJavaMod extends Mod{
 //                new DrawLiquidTile(Liquids.water,1f);
 //            }};
         }};
-//        ModBlocks.rockDrilling=new GenericCrafter("rock-drilling"){{
-//            health=240;
-//            size=3;
-//            requirements(Category.crafting,with(Items.copper,55,Items.titanium,40,Items.graphite,20));
-//            consumePower(3f);
-//            consumeLiquid(Liquids.water,0.5f);
-//            outputItems=ItemStack.with(ModItems.rock);
-//        }};
-//        ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
-//            health=200;
-//            size=2;
-//            requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
-//            consumePower(2f);
-//            outputLiquid=new LiquidStack(ModItems.lava,0.2f);
-//        }};
-//        ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
-//            health=200;
-//            size=2;
-//            requirements(Category.crafting,with(Items.copper,30,Items.titanium,30,Items.graphite,15));
-//            consumePower(2f);
-//            consumeLiquids(LiquidStack.with(Liquids.hydrogen,0.25f));
-//            consumeItems(ItemStack.with(ModItems.rock,2));
-//            outputItems=ItemStack.with(Items.silicon);
-//        }};
-//        ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
-//            health=200;
-//            size=3;
-//            requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
-//            consumePower(3.25f);
-//            consumeItems(ItemStack.with(Items.scrap,2));
-//            consumeLiquids(LiquidStack.with(ModItems.lava,0.25f));
-//            results=ItemStack.with(new Object[]{Items.silicon,1,Items.thorium,1,ModItems.zinc,1,ModItems.tin,2});
-//        }};
-//        ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
-//            health=100;
-//            size=1;
-//            requirements(Category.power, with(Items.copper, 8,Items.lead,5,ModItems.zinc,5));
-//            range=15;
-//            consumesPower=outputsPower=true;
-//            consumePowerBuffered(1000f);
-//        }};
+        ModBlocks.rockDrilling=new GenericCrafter("rock-drilling"){{
+            health=240;
+            size=3;
+            requirements(Category.crafting,with(Items.copper,55,Items.titanium,40,Items.graphite,20));
+            consumePower(3f);
+            consumeLiquid(Liquids.water,0.5f);
+            outputItems=ItemStack.with(ModItems.rock);
+        }};
+        ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
+            health=200;
+            size=2;
+            requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
+            consumePower(2f);
+            outputLiquid=new LiquidStack(ModItems.lava,0.2f);
+        }};
+        ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
+            health=200;
+            size=2;
+            requirements(Category.crafting,with(Items.copper,30,Items.titanium,30,Items.graphite,15));
+            consumePower(2f);
+            consumeLiquids(LiquidStack.with(Liquids.hydrogen,0.25f));
+            consumeItems(ItemStack.with(ModItems.rock,2));
+            outputItems=ItemStack.with(Items.silicon,1);
+        }};
+        ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
+            health=200;
+            size=3;
+            requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
+            consumePower(3.25f);
+            consumeItems(ItemStack.with(Items.scrap,2));
+            consumeLiquids(LiquidStack.with(ModItems.lava,0.25f));
+            results=ItemStack.with(new Object[]{Items.silicon,1,Items.thorium,1,ModItems.zinc,1,ModItems.tin,2});
+        }};
+        ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
+            health=100;
+            size=1;
+            requirements(Category.power, with(Items.copper, 8,Items.lead,5,ModItems.zinc,5));
+            range=15;
+            consumesPower=outputsPower=true;
+            consumePowerBuffered(1000f);
+        }};
         ModBlocks.smallDrillBit=new Drill("small-drill-bit"){{
             health=65;
             size=1;
@@ -331,15 +328,15 @@ public class ExampleJavaMod extends Mod{
                             node(ModBlocks.electrolyticSeparator,()->{});//电解分离机
                         });
                         node(Blocks.pulverizer,()->{
-//                            node(Blocks.melter,()->{
-//                                node(Blocks.separator,()->{});
-//                                node(ModBlocks.rockDrilling,()->{
-//                                    node(ModBlocks.highTemperatureSmeltingPlant);
-//                                    node(ModBlocks.highTemperatureMeltingFurnace,()->{
-//                                        node(ModBlocks.highSpeedDisassembler);
-//                                    });
-//                                });
-//                            });
+                            node(Blocks.melter,()->{
+                                node(Blocks.separator,()->{});
+                                node(ModBlocks.rockDrilling,()->{
+                                    node(ModBlocks.highTemperatureSmeltingPlant);
+                                    node(ModBlocks.highTemperatureMeltingFurnace,()->{
+                                        node(ModBlocks.highSpeedDisassembler);
+                                    });
+                                });
+                            });
                         });
                     });
                 });
