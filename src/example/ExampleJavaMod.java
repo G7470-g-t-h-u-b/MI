@@ -73,6 +73,11 @@ public class ExampleJavaMod extends Mod{
         ModItems.gold=new Item("gold",Color.HSVtoRGB(50,93,100)){{
             hardness=1;
         }};
+        ModItems.rock=new Item("rock",Color.HSVtoRGB(240,7,50));
+        ModItems.lava=new Liquid("lava",Color.red){{
+            temperature=1.3f;
+            viscosity=0.75f;
+        }};
 
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
@@ -103,6 +108,39 @@ public class ExampleJavaMod extends Mod{
 //                new DrawDefault();
 //                new DrawLiquidTile(Liquids.water,1f);
 //            }};
+        }};
+        ModBlocks.rockDrilling=new GenericCrafter("rock-drilling"){{
+            health=240;
+            size=3;
+            requirements(Category.crafting,with(Items.copper,55,Items.titanium,40,Items.graphite,20));
+            consumePower(3f);
+            consumeLiquid(Liquids.water,0.5f);
+            outputItems=ItemStack.with(ModItems.rock);
+        }};
+        ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
+            health=200;
+            size=2;
+            requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
+            consumePower(2f);
+            outputLiquids=new LiquidStack[]{new LiquidStack(ModItems.lava, 0.2f)};
+        }};
+        ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
+            health=200;
+            size=2;
+            requirements(Category.crafting,with(Items.copper,30,Items.titanium,30,Items.graphite,15));
+            consumePower(2f);
+            consumeLiquids(LiquidStack.with(Liquids.hydrogen,0.25f));
+            consumeItems(ItemStack.with(ModItems.rock,2));
+            outputItems=ItemStack.with(Items.silicon);
+        }};
+        ModBlocks.highSpeedDisassembler=new GenericCrafter("high-speed-disassembler"){{
+            health=200;
+            size=3;
+            requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
+            consumePower(3.25f);
+            consumeItems(ItemStack.with(Items.scrap,2));
+            consumeLiquids(LiquidStack.with(ModItems.lava,0.25f));
+            outputItems=ItemStack.with(Items.silicon,1,ModItems.tin,2,Items.thorium,1,ModItems.zinc,1);
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
@@ -282,6 +320,7 @@ public class ExampleJavaMod extends Mod{
             node(Blocks.mechanicalDrill,()->{
                 node(Blocks.graphitePress,()->{
                     node(Blocks.pneumaticDrill,()->{
+                        node(ModBlocks.smallDrillBit,()->{});
                         node(Blocks.laserDrill,()->{});
                     });
                     node(Blocks.siliconSmelter,()->{
@@ -346,7 +385,9 @@ public class ExampleJavaMod extends Mod{
                     });
                 });
                 nodeProduce(ModItems.gold,()->{});
-                nodeProduce(Liquids.water,()->{});
+                nodeProduce(Liquids.water,()->{
+                    nodeProduce(Liquids.hydrogen,()->{});
+                });
             });
         });
 

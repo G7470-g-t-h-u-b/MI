@@ -1,6 +1,7 @@
 package example;
 
 import mindustry.type.Item;
+import mindustry.type.Liquid;
 
 public class ModItems {
     public static Item experimentalExplosives;
@@ -9,5 +10,7 @@ public class ModItems {
     public static Item zinc;
     public static Item siliconSteel;
     public static Item gold;
+    public static Item rock;
+    public static Liquid lava;
 }
 //
