@@ -140,7 +140,7 @@ public class ExampleJavaMod extends Mod{
             consumePower(3.25f);
             consumeItems(ItemStack.with(Items.scrap,2));
             consumeLiquids(LiquidStack.with(ModItems.lava,0.25f));
-            outputItems=ItemStack.with(Items.silicon,1,ModItems.tin,2,Items.thorium,1,ModItems.zinc,1);
+            outputItems=ItemStack.with(new Object[]{Items.sand, 2, Items.graphite, 1, Items.titanium, 1, Items.thorium, 1});
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
