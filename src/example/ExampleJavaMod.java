@@ -329,6 +329,17 @@ public class ExampleJavaMod extends Mod{
                         node(ModBlocks.siliconSteelMixer,()->{//硅钢混合机
                             node(ModBlocks.electrolyticSeparator,()->{});//电解分离机
                         });
+                        node(Blocks.pulverizer,()->{
+                            node(Blocks.melter,()->{
+                                node(Blocks.separator,()->{});
+                                node(ModBlocks.rockDrilling,()->{
+                                    node(ModBlocks.highTemperatureSmeltingPlant);
+                                    node(ModBlocks.highTemperatureMeltingFurnace,()->{
+                                        node(ModBlocks.highSpeedDisassembler);
+                                    });
+                                });
+                            });
+                        });
                     });
                 });
                 node(Blocks.combustionGenerator,()->{
@@ -371,13 +382,17 @@ public class ExampleJavaMod extends Mod{
             nodeProduce(Items.copper,()->{
                 nodeProduce(Items.lead,()->{
                     nodeProduce(Items.titanium,()->{
+                        nodeProduce(Liquids.cryofluid,()->{});
                         nodeProduce(Items.thorium,()->{});
                     });
                 });
                 nodeProduce(ModItems.tin,()->{});
                 nodeProduce(ModItems.zinc,()->{});
                 nodeProduce(Items.coal,()->{
-                    nodeProduce(Items.sand,()->{});
+                    nodeProduce(Items.sand,()->{
+                        nodeProduce(Items.scrap,()->{});
+                        nodeProduce(ModItems.rock,()->{});
+                    });
                     nodeProduce(Items.graphite,()->{});
                     nodeProduce(Items.silicon,()->{
                         nodeProduce(ModItems.siliconSteel,()->{
