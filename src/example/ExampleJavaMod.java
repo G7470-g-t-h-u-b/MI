@@ -110,14 +110,14 @@ public class ExampleJavaMod extends Mod{
 //                new DrawLiquidTile(Liquids.water,1f);
 //            }};
         }};
-        ModBlocks.rockDrilling=new GenericCrafter("rock-drilling"){{
-            health=240;
-            size=3;
-            requirements(Category.crafting,with(Items.copper,55,Items.titanium,40,Items.graphite,20));
-            consumePower(3f);
-            consumeLiquid(Liquids.water,0.5f);
-            outputItems=ItemStack.with(ModItems.rock);
-        }};
+//        ModBlocks.rockDrilling=new GenericCrafter("rock-drilling"){{
+//            health=240;
+//            size=3;
+//            requirements(Category.crafting,with(Items.copper,55,Items.titanium,40,Items.graphite,20));
+//            consumePower(3f);
+//            consumeLiquid(Liquids.water,0.5f);
+//            outputItems=ItemStack.with(ModItems.rock);
+//        }};
         ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
             health=200;
             size=2;
