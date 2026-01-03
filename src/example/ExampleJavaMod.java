@@ -123,7 +123,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
             requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
             consumePower(2f);
-            outputLiquids=new LiquidStack[]{new LiquidStack(ModItems.lava, 0.2f)};
+            outputLiquid=new LiquidStack(ModItems.lava,0.2f);
         }};
         ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
             health=200;
