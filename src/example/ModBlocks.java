@@ -12,6 +12,7 @@ public class ModBlocks {
     public static Block oreGold;
     public static Block oreZinc;
     public static Block oreTin;
+    public static Block oreUranium;
     public static Drill smallDrillBit;
     public static GenericCrafter electrolyticSeparator;
     public static GenericCrafter rockDrilling;

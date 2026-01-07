@@ -41,8 +41,8 @@ public class ExampleJavaMod extends Mod{
                 BaseDialog dialog = new BaseDialog("frog");
                 dialog.cont.add("behold").row();
                 //mod sprites are prefixed with the mod name (this mod is called 'example-java-mod' in its config)
-                dialog.cont.image(Core.atlas.find("example-java-mod-frog")).pad(20f).row();
-                dialog.cont.button("I see", dialog::hide).size(100f, 50f);
+//                dialog.cont.image(Core.atlas.find("g7470mod-1-frog")).pad(20f).row();
+//                dialog.cont.button("I see", dialog::hide).size(100f, 50f);
                 dialog.show();
             });
         });
@@ -120,7 +120,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
             requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
             consumePower(2f);
-            outputLiquid=new LiquidStack(ModItems.lava,0.2f);
+            outputLiquid=new LiquidStack(Liquids.slag,0.2f);           //eeeeeeeee
         }};
         ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
             health=200;
@@ -137,7 +137,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
             consumePower(3.25f);
             consumeItems(ItemStack.with(Items.scrap,2));
-            consumeLiquids(LiquidStack.with(ModItems.lava,0.25f));
+            consumeLiquids(LiquidStack.with(Liquids.slag,0.25f));             //eeeeeeeeeeeee
             results=ItemStack.with(new Object[]{Items.silicon,1,Items.thorium,1,ModItems.zinc,1,ModItems.tin,2});
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
@@ -161,6 +161,7 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.oreGold=new OreBlock("ore-gold",ModItems.gold);
         ModBlocks.oreZinc=new OreBlock("ore-zinc",ModItems.zinc);
         ModBlocks.oreTin=new OreBlock("ore-tin",ModItems.tin);
+        ModBlocks.oreUranium=new OreBlock("ore-uranium",ModItems.uranium);
 
 
         ModTurrets.itemTurret1=new ItemTurret("item-turret-1"){{
