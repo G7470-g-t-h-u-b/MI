@@ -72,10 +72,10 @@ public class ExampleJavaMod extends Mod{
             hardness=1;
         }};
         ModItems.rock=new Item("rock",Color.HSVtoRGB(240,7,50));
-        ModItems.lava=new Liquid("lava",Color.red){{
-            temperature=1.3f;
-            viscosity=0.75f;
-        }};
+//        ModItems.lava=new Liquid("lava",Color.red){{
+//            temperature=1.3f;
+//            viscosity=0.75f;
+//        }};
 
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
