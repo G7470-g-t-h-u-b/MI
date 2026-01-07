@@ -332,9 +332,9 @@ public class ExampleJavaMod extends Mod{
                             node(Blocks.melter,()->{
                                 node(Blocks.separator,()->{});
                                 node(ModBlocks.rockDrilling,()->{
-                                    node(ModBlocks.highTemperatureSmeltingPlant);
+//                                    node(ModBlocks.highTemperatureSmeltingPlant);
 //                                    node(ModBlocks.highTemperatureMeltingFurnace,()->{
-                                        node(ModBlocks.highSpeedDisassembler);
+//                                        node(ModBlocks.highSpeedDisassembler);
 //                                    });
                                 });
                             });
