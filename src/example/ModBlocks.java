@@ -18,7 +18,7 @@ public class ModBlocks {
     public static GenericCrafter rockDrilling;
 //    public static GenericCrafter highTemperatureMeltingFurnace;
     public static GenericCrafter highTemperatureSmeltingPlant;
-    public static Separator highSpeedDisassembler;
+//    public static Separator highSpeedDisassembler;
     public static BeamNode laserEnergyNode;
 }
 //

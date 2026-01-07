@@ -131,15 +131,15 @@ public class ExampleJavaMod extends Mod{
             consumeItems(ItemStack.with(ModItems.rock,2));
             outputItems=ItemStack.with(Items.silicon,1);
         }};
-        ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
-            health=200;
-            size=3;
-            requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
-            consumePower(3.25f);
-            consumeItems(ItemStack.with(Items.scrap,2));
-            consumeLiquids(LiquidStack.with(Liquids.slag,0.25f));             //eeeeeeeeeeeee
-            results=ItemStack.with(new Object[]{Items.silicon,1,Items.thorium,1,ModItems.zinc,1,ModItems.tin,2});
-        }};
+//        ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
+//            health=200;
+//            size=3;
+//            requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
+//            consumePower(3.25f);
+//            consumeItems(ItemStack.with(Items.scrap,2));
+//            consumeLiquids(LiquidStack.with(Liquids.slag,0.25f));             //eeeeeeeeeeeee
+//            results=ItemStack.with(new Object[]{Items.silicon,1,Items.thorium,1,ModItems.zinc,1,ModItems.tin,2});
+//        }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
             size=1;
