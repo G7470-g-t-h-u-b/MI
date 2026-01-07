@@ -115,13 +115,13 @@ public class ExampleJavaMod extends Mod{
             consumeLiquid(Liquids.water,0.5f);
             outputItems=ItemStack.with(ModItems.rock);
         }};
-        ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
-            health=200;
-            size=2;
-            requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
-            consumePower(2f);
-            outputLiquid=new LiquidStack(Liquids.slag,0.2f);           //eeeeeeeee
-        }};
+//        ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
+//            health=200;
+//            size=2;
+//            requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
+//            consumePower(2f);
+//            outputLiquid=new LiquidStack(Liquids.slag,0.2f);           //eeeeeeeee
+//        }};
         ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
             health=200;
             size=2;
@@ -333,9 +333,9 @@ public class ExampleJavaMod extends Mod{
                                 node(Blocks.separator,()->{});
                                 node(ModBlocks.rockDrilling,()->{
                                     node(ModBlocks.highTemperatureSmeltingPlant);
-                                    node(ModBlocks.highTemperatureMeltingFurnace,()->{
+//                                    node(ModBlocks.highTemperatureMeltingFurnace,()->{
                                         node(ModBlocks.highSpeedDisassembler);
-                                    });
+//                                    });
                                 });
                             });
                         });

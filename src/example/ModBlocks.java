@@ -16,7 +16,7 @@ public class ModBlocks {
     public static Drill smallDrillBit;
     public static GenericCrafter electrolyticSeparator;
     public static GenericCrafter rockDrilling;
-    public static GenericCrafter highTemperatureMeltingFurnace;
+//    public static GenericCrafter highTemperatureMeltingFurnace;
     public static GenericCrafter highTemperatureSmeltingPlant;
     public static Separator highSpeedDisassembler;
     public static BeamNode laserEnergyNode;
