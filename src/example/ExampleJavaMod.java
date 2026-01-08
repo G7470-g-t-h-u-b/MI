@@ -72,10 +72,10 @@ public class ExampleJavaMod extends Mod{
             hardness=1;
         }};
         ModItems.rock=new Item("rock",Color.HSVtoRGB(240,7,50));
-//        ModItems.lava=new Liquid("lava",Color.red){{
-//            temperature=1.3f;
-//            viscosity=0.75f;
-//        }};
+        ModItems.lava=new Liquid("lava",Color.red){{
+            temperature=1.3f;
+            viscosity=0.75f;
+        }};
 
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
@@ -115,13 +115,13 @@ public class ExampleJavaMod extends Mod{
             consumeLiquid(Liquids.water,0.5f);
             outputItems=ItemStack.with(ModItems.rock);
         }};
-//        ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
-//            health=200;
-//            size=2;
-//            requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
-//            consumePower(2f);
-//            outputLiquid=new LiquidStack(Liquids.slag,0.2f);           //eeeeeeeee
-//        }};
+        ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
+            health=200;
+            size=2;
+            requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
+            consumePower(2f);
+            outputLiquid=new LiquidStack(ModItems.lava,0.2f);
+        }};
         ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
             health=200;
             size=2;
@@ -131,15 +131,15 @@ public class ExampleJavaMod extends Mod{
             consumeItems(ItemStack.with(ModItems.rock,2));
             outputItems=ItemStack.with(Items.silicon,1);
         }};
-//        ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
-//            health=200;
-//            size=3;
-//            requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
-//            consumePower(3.25f);
-//            consumeItems(ItemStack.with(Items.scrap,2));
-//            consumeLiquids(LiquidStack.with(Liquids.slag,0.25f));             //eeeeeeeeeeeee
-//            results=ItemStack.with(new Object[]{Items.silicon,1,Items.thorium,1,ModItems.zinc,1,ModItems.tin,2});
-//        }};
+        ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
+            health=200;
+            size=3;
+            requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
+            consumePower(3.25f);
+            consumeItems(ItemStack.with(Items.scrap,2));
+            consumeLiquids(LiquidStack.with(ModItems.lava,0.25f));
+            results=ItemStack.with(new Object[]{Items.silicon,1,Items.thorium,1,ModItems.zinc,1,ModItems.tin,2});
+        }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
             size=1;
@@ -250,7 +250,7 @@ public class ExampleJavaMod extends Mod{
             ammo(Items.surgeAlloy,new RailBulletType(){{
                 hitColor=trailColor = Pal.blastAmmoBack;
                 hitEffect = Fx.instHit;
-                despawnEffect = Fx.instBomb;;
+                despawnEffect = Fx.instBomb;
                 shootEffect = Fx.instShoot;
                 smokeEffect = Fx.smokeCloud;
                 pierceEffect = Fx.railHit;
@@ -269,7 +269,7 @@ public class ExampleJavaMod extends Mod{
                 lifetime=290;
                 hitColor=trailColor=Pal.blastAmmoBack;
                 hitEffect = Fx.instHit;
-                despawnEffect = Fx.instBomb;;
+                despawnEffect = Fx.instBomb;
                 shootEffect = Fx.instShoot;
                 smokeEffect = Fx.smokeCloud;
                 pierceEffect = Fx.railHit;
@@ -332,10 +332,10 @@ public class ExampleJavaMod extends Mod{
                             node(Blocks.melter,()->{
                                 node(Blocks.separator,()->{});
                                 node(ModBlocks.rockDrilling,()->{
-//                                    node(ModBlocks.highTemperatureSmeltingPlant);
-//                                    node(ModBlocks.highTemperatureMeltingFurnace,()->{
-//                                        node(ModBlocks.highSpeedDisassembler);
-//                                    });
+                                    node(ModBlocks.highTemperatureSmeltingPlant);
+                                    node(ModBlocks.highTemperatureMeltingFurnace,()->{
+                                        node(ModBlocks.highSpeedDisassembler);
+                                    });
                                 });
                             });
                         });
