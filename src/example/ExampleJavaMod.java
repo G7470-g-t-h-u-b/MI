@@ -303,16 +303,16 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
-        ModUnits.unitType1=new UnitType("unit-type-1"){{
-            constructor=UnitEntity::create;
-            weapons.add(new Weapon("tutorial-weapon"){{
-                bullet = new BasicBulletType(2.5f, 9);
-                reload=5;
-            }});
-            abilities.add(new ShieldArcAbility());
-            speed=3f;
-            health=85;
-        }};
+//        ModUnits.unitType1=new UnitType("unit-type-1"){{
+//            constructor=UnitEntity::create;
+//            weapons.add(new Weapon("tutorial-weapon"){{
+//                bullet = new BasicBulletType(2.5f, 9);
+//                reload=5;
+//            }});
+//            abilities.add(new ShieldArcAbility());
+//            speed=3f;
+//            health=85;
+//        }};
 
 
         nodeRoot("eee",Blocks.coreShard,()->{
