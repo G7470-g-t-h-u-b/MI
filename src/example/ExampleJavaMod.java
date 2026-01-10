@@ -113,7 +113,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.crafting,with(Items.copper,55,Items.titanium,40,Items.graphite,20));
             consumePower(3f);
             consumeLiquid(Liquids.water,0.5f);
-            outputItems=ItemStack.with(ModItems.rock);
+            outputItems=ItemStack.with(ModItems.rock,1);
         }};
         ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
             health=200;
