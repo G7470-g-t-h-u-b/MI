@@ -118,7 +118,9 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
             health=200;
             size=2;
+            craftTime=30f;
             requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
+            consumeItems(ItemStack.with(ModItems.rock,2));
             consumePower(2f);
             outputLiquid=new LiquidStack(ModItems.lava,0.2f);
         }};
@@ -134,6 +136,7 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
             health=200;
             size=3;
+            craftTime=60f;
             requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
             consumePower(3.25f);
             consumeItems(ItemStack.with(Items.scrap,2));
