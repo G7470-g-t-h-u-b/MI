@@ -85,7 +85,7 @@ public class ExampleJavaMod extends Mod{
             consumeItem(Items.blastCompound,2);
             consumeLiquid(Liquids.oil,0.1f);
             consumePower(1f);
-            outputItem = new ItemStack(ModItems.experimentalExplosives,2);
+            outputItems = new ItemStack[]{(new ItemStack(ModItems.experimentalExplosives,2))};
         }};
         ModBlocks.siliconSteelMixer=new GenericCrafter("silicon-steel-mixer"){{
             health=180;
@@ -93,7 +93,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.crafting,with(Items.copper,30,Items.lead,20,ModItems.tin,10,ModItems.zinc,10));
             consumeItems(ItemStack.with(Items.silicon,2,ModItems.zinc,1));
             consumePower(1.5f);
-            outputItem=new ItemStack(ModItems.siliconSteel,2);
+            outputItems=new ItemStack[]{new ItemStack(ModItems.siliconSteel,2)};
         }};
         ModBlocks.electrolyticSeparator=new GenericCrafter("electrolytic-separator"){{
             health=180;
@@ -303,16 +303,16 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
-//        ModUnits.unitType1=new UnitType("unit-type-1"){{
-//            constructor=UnitEntity::create;
-//            weapons.add(new Weapon("tutorial-weapon"){{
-//                bullet = new BasicBulletType(2.5f, 9);
-//                reload=5;
-//            }});
-//            abilities.add(new ShieldArcAbility());
-//            speed=3f;
-//            health=85;
-//        }};
+        ModUnits.unitType1=new UnitType("unit-type-1"){{
+            constructor=UnitEntity::create;
+            weapons.add(new Weapon("tutorial-weapon"){{
+                bullet = new BasicBulletType(2.5f, 9);
+                reload=5;
+            }});
+            abilities.add(new ShieldArcAbility());
+            speed=3f;
+            health=85;
+        }};
 
 
         nodeRoot("eee",Blocks.coreShard,()->{
