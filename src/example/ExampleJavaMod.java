@@ -1,7 +1,6 @@
 package example;
 
 import arc.*;
-import arc.func.Boolf;
 import arc.graphics.Color;
 import arc.struct.Seq;
 import arc.util.*;
@@ -15,7 +14,6 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
-import mindustry.gen.Sounds;
 import mindustry.gen.UnitEntity;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.HexMesh;
@@ -33,9 +31,7 @@ import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
-import mindustry.world.consumers.ConsumeLiquidFilter;
 import mindustry.world.consumers.ConsumeLiquidFlammable;
-import mindustry.world.consumers.ConsumeLiquids;
 import mindustry.world.draw.DrawTurret;
 
 import static mindustry.content.TechTree.*;
@@ -304,6 +300,7 @@ public class ExampleJavaMod extends Mod{
             }});
         }};
         ModTurrets.ash=new ItemTurret("ash"){{
+            requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,120,ModItems.gold,80,ModItems.siliconSteel,100,Items.surgeAlloy,50));
             size=4;
             reload=35f;
             ammo(new Object[]{Items.surgeAlloy,new BulletType(0f,0f){{
