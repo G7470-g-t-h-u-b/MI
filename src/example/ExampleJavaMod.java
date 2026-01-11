@@ -288,7 +288,7 @@ public class ExampleJavaMod extends Mod{
         ModTurrets.frost=new LiquidTurret("frost"){{
             size=4;
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
-            range=550;
+            range=640;
             unitSort=UnitSorts.strongest;
             consumesPower=true;
             consumePower(12F);
@@ -299,7 +299,7 @@ public class ExampleJavaMod extends Mod{
             drawer=new DrawTurret(){{parts.addAll();}};
             ammo(Liquids.hydrogen,new FlakBulletType(7f,75f){{
                 buildingDamageMultiplier=0.5f;
-                lifetime=420f;
+                lifetime=95f;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
                 smokeEffect=Fx.shootSmokeDisperse;
