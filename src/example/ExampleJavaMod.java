@@ -303,7 +303,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,120,ModItems.gold,80,ModItems.siliconSteel,100,Items.surgeAlloy,50));
             size=4;
             reload=35f;
-            range=280f;
+            range=320f;
             ammo(new Object[]{Items.surgeAlloy,new BulletType(0f,0f){{
                 shootEffect=Fx.shootBig;
                 smokeEffect=Fx.shootSmokeMissileColor;
@@ -364,7 +364,67 @@ public class ExampleJavaMod extends Mod{
                         interval=6.4f;
                     }});
                 }};
-            }}});
+            }}},ModItems.siliconSteel,new BulletType(0f,0f){{
+                shootEffect=Fx.shootBig;
+                smokeEffect=Fx.shootSmokeMissileColor;
+                hitColor=Pal.redLight;
+                spawnUnit=new MissileUnitType("ash-missile"){{
+                    speed=5f;
+//                    range=280f;
+                    lifetime=480f;
+                    engineColor=trailColor=Pal.redLight;
+                    engineSize=3.1f;
+                    engineOffset=10f;
+                    rotateSpeed=0.125f;
+                    trailLength=20;
+                    missileAccelTime=45f;
+                    targetAir=true;
+                    targetUnderBlocks=false;
+                    health=220f;
+                    homingPower=1f;
+                    homingDelay=20f;
+                    homingRange=240f;
+                    weapons.add(new Weapon(){{
+                        shootCone=360;
+                        reload=1f;
+                        deathExplosionEffect=Fx.massiveExplosion;
+                        shootOnDeath=true;
+                        shake=10;
+                        bullet=new ExplosionBulletType(500f, 60f);
+                        hitColor=Pal.redLight;
+                        shootEffect=new MultiEffect(new Effect[]{Fx.massiveExplosion, Fx.scatheExplosion, Fx.scatheLight, new WaveEffect() {{
+                            lifetime = 11f;
+                            strokeFrom = 4f;
+                            sizeTo = 130.0F;
+                        }}});
+                        buildingDamageMultiplier=0.8f;
+                        fragLifeMin=0.1f;
+                        fragBullets=8;
+                        fragBullet=new ArtilleryBulletType(3.5f,28f){{
+                            buildingDamageMultiplier=0.9f;
+                            drag=0.03f;
+                            hitEffect=Fx.massiveExplosion;
+                            lifetime=20;
+                            width=height=20f;
+                            splashDamageRadius=45f;
+                            splashDamage=50;
+                            backColor=trailColor=hitColor=Pal.redLight;
+                            smokeEffect=Fx.shootBigSmoke2;
+                            despawnShake=5f;
+                            lightRadius=32f;
+                            lightColor=Pal.redLight;
+                            trailLength=22;
+                            trailWidth=3.6f;
+                        }};
+                    }});
+                    abilities.add(new MoveEffectAbility(){{
+                        effect=Fx.missileTrailSmoke;
+                        rotation=180;
+                        color=Color.grays(0.6F).lerp(Pal.redLight,0.5F).a(0.4F);
+                        interval=6.4f;
+                    }});
+                }};
+            }});
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
             size=4;
