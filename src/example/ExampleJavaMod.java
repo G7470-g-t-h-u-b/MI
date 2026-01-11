@@ -1,13 +1,18 @@
 package example;
 
 import arc.*;
+import arc.func.Boolf;
 import arc.graphics.Color;
 import arc.struct.Seq;
 import arc.util.*;
 import mindustry.content.*;
+import mindustry.entities.Effect;
 import mindustry.entities.UnitSorts;
+import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.bullet.*;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
 import mindustry.gen.Sounds;
@@ -17,15 +22,20 @@ import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.NoiseMesh;
 import mindustry.mod.*;
 import mindustry.type.*;
+import mindustry.type.unit.MissileUnitType;
 import mindustry.ui.dialogs.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
+import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
+import mindustry.world.consumers.ConsumeLiquidFilter;
+import mindustry.world.consumers.ConsumeLiquidFlammable;
+import mindustry.world.consumers.ConsumeLiquids;
 import mindustry.world.draw.DrawTurret;
 
 import static mindustry.content.TechTree.*;
@@ -78,6 +88,7 @@ public class ExampleJavaMod extends Mod{
             temperature=1.3f;
             viscosity=0.75f;
         }};
+        ModItems.iron=new Item("iron",Color.HSVtoRGB(233,16,25));
 
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
@@ -160,6 +171,13 @@ public class ExampleJavaMod extends Mod{
             drillTime=400f;
             blockedItems=Seq.with(ModItems.uranium,Items.thorium);
             hardnessDrillMultiplier=2;
+        }};
+
+
+        ModBlocks.fluidThermalEnergyGenerator=new ConsumeGenerator("fluid-thermal-energy-generator"){{
+            powerProduction=7f;
+            size=2;
+            consume(new ConsumeLiquidFlammable());
         }};
 
 
@@ -285,6 +303,68 @@ public class ExampleJavaMod extends Mod{
                 collideTerrain=false;
             }});
         }};
+        ModTurrets.ash=new ItemTurret("ash"){{
+            size=4;
+            reload=35f;
+            ammo(new Object[]{Items.surgeAlloy,new BulletType(0f,0f){{
+                shootEffect=Fx.shootBig;
+                smokeEffect=Fx.shootSmokeMissileColor;
+                hitColor=Pal.redLight;
+                spawnUnit=new MissileUnitType("ash-missile"){{
+                    speed=5f;
+                    maxRange=8f;
+                    lifetime=400f;
+                    engineColor=trailColor=Pal.redLight;
+                    engineSize=3.1f;
+                    engineOffset=10f;
+                    rotateSpeed=0.125f;
+                    trailLength=20;
+                    missileAccelTime=45f;
+                    targetAir=true;
+                    targetUnderBlocks=false;
+                    health=220f;
+                    weapons.add(new Weapon(){{
+                        shootCone=360;
+                        reload=1f;
+                        deathExplosionEffect=Fx.massiveExplosion;
+                        shootOnDeath=true;
+                        shake=10;
+                        bullet=new ExplosionBulletType(800f, 70f);
+                        hitColor=Pal.redLight;
+                        shootEffect=new MultiEffect(new Effect[]{Fx.massiveExplosion, Fx.scatheExplosion, Fx.scatheLight, new WaveEffect() {{
+                            lifetime = 11f;
+                            strokeFrom = 4f;
+                            sizeTo = 130.0F;
+                        }}});
+                        buildingDamageMultiplier=0.8f;
+                        fragLifeMin=0.1f;
+                        fragBullets=8;
+                        fragBullet=new ArtilleryBulletType(3.5f,28f){{
+                            buildingDamageMultiplier=0.9f;
+                            drag=0.03f;
+                            hitEffect=Fx.massiveExplosion;
+                            lifetime=20;
+                            width=height=20f;
+                            splashDamageRadius=45f;
+                            splashDamage=50;
+                            backColor=trailColor=hitColor=Pal.redLight;
+                            smokeEffect=Fx.shootBigSmoke2;
+                            despawnShake=5f;
+                            lightRadius=32f;
+                            lightColor=Pal.redLight;
+                            trailLength=22;
+                            trailWidth=3.6f;
+                        }};
+                    }});
+                    abilities.add(new MoveEffectAbility(){{
+                        effect=Fx.missileTrailSmoke;
+                        rotation=180;
+                        color=Color.grays(0.6F).lerp(Pal.redLight,0.5F).a(0.4F);
+                        interval=6.4f;
+                    }});
+                }};
+            }}});
+        }};
         ModTurrets.frost=new LiquidTurret("frost"){{
             size=4;
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
@@ -297,15 +377,15 @@ public class ExampleJavaMod extends Mod{
 //            loopSound=Sounds.spellLoop;
 //            loopSoundVolume=1.2f;
             drawer=new DrawTurret(){{parts.addAll();}};
-            ammo(Liquids.hydrogen,new FlakBulletType(7f,75f){{
+            ammo(Liquids.hydrogen,new FlakBulletType(8.5f,75f){{
                 buildingDamageMultiplier=0.5f;
-                lifetime=95f;
+                lifetime=120f;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
                 smokeEffect=Fx.shootSmokeDisperse;
                 hitColor=trailColor=lightningColor=Color.sky;
                 trailWidth=2.4f;
-                trailLength=18;
+                trailLength=20;
                 homingDelay=18f;
                 intervalBullet=new LightningBulletType(){{
                     buildingDamageMultiplier=0.5f;
@@ -328,6 +408,9 @@ public class ExampleJavaMod extends Mod{
                 bulletInterval=10f;
                 hitEffect=Fx.hitSquaresColor;
                 splashDamage=3f;
+                homingPower=0.2f;
+                homingDelay=16f;
+                homingRange=80f;
                 collidesGround=true;
                 collideTerrain=false;
                 collidesTiles=false;
@@ -454,6 +537,7 @@ public class ExampleJavaMod extends Mod{
                 });
                 nodeProduce(ModItems.gold,()->{});
                 nodeProduce(Liquids.water,()->{
+                    nodeProduce(ModItems.lava,()->{});
                     nodeProduce(Liquids.hydrogen,()->{});
                 });
             });

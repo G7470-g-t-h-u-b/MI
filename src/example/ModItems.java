@@ -11,6 +11,7 @@ public class ModItems {
     public static Item siliconSteel;
     public static Item gold;
     public static Item rock;
+    public static Item iron;
     public static Liquid lava;
 }
 //
