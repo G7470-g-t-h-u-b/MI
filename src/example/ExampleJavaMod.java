@@ -309,7 +309,7 @@ public class ExampleJavaMod extends Mod{
                 hitColor=Pal.redLight;
                 spawnUnit=new MissileUnitType("ash-missile"){{
                     speed=5f;
-                    maxRange=240f;
+                    range=280f;
                     lifetime=480f;
                     engineColor=trailColor=Pal.redLight;
                     engineSize=3.1f;
