@@ -18,6 +18,7 @@ import mindustry.mod.*;
 import mindustry.type.*;
 import mindustry.ui.dialogs.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
@@ -283,7 +284,7 @@ public class ExampleJavaMod extends Mod{
                 collideTerrain=false;
             }});
         }};
-        ModTurrets.frost=new ItemTurret("frost"){{
+        ModTurrets.frost=new LiquidTurret("frost"){{
             size=4;
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
             range=550;
