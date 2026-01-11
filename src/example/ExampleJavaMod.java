@@ -10,6 +10,7 @@ import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
+import mindustry.gen.Sounds;
 import mindustry.gen.UnitEntity;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.HexMesh;
@@ -292,8 +293,11 @@ public class ExampleJavaMod extends Mod{
             consumesPower=true;
             consumePower(5f);
             maxAmmo=120;
+            shootSound=Sounds.malignShoot;
+            loopSound=Sounds.spellLoop;
             drawer=new DrawTurret(){{parts.addAll();}};
-            ammo(Liquids.hydrogen,new FlakBulletType(0.8f,75f){{
+            ammo(Liquids.hydrogen,new FlakBulletType(2f,75f){{
+                buildingDamageMultiplier=0.5f;
                 lifetime=420f;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
@@ -301,10 +305,23 @@ public class ExampleJavaMod extends Mod{
                 hitColor=trailColor=lightningColor=Color.sky;
                 trailWidth=2.4f;
                 trailLength=18;
+                homingDelay=18f;
                 intervalBullet=new LightningBulletType(){{
+                    buildingDamageMultiplier=0.5f;
                     lightningColor=Color.sky;
                     lightningLength=20;
                     damage=16f;
+                }};
+                fragBullet=new LaserBulletType(55f){{
+                    colors= new Color[]{Color.sky};
+                    buildingDamageMultiplier=0.5f;
+                    hitEffect=Fx.hitLancer;
+                    sideAngle=175.0F;
+                    sideWidth=1f;
+                    sideLength=42f;
+                    lifetime=25f;
+                    drawSize=400f;
+                    pierceCap=5;
                 }};
                 intervalBullets=8;
                 bulletInterval=10f;
