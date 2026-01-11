@@ -368,7 +368,7 @@ public class ExampleJavaMod extends Mod{
                 shootEffect=Fx.shootBig;
                 smokeEffect=Fx.shootSmokeMissileColor;
                 hitColor=Pal.redLight;
-                spawnUnit=new MissileUnitType("ash-missile"){{
+                spawnUnit=new MissileUnitType("ash-missile-silicon-steel"){{
                     speed=5f;
 //                    range=280f;
                     lifetime=480f;
