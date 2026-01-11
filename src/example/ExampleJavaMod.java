@@ -291,13 +291,13 @@ public class ExampleJavaMod extends Mod{
             range=550;
             unitSort=UnitSorts.strongest;
             consumesPower=true;
-            consumePower(5f);
+            consumePower(12F);
             maxAmmo=120;
 //            shootSound=Sounds.malignShoot;
 //            loopSound=Sounds.spellLoop;
 //            loopSoundVolume=1.2f;
             drawer=new DrawTurret(){{parts.addAll();}};
-            ammo(Liquids.hydrogen,new FlakBulletType(2f,75f){{
+            ammo(Liquids.hydrogen,new FlakBulletType(7f,75f){{
                 buildingDamageMultiplier=0.5f;
                 lifetime=420f;
                 shootEffect=Fx.shootSmokeSquareBig;
@@ -322,13 +322,13 @@ public class ExampleJavaMod extends Mod{
                     sideLength=42f;
                     lifetime=25f;
                     drawSize=400f;
-                    pierceCap=5;
+                    pierceCap=2;
                 }};
                 intervalBullets=8;
                 bulletInterval=10f;
                 hitEffect=Fx.hitSquaresColor;
                 splashDamage=3f;
-                collidesGround=false;
+                collidesGround=true;
                 collideTerrain=false;
                 collidesTiles=false;
             }});
