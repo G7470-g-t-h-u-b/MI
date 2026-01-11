@@ -294,7 +294,7 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=120;
             drawer=new DrawTurret(){{parts.addAll();}};
             ammo(Liquids.hydrogen,new FlakBulletType(0.8f,75f){{
-                lifetime=42f;
+                lifetime=420f;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
                 smokeEffect=Fx.shootSmokeDisperse;
