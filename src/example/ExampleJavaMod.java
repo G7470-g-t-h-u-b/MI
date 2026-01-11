@@ -312,8 +312,8 @@ public class ExampleJavaMod extends Mod{
                 hitColor=Pal.redLight;
                 spawnUnit=new MissileUnitType("ash-missile"){{
                     speed=5f;
-                    maxRange=8f;
-                    lifetime=400f;
+                    maxRange=240f;
+                    lifetime=480f;
                     engineColor=trailColor=Pal.redLight;
                     engineSize=3.1f;
                     engineOffset=10f;
@@ -323,6 +323,9 @@ public class ExampleJavaMod extends Mod{
                     targetAir=true;
                     targetUnderBlocks=false;
                     health=220f;
+                    homingPower=0.8f;
+                    homingDelay=16f;
+                    homingRange=160f;
                     weapons.add(new Weapon(){{
                         shootCone=360;
                         reload=1f;
@@ -410,7 +413,7 @@ public class ExampleJavaMod extends Mod{
                 splashDamage=3f;
                 homingPower=0.2f;
                 homingDelay=16f;
-                homingRange=80f;
+                homingRange=160f;
                 collidesGround=true;
                 collideTerrain=false;
                 collidesTiles=false;
