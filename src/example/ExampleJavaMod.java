@@ -304,7 +304,7 @@ public class ExampleJavaMod extends Mod{
             size=4;
             reload=35f;
             range=320f;
-            ammo(new Object[]{Items.surgeAlloy,new BulletType(0f,0f){{
+            ammo(new Object[]{Items.surgeAlloy,new BulletType(0f,0f){ {
                 shootEffect=Fx.shootBig;
                 smokeEffect=Fx.shootSmokeMissileColor;
                 hitColor=Pal.redLight;
@@ -364,7 +364,9 @@ public class ExampleJavaMod extends Mod{
                         interval=6.4f;
                     }});
                 }};
-            }}},ModItems.siliconSteel,new BulletType(0f,0f){{
+
+            }},
+            ModItems.siliconSteel,new BulletType(0f,0f){{
                 shootEffect=Fx.shootBig;
                 smokeEffect=Fx.shootSmokeMissileColor;
                 hitColor=Pal.redLight;
@@ -424,8 +426,9 @@ public class ExampleJavaMod extends Mod{
                         interval=6.4f;
                     }});
                 }};
-            }});
+            }}});
         }};
+
         ModTurrets.frost=new LiquidTurret("frost"){{
             size=4;
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
@@ -570,6 +573,7 @@ public class ExampleJavaMod extends Mod{
                         node(Blocks.foreshadow);
                         node(ModTurrets.itemTurret5,()->{
                             node(ModTurrets.frost);
+                            node(ModTurrets.ash);
                         });
                         node(Blocks.meltdown);
                     });
