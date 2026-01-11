@@ -303,13 +303,14 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,120,ModItems.gold,80,ModItems.siliconSteel,100,Items.surgeAlloy,50));
             size=4;
             reload=35f;
+            range=280f;
             ammo(new Object[]{Items.surgeAlloy,new BulletType(0f,0f){{
                 shootEffect=Fx.shootBig;
                 smokeEffect=Fx.shootSmokeMissileColor;
                 hitColor=Pal.redLight;
                 spawnUnit=new MissileUnitType("ash-missile"){{
                     speed=5f;
-                    range=280f;
+//                    range=280f;
                     lifetime=480f;
                     engineColor=trailColor=Pal.redLight;
                     engineSize=3.1f;
@@ -320,9 +321,9 @@ public class ExampleJavaMod extends Mod{
                     targetAir=true;
                     targetUnderBlocks=false;
                     health=220f;
-                    homingPower=0.8f;
-                    homingDelay=16f;
-                    homingRange=160f;
+                    homingPower=1f;
+                    homingDelay=20f;
+                    homingRange=240f;
                     weapons.add(new Weapon(){{
                         shootCone=360;
                         reload=1f;
