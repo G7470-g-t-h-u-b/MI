@@ -295,6 +295,7 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=120;
             shootSound=Sounds.malignShoot;
             loopSound=Sounds.spellLoop;
+            loopSoundVolume=1.2f;
             drawer=new DrawTurret(){{parts.addAll();}};
             ammo(Liquids.hydrogen,new FlakBulletType(2f,75f){{
                 buildingDamageMultiplier=0.5f;
