@@ -283,6 +283,37 @@ public class ExampleJavaMod extends Mod{
                 collideTerrain=false;
             }});
         }};
+        ModTurrets.frost=new ItemTurret("frost"){{
+            size=4;
+            requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
+            range=550;
+            unitSort=UnitSorts.strongest;
+            consumesPower=true;
+            consumePower(5f);
+            maxAmmo=120;
+            drawer=new DrawTurret(){{parts.addAll();}};
+            ammo(Liquids.hydrogen,new FlakBulletType(0.8f,75f){{
+                lifetime=42f;
+                shootEffect=Fx.shootSmokeSquareBig;
+                trailEffect=Fx.colorSpark;
+                smokeEffect=Fx.shootSmokeDisperse;
+                hitColor=trailColor=lightningColor=Color.sky;
+                trailWidth=2.4f;
+                trailLength=18;
+                intervalBullet=new LightningBulletType(){{
+                    lightningColor=Color.sky;
+                    lightningLength=20;
+                    damage=16f;
+                }};
+                intervalBullets=8;
+                bulletInterval=10f;
+                hitEffect=Fx.hitSquaresColor;
+                splashDamage=3f;
+                collidesGround=false;
+                collideTerrain=false;
+                collidesTiles=false;
+            }});
+        }};
         ModTurrets.powerTurret4 =new PowerTurret("power-turret-4"){{
             requirements(Category.turret,with(Items.copper,50,ModItems.siliconSteel,20,Items.titanium,15));
             consumePower(5f);
@@ -302,7 +333,6 @@ public class ExampleJavaMod extends Mod{
                 range=176;
                 maxRange=28;
             }};
-
         }};
 
 
@@ -375,7 +405,9 @@ public class ExampleJavaMod extends Mod{
                     node(Blocks.wave,()->{});
                     node(Blocks.lancer,()->{
                         node(Blocks.foreshadow);
-                        node(ModTurrets.itemTurret5);
+                        node(ModTurrets.itemTurret5,()->{
+                            node(ModTurrets.frost);
+                        });
                         node(Blocks.meltdown);
                     });
                     node(ModTurrets.powerTurret4,()->{});
