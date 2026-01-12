@@ -85,6 +85,7 @@ public class ExampleJavaMod extends Mod{
             viscosity=0.75f;
         }};
         ModItems.iron=new Item("iron",Color.HSVtoRGB(233,16,25));
+        ModItems.frostAlloy=new Item("frost-alloy",Color.HSVtoRGB(196,46,89));
 
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
@@ -191,6 +192,8 @@ public class ExampleJavaMod extends Mod{
                 splashDamageRadius=2.5f;
                 makeFire=true;
                 lifetime=160;
+            }},Items.surgeAlloy,new BasicBulletType(0,0){{
+
             }});
             displayAmmoMultiplier=true;
             range=160;
@@ -426,9 +429,86 @@ public class ExampleJavaMod extends Mod{
                         interval=6.4f;
                     }});
                 }};
+            }},ModItems.frostAlloy,new BasicBulletType(0,0){{
+                shootEffect=Fx.shootBig;
+                smokeEffect=Fx.shootSmokeMissileColor;
+                hitColor=Pal.redLight;
+                spawnUnit=new MissileUnitType("ash-missile-frost-alloy"){{//导弹
+                    speed=5f;
+                    lifetime=80;
+                    engineColor=this.trailColor=Color.valueOf("52a3cc");
+                    engineLayer=100;
+                    engineSize=3f;
+                    engineOffset=10f;
+                    rotateSpeed=0.875f;
+                    trailLength=21;
+                    missileAccelTime=24f;
+                    lowAltitude=false;
+                    targetAir=true;
+                    weapons.add(new Weapon(){ {
+                        shootCone=360f;
+                        rotate=true;
+                        rotationLimit=rotateSpeed=0;
+                        reload=0.1f;
+                        deathExplosionEffect=Fx.massiveExplosion;
+                        shootOnDeath=true;
+                        shake=10f;
+                        bullet=new ExplosionBulletType(1500,40){{
+                            lightning=2;
+                            lightColor=Color.sky;
+                            lightningDamage=40;
+                            lightningLength=20;
+                            shootEffect=new MultiEffect(new Effect[]{Fx.massiveExplosion, Fx.scatheExplosionSmall});
+                            buildingDamageMultiplier=0.9f;
+                            fragLifeMin=80;
+                            fragBullets=5;
+                            fragSpread=20;
+                            fragBullet=new BulletType(){{
+                                shootEffect=Fx.shootBig;
+                                smokeEffect=Fx.shootSmokeMissileColor;
+                                hitColor=engineColor;
+                                spawnUnit = new MissileUnitType("ash-missile-frost-alloy-frag"){{//碎片导弹
+                                    speed=5f;
+                                    lifetime=280;
+                                    engineColor=trailColor=Color.valueOf("52a3cc");
+                                    engineLayer=110f;
+                                    engineOffset=8f;
+                                    trailLength=16;
+                                    lowAltitude=false;
+                                    health=200;
+                                    weapons.add(new Weapon(){{
+                                        shootCone=360;
+                                        shake=10;
+                                        bullet = new ExplosionBulletType(200f, 35f){{
+                                            lightning=2;
+                                            lightColor=Color.sky;
+                                            lightningDamage=40;
+                                            lightningLength=20;
+                                            shootEffect = new MultiEffect(new Effect[]{Fx.massiveExplosion, Fx.scatheExplosionSmall, Fx.scatheLightSmall, new WaveEffect(){{
+                                                lifetime=10;
+
+                                            }}});
+                                        }};
+                                    }});
+                                    abilities.add(new MoveEffectAbility(){{
+                                        effect=Fx.missileTrailSmokeSmall;
+                                        rotation=180;
+                                        color = Color.grays(0.6f).lerp(Color.valueOf("52a3cc"), 0.8f).a(0.6f);
+                                        interval=5;
+                                    }});
+                                }};
+                            }};
+                        }};
+                    }});
+                    abilities.add(new MoveEffectAbility(){{
+                        effect=Fx.missileTrailSmokeSmall;
+                        rotation=180;
+                        color = Color.grays(0.6f).lerp(Color.valueOf("52a3cc"), 0.8f).a(0.6f);
+                        interval=5;
+                    }});
+                }};
             }}});
         }};
-
         ModTurrets.frost=new LiquidTurret("frost"){{
             size=4;
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
