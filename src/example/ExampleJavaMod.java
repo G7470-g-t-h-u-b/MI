@@ -321,7 +321,7 @@ public class ExampleJavaMod extends Mod{
                     targetAir=true;
                     targetUnderBlocks=false;
                     health=220f;
-                    homingPower=1f;
+                    homingPower=3f;
                     homingDelay=20f;
                     homingRange=240f;
                     weapons.add(new Weapon(){{
@@ -443,14 +443,16 @@ public class ExampleJavaMod extends Mod{
             drawer=new DrawTurret(){{parts.addAll();}};
             ammo(Liquids.hydrogen,new FlakBulletType(8.5f,75f){{
                 buildingDamageMultiplier=0.5f;
-                lifetime=120f;
+                lifetime=180f;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
                 smokeEffect=Fx.shootSmokeDisperse;
                 hitColor=trailColor=lightningColor=Color.sky;
-                trailWidth=2.4f;
+                trailWidth=2.5f;
                 trailLength=20;
                 homingDelay=18f;
+                homingRange=240f;
+                homingPower=3;
                 intervalBullet=new LightningBulletType(){{
                     buildingDamageMultiplier=0.5f;
                     lightningColor=Color.sky;
