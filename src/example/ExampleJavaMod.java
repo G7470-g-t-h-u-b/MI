@@ -528,10 +528,10 @@ public class ExampleJavaMod extends Mod{
                 pierceCap=3;
                 pierce=true;
                 pierceBuilding=true;
-                hitColor=backColor=trailColor=Pal.berylShot;
+                hitColor=backColor=trailColor=Pal.techBlue;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 buildingDamageMultiplier=0.5f;
-            }},Items.thorium,new BasicBulletType(){{
+            }},Items.thorium,new BasicBulletType(6f,30){{
                 lifetime=50;
                 width=12f;
                 hitSize=20;
@@ -542,7 +542,7 @@ public class ExampleJavaMod extends Mod{
                 pierceCap=5;
                 pierce=true;
                 pierceBuilding=true;
-                hitColor=backColor=trailColor=Pal.berylShot;
+                hitColor=backColor=trailColor=Pal.thoriumAmmoBack;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 buildingDamageMultiplier=0.5f;
             }});
@@ -636,13 +636,13 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
-        ModPlanets.planetEee=new Planet("planet-eee", Planets.serpulo, 2f, 3){{
-            new NoiseMesh(Planets.serpulo,1,1,Color.white,
+        ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 2f, 3){{
+            new NoiseMesh(Planets.serpulo,1,1,Color.sky,
                     1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
         }};
         new SectorPreset("testSector", ModPlanets.planetEee, 15);
-        new SectorPreset("t1",ModPlanets.planetEee,42);
+        new SectorPreset("t1",ModPlanets.planetEee,154);
 
 
         nodeRoot("eee",Blocks.coreShard,()->{
