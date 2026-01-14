@@ -512,7 +512,7 @@ public class ExampleJavaMod extends Mod{
         ModTurrets.frost=new LiquidTurret("frost"){{
             size=4;
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
-            range=640;
+            range=800;
             unitSort=UnitSorts.strongest;
             consumesPower=true;
             consumePower(12F);
@@ -696,7 +696,7 @@ public class ExampleJavaMod extends Mod{
                     1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
             new SectorPreset("testSector", Planets.serpulo, 15);
-            new SectorPreset("t1",Planets.serpulo,47);
+            new SectorPreset("t1",Planets.verilus,42);
         }};
     }
 }
