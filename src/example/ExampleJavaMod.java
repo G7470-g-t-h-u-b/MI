@@ -509,7 +509,47 @@ public class ExampleJavaMod extends Mod{
                 }};
             }}});
         }};
+        ModTurrets.puncture=new ItemTurret("puncture"){{
+            inaccuracy=0.1f;
+            size=3;
+            requirements(Category.turret,with(Items.titanium,100,Items.graphite,80,ModItems.zinc,20,ModItems.siliconSteel,20));
+            range=240;
+            reload=16;
+            maxAmmo=50;
+            drawer=new DrawTurret(){{parts.addAll();}};
+            ammo(Items.titanium,new BasicBulletType(6f,25){{
+                lifetime=50;
+                width=12f;
+                hitSize=20;
+                shootEffect=new MultiEffect(new Effect[]{Fx.shootBigColor,Fx.colorSparkBig});
+                ammoMultiplier=2;
+                trailWidth=2.8f;
+                trailLength=10;
+                pierceCap=3;
+                pierce=true;
+                pierceBuilding=true;
+                hitColor=backColor=trailColor=Pal.berylShot;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                buildingDamageMultiplier=0.5f;
+            }},Items.thorium,new BasicBulletType(){{
+                lifetime=50;
+                width=12f;
+                hitSize=20;
+                shootEffect=new MultiEffect(new Effect[]{Fx.shootBigColor,Fx.colorSparkBig});
+                ammoMultiplier=3;
+                trailWidth=2.8f;
+                trailLength=10;
+                pierceCap=5;
+                pierce=true;
+                pierceBuilding=true;
+                hitColor=backColor=trailColor=Pal.berylShot;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                buildingDamageMultiplier=0.5f;
+            }});
+        }};
         ModTurrets.frost=new LiquidTurret("frost"){{
+            inaccuracy=1;
+            xRand=0.5f;
             size=4;
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
             range=800;
@@ -596,6 +636,15 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
+        ModPlanets.planetEee=new Planet("planet-eee", Planets.serpulo, 2f, 3){{
+            new NoiseMesh(Planets.serpulo,1,1,Color.white,
+                    1,1,1f,1f,1f);
+            meshLoader = () -> new HexMesh(Planets.serpulo, 6);
+        }};
+        new SectorPreset("testSector", ModPlanets.planetEee, 15);
+        new SectorPreset("t1",ModPlanets.planetEee,42);
+
+
         nodeRoot("eee",Blocks.coreShard,()->{
             node(Blocks.mechanicalDrill,()->{
                 node(Blocks.graphitePress,()->{
@@ -642,7 +691,9 @@ public class ExampleJavaMod extends Mod{
                     });
                 });
                 node(Blocks.hail,()->{
-                    node(Blocks.salvo,()->{});
+                    node(Blocks.salvo,()->{
+                        node(ModTurrets.puncture);
+                    });
                     node(Blocks.scorch,()->{});
                 });
                 node(Blocks.scatter,()->{});
@@ -689,15 +740,6 @@ public class ExampleJavaMod extends Mod{
                 });
             });
         });
-
-
-        ModPlanets.planetEee=new Planet("planet-eee", Planets.serpulo, 2f, 3){{
-            new NoiseMesh(Planets.serpulo,1,1,Color.white,
-                    1,1,1f,1f,1f);
-            meshLoader = () -> new HexMesh(Planets.serpulo, 6);
-            new SectorPreset("testSector", ModPlanets.planetEee, 15);
-            new SectorPreset("t1",ModPlanets.planetEee,42);
-        }};
     }
 }
 //
