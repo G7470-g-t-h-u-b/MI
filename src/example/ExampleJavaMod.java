@@ -21,6 +21,7 @@ import mindustry.gen.UnitEntity;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.NoiseMesh;
+import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.mod.*;
 import mindustry.type.*;
 import mindustry.type.unit.MissileUnitType;
@@ -662,8 +663,11 @@ public class ExampleJavaMod extends Mod{
             canBoost=true;
             constructor=TankUnit::create;
             weapons.add(new Weapon("artillery-weapon"){{
-                bullet=new ArtilleryBulletType(2.8f, 9);
+                bullet=new ArtilleryBulletType(2.8f, 9){{
+                    lifetime=30;
+                }};
                 reload=5;
+                mirror=false;
             }});
             abilities.add(new RegenAbility());
             abilities.add(new RepairFieldAbility(1,10,96));
@@ -676,6 +680,7 @@ public class ExampleJavaMod extends Mod{
 
 
         ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 2f, 3){{
+            generator=new SerpuloPlanetGenerator();
             new NoiseMesh(Planets.serpulo,1,1,Color.sky,
                     1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
