@@ -687,11 +687,16 @@ public class ExampleJavaMod extends Mod{
                     1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
         }};
-        new SectorPreset("testSector", ModPlanets.planetEee, 15);
-        new SectorPreset("t1",ModPlanets.planetEee,0);
+        ModSectorPresets.t1=new SectorPreset("t1",ModPlanets.planetEee,0){{
+            alwaysUnlocked=true;
+        }};
+        ModSectorPresets.testSector=new SectorPreset("testSector", ModPlanets.planetEee, 1);
 
 
         nodeRoot("eee",Blocks.coreShard,()->{
+            node(ModSectorPresets.t1,()->{
+                node(ModSectorPresets.testSector);
+            });
             node(Blocks.mechanicalDrill,()->{
                 node(Blocks.graphitePress,()->{
                     node(Blocks.pneumaticDrill,()->{
