@@ -8,12 +8,15 @@ import mindustry.content.*;
 import mindustry.entities.Effect;
 import mindustry.entities.UnitSorts;
 import mindustry.entities.abilities.MoveEffectAbility;
+import mindustry.entities.abilities.RegenAbility;
+import mindustry.entities.abilities.RepairFieldAbility;
 import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
+import mindustry.gen.TankUnit;
 import mindustry.gen.UnitEntity;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.HexMesh;
@@ -172,9 +175,10 @@ public class ExampleJavaMod extends Mod{
 
 
         ModBlocks.fluidThermalEnergyGenerator=new ConsumeGenerator("fluid-thermal-energy-generator"){{
+            requirements(Category.power,with(Items.titanium,20,Items.silicon,10,ModItems.zinc,10));
             powerProduction=7f;
             size=2;
-            consume(new ConsumeLiquidFlammable());
+            consumesLiquid(Liquids.slag);
         }};
 
 
@@ -193,7 +197,6 @@ public class ExampleJavaMod extends Mod{
                 makeFire=true;
                 lifetime=160;
             }},Items.surgeAlloy,new BasicBulletType(0,0){{
-
             }});
             displayAmmoMultiplier=true;
             range=160;
@@ -513,12 +516,12 @@ public class ExampleJavaMod extends Mod{
             inaccuracy=0.1f;
             size=3;
             requirements(Category.turret,with(Items.titanium,100,Items.graphite,80,ModItems.zinc,20,ModItems.siliconSteel,20));
-            range=240;
-            reload=16;
-            maxAmmo=50;
+            range=280;
+            reload=15;
+            maxAmmo=30;
             drawer=new DrawTurret(){{parts.addAll();}};
             ammo(Items.titanium,new BasicBulletType(6f,25){{
-                lifetime=50;
+                lifetime=60;
                 width=12f;
                 hitSize=20;
                 shootEffect=new MultiEffect(new Effect[]{Fx.shootBigColor,Fx.colorSparkBig});
@@ -532,7 +535,7 @@ public class ExampleJavaMod extends Mod{
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 buildingDamageMultiplier=0.5f;
             }},Items.thorium,new BasicBulletType(6f,30){{
-                lifetime=50;
+                lifetime=60;
                 width=12f;
                 hitSize=20;
                 shootEffect=new MultiEffect(new Effect[]{Fx.shootBigColor,Fx.colorSparkBig});
@@ -545,6 +548,25 @@ public class ExampleJavaMod extends Mod{
                 hitColor=backColor=trailColor=Pal.thoriumAmmoBack;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 buildingDamageMultiplier=0.5f;
+            }},ModItems.zinc,new BasicBulletType(6f,20){{
+                lifetime=60;
+                width=12f;
+                hitSize=20;
+                shootEffect=new MultiEffect(new Effect[]{Fx.shootBigColor,Fx.colorSparkBig});
+                ammoMultiplier=3;
+                trailWidth=2.8f;
+                trailLength=10;
+                pierceCap=2;
+                pierce=true;
+                pierceBuilding=true;
+                hitColor=backColor=trailColor=Pal.siliconAmmoBack;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                buildingDamageMultiplier=0.5f;
+                fragBullet=new LightningBulletType(){{
+                    lightningColor=Color.sky;
+                    lightningLength=5;
+                    lightningDamage=10;
+                }};
             }});
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
@@ -625,14 +647,31 @@ public class ExampleJavaMod extends Mod{
 
 
         ModUnits.unitType1=new UnitType("unit-type-1"){{
-            constructor=UnitEntity::create;
+            canBoost=true;
+            constructor=TankUnit::create;
             weapons.add(new Weapon("tutorial-weapon"){{
                 bullet = new BasicBulletType(2.5f, 9);
                 reload=5;
             }});
             abilities.add(new ShieldArcAbility());
-            speed=3f;
-            health=85;
+            abilities.add(new RepairFieldAbility(1,10,80));
+            speed=1.5f;
+            health=100;
+        }};
+        ModUnits.unitType2=new UnitType("unit-type-2"){{
+            canBoost=true;
+            constructor=TankUnit::create;
+            weapons.add(new Weapon("artillery-weapon"){{
+                bullet=new ArtilleryBulletType(2.8f, 9);
+                reload=5;
+            }});
+            abilities.add(new RegenAbility());
+            abilities.add(new RepairFieldAbility(1,10,96));
+            buildSpeed=0.75f;
+            mineSpeed=2f;
+            mineTier=2;
+            speed=1.2f;
+            health=150;
         }};
 
 
@@ -642,7 +681,7 @@ public class ExampleJavaMod extends Mod{
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
         }};
         new SectorPreset("testSector", ModPlanets.planetEee, 15);
-        new SectorPreset("t1",ModPlanets.planetEee,154);
+        new SectorPreset("t1",ModPlanets.planetEee,54);
 
 
         nodeRoot("eee",Blocks.coreShard,()->{
