@@ -666,6 +666,8 @@ public class ExampleJavaMod extends Mod{
                 bullet=new ArtilleryBulletType(2.8f, 9){{
                     lifetime=30;
                 }};
+                x=0;
+                y=0;
                 reload=5;
                 mirror=false;
             }});
@@ -686,7 +688,7 @@ public class ExampleJavaMod extends Mod{
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
         }};
         new SectorPreset("testSector", ModPlanets.planetEee, 15);
-        new SectorPreset("t1",ModPlanets.planetEee,54);
+        new SectorPreset("t1",ModPlanets.planetEee,0);
 
 
         nodeRoot("eee",Blocks.coreShard,()->{
