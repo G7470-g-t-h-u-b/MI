@@ -658,6 +658,7 @@ public class ExampleJavaMod extends Mod{
             consumePower(6f);
             size=2;
             reload=5;
+            rotateSpeed=2.8f;
             range=150;
             drawer=new DrawTurret(){{parts.addAll();}};
             shootType=new LaserBoltBulletType(6.2f,15){{
