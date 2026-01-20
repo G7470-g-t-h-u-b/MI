@@ -206,8 +206,7 @@ public class ExampleJavaMod extends Mod{
                 splashDamageRadius=2.5f;
                 makeFire=true;
                 lifetime=160;
-            }},Items.surgeAlloy,new BasicBulletType(0,0){{
-            }});
+            }},Items.surgeAlloy,new BasicBulletType(0,0){{}});
             displayAmmoMultiplier=true;
             range=160;
             shoot = new ShootPattern();
@@ -652,6 +651,21 @@ public class ExampleJavaMod extends Mod{
                 hitSize=4f;
                 range=176;
                 maxRange=28;
+            }};
+        }};
+        ModTurrets.powerTurret6=new PowerTurret("power-turret-5"){{
+            requirements(Category.turret,with(Items.titanium,45,ModItems.siliconSteel,20,Items.metaglass,10));
+            consumePower(6f);
+            size=2;
+            reload=5;
+            range=150;
+            drawer=new DrawTurret(){{parts.addAll();}};
+            shootType=new LaserBoltBulletType(6.2f,15){{
+                lifetime=60;
+                healPercent=6.5f;
+                collidesTeam=true;
+                backColor=Pal.heal;
+                frontColor=Color.white;
             }};
         }};
 
