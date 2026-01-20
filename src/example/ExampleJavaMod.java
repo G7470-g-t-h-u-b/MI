@@ -32,6 +32,7 @@ import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
@@ -146,6 +147,14 @@ public class ExampleJavaMod extends Mod{
             consumeLiquids(LiquidStack.with(Liquids.hydrogen,0.25f));
             consumeItems(ItemStack.with(ModItems.rock,2));
             outputItems=ItemStack.with(Items.silicon,1);
+        }};
+        ModBlocks.largeThoriumReactor=new NuclearReactor("large-thorium-reactor"){{
+            size=4;
+            health=850;
+            requirements(Category.power,with(Items.titanium,30,Items.silicon,20,Items.graphite,10,ModItems.siliconSteel,15));
+            powerProduction=18f;
+            consumeItem(Items.thorium);
+            consumeLiquid(Liquids.cryofluid,heating/coolantPower*1.2f).update(false);
         }};
         ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
             health=200;
@@ -578,7 +587,7 @@ public class ExampleJavaMod extends Mod{
             range=800;
             unitSort=UnitSorts.strongest;
             consumesPower=true;
-            consumePower(12F);
+            consumePower(18F);
             maxAmmo=120;
 //            shootSound=Sounds.malignShoot;
 //            loopSound=Sounds.spellLoop;
@@ -655,7 +664,7 @@ public class ExampleJavaMod extends Mod{
                 reload=5;
             }});
             abilities.add(new ShieldArcAbility());
-            abilities.add(new RepairFieldAbility(1,10,80));
+            abilities.add(new RepairFieldAbility(1,1,80));
             speed=1.5f;
             health=100;
         }};
@@ -672,7 +681,7 @@ public class ExampleJavaMod extends Mod{
                 mirror=false;
             }});
             abilities.add(new RegenAbility());
-            abilities.add(new RepairFieldAbility(1,10,96));
+            abilities.add(new RepairFieldAbility(1,1,96));
             buildSpeed=0.75f;
             mineSpeed=2f;
             mineTier=2;
