@@ -16,6 +16,7 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
+import mindustry.gen.Sounds;
 import mindustry.gen.TankUnit;
 import mindustry.gen.UnitEntity;
 import mindustry.graphics.Pal;
@@ -557,7 +558,7 @@ public class ExampleJavaMod extends Mod{
                 hitColor=backColor=trailColor=Pal.thoriumAmmoBack;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 buildingDamageMultiplier=0.5f;
-            }},ModItems.zinc,new BasicBulletType(6f,20){{
+            }},ModItems.siliconSteel,new BasicBulletType(6f,20){{
                 lifetime=60;
                 width=12f;
                 hitSize=20;
@@ -565,21 +566,92 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=3;
                 trailWidth=2.8f;
                 trailLength=10;
-                pierceCap=2;
+                pierceCap=3;
                 pierce=true;
                 pierceBuilding=true;
                 hitColor=backColor=trailColor=Pal.siliconAmmoBack;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 buildingDamageMultiplier=0.5f;
                 fragBullet=new LightningBulletType(){{
-                    lightningColor=Color.sky;
+                    lightningColor=Color.white;
                     lightningLength=5;
                     lightningDamage=10;
                 }};
             }});
         }};
+        ModTurrets.blaze=new ItemTurret("blaze"){{
+            inaccuracy=0.5f;
+            requirements(Category.turret,with(Items.copper,30,Items.graphite,20,Items.titanium,10));
+            reload=2;
+            recoil=1;
+            coolantMultiplier=3;
+            range=180;
+            shootCone=45;
+            ammoUseEffect=Fx.none;
+            health=380;
+            shootSound=Sounds.flame;
+            coolant=this.consumeCoolant(0.15F);
+            ammo(Items.coal,new BulletType(5,22){{
+                ammoMultiplier=5;
+                lifetime=50;
+                hitSize=7.2f;
+                pierce=true;
+                pierceCap=-1;
+                statusDuration=300;
+                shootEffect=Fx.shootSmallFlame;
+                hitEffect=Fx.hitFlameSmall;
+                despawnEffect=Fx.none;
+                status=StatusEffects.burning;
+                hittable=false;
+                keepVelocity=false;
+                drawer=new DrawTurret(){{parts.addAll();}};
+            }},Items.pyratite,new BulletType(5.2f,35){{
+                ammoMultiplier=5;
+                lifetime=50;
+                hitSize=7.2f;
+                pierce=true;
+                pierceCap=-1;
+                statusDuration=600;
+                shootEffect=Fx.shootSmallFlame;
+                hitEffect=Fx.hitFlameSmall;
+                despawnEffect=Fx.none;
+                status=StatusEffects.burning;
+                hittable=false;
+                keepVelocity=false;
+            }},Items.blastCompound,new BulletType(5.2f,55){{
+                ammoMultiplier=5;
+                lifetime=50;
+                hitSize=7.5f;
+                pierce=true;
+                pierceCap=-1;
+                splashDamage=35;
+                splashDamageRadius=32;
+                statusDuration=900;
+                shootEffect=Fx.shootSmallFlame;
+                hitEffect=Fx.hitFlameSmall;
+                despawnEffect=Fx.none;
+                status=StatusEffects.burning;
+                hittable=false;
+                keepVelocity=false;
+            }},ModItems.experimentalExplosives,new BulletType(5.2f,65){{
+                ammoMultiplier=5;
+                lifetime=50;
+                hitSize=7.5f;
+                pierce=true;
+                pierceCap=-1;
+                splashDamage=40;
+                splashDamageRadius=40;
+                statusDuration=900;
+                shootEffect=Fx.shootSmallFlame;
+                hitEffect=Fx.hitFlameSmall;
+                despawnEffect=Fx.none;
+                status=StatusEffects.burning;
+                hittable=false;
+                keepVelocity=false;
+            }});
+        }};
         ModTurrets.frost=new LiquidTurret("frost"){{
-            inaccuracy=1;
+            inaccuracy=3;
             xRand=0.5f;
             size=4;
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
@@ -644,10 +716,10 @@ public class ExampleJavaMod extends Mod{
                 parts.addAll();
             }};
             shootType= new LaserBulletType(45){{
-                shootEffect = Fx.instShoot;
+                shootEffect = Fx.lancerLaserShoot;
                 smokeEffect = Fx.smokeCloud;
                 hitEffect = Fx.hitLancer;
-                colors= new Color[]{Color.HSVtoRGB(210,70,100)};
+                colors= new Color[]{Color.HSVtoRGB(210,50,100)};
                 hitSize=4f;
                 range=176;
                 maxRange=28;
@@ -684,6 +756,7 @@ public class ExampleJavaMod extends Mod{
                 damage=22;
                 lightningLength=32;
                 buildingDamageMultiplier=0.25f;
+                healPercent=6;
                 lightningType=new BulletType(90,2){{
                     lifetime=Fx.lightning.lifetime;
                     hitEffect=Fx.hitLancer;

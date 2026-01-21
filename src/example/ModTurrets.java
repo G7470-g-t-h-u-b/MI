@@ -11,6 +11,7 @@ public class ModTurrets {
     public static ItemTurret itemTurret5;
     public static ItemTurret ash;
     public static ItemTurret puncture;
+    public static ItemTurret blaze;
     public static LiquidTurret frost;
     public static PowerTurret powerTurret4;
     public static PowerTurret powerTurret6;
