@@ -799,6 +799,9 @@ public class ExampleJavaMod extends Mod{
                     node(ModTurrets.itemTurret2,()->{});
                 });
                 node(Blocks.arc,()->{
+                    node(ModTurrets.powerTurret6,()->{
+                        node(ModTurrets.powerTurret7);
+                    });
                     node(Blocks.wave,()->{});
                     node(Blocks.lancer,()->{
                         node(Blocks.foreshadow);
