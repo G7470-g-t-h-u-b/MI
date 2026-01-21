@@ -653,20 +653,43 @@ public class ExampleJavaMod extends Mod{
                 maxRange=28;
             }};
         }};
-        ModTurrets.powerTurret6=new PowerTurret("power-turret-5"){{
+        ModTurrets.powerTurret6=new PowerTurret("power-turret-6"){{
             requirements(Category.turret,with(Items.titanium,45,ModItems.siliconSteel,20,Items.metaglass,10));
             consumePower(6f);
             size=2;
             reload=5;
             rotateSpeed=2.8f;
-            range=150;
+            range=280;
             drawer=new DrawTurret(){{parts.addAll();}};
             shootType=new LaserBoltBulletType(6.2f,15){{
+                buildingDamageMultiplier=0.5f;
                 lifetime=60;
                 healPercent=6.5f;
                 collidesTeam=true;
                 backColor=Pal.heal;
                 frontColor=Color.white;
+            }};
+        }};
+        ModTurrets.powerTurret7=new PowerTurret("power-turret-7"){{
+            health=180;
+            requirements(Category.turret,with(Items.copper,45,Items.lead,20,Items.titanium,10));
+            consumePower(4f);
+            size=1;
+            reload=30f;
+            range=120f;
+            shootEffect=Fx.lightningShoot;
+            coolant=consumeCoolant(0.1F);
+            drawer=new DrawTurret(){{parts.addAll();}};
+            shootType=new LightningBulletType(){{
+                damage=22;
+                lightningLength=32;
+                buildingDamageMultiplier=0.25f;
+                lightningType=new BulletType(90,2){{
+                    lifetime=Fx.lightning.lifetime;
+                    hitEffect=Fx.hitLancer;
+                    lightColor=Pal.heal;
+                    status=StatusEffects.shocked;
+                }};
             }};
         }};
 

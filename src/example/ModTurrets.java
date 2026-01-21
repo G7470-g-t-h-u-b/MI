@@ -14,4 +14,5 @@ public class ModTurrets {
     public static LiquidTurret frost;
     public static PowerTurret powerTurret4;
     public static PowerTurret powerTurret6;
+    public static PowerTurret powerTurret7;
 }
