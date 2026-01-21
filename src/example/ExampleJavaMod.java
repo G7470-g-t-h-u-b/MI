@@ -589,7 +589,6 @@ public class ExampleJavaMod extends Mod{
             shootCone=45;
             ammoUseEffect=Fx.none;
             health=380;
-            shootSound=Sounds.flame;
             coolant=this.consumeCoolant(0.15F);
             ammo(Items.coal,new BulletType(5,22){{
                 ammoMultiplier=5;
