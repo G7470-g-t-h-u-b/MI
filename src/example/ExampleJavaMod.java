@@ -591,6 +591,7 @@ public class ExampleJavaMod extends Mod{
             health=380;
             coolant=this.consumeCoolant(0.15F);
             ammo(Items.coal,new BulletType(5,22){{
+                size=2;
                 ammoMultiplier=5;
                 lifetime=50;
                 hitSize=7.2f;
@@ -606,7 +607,7 @@ public class ExampleJavaMod extends Mod{
                 drawer=new DrawTurret(){{parts.addAll();}};
             }},Items.pyratite,new BulletType(5.2f,35){{
                 ammoMultiplier=5;
-                lifetime=50;
+                lifetime=120;
                 hitSize=7.2f;
                 pierce=true;
                 pierceCap=-1;
@@ -619,7 +620,7 @@ public class ExampleJavaMod extends Mod{
                 keepVelocity=false;
             }},Items.blastCompound,new BulletType(5.2f,55){{
                 ammoMultiplier=5;
-                lifetime=50;
+                lifetime=120;
                 hitSize=7.5f;
                 pierce=true;
                 pierceCap=-1;
@@ -634,7 +635,7 @@ public class ExampleJavaMod extends Mod{
                 keepVelocity=false;
             }},ModItems.experimentalExplosives,new BulletType(5.2f,65){{
                 ammoMultiplier=5;
-                lifetime=50;
+                lifetime=120;
                 hitSize=7.5f;
                 pierce=true;
                 pierceCap=-1;
