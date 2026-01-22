@@ -30,6 +30,7 @@ import mindustry.ui.dialogs.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
+import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
@@ -126,6 +127,7 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.rockDrilling=new GenericCrafter("rock-drilling"){{
             health=240;
             size=3;
+            craftTime=60;
             requirements(Category.crafting,with(Items.copper,55,Items.titanium,40,Items.graphite,20));
             consumePower(3f);
             consumeLiquid(Liquids.water,0.5f);
@@ -136,9 +138,9 @@ public class ExampleJavaMod extends Mod{
             size=2;
             craftTime=30f;
             requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
-            consumeItems(ItemStack.with(ModItems.rock,2));
+            consumeItems(ItemStack.with(ModItems.rock,1));
             consumePower(2f);
-            outputLiquid=new LiquidStack(ModItems.lava,0.2f);
+            outputLiquid=new LiquidStack(ModItems.lava,0.4f);
         }};
         ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
             health=200;
@@ -163,9 +165,9 @@ public class ExampleJavaMod extends Mod{
             craftTime=60f;
             requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
             consumePower(3.25f);
-            consumeItems(ItemStack.with(Items.scrap,2));
-            consumeLiquids(LiquidStack.with(ModItems.lava,0.25f));
-            results=ItemStack.with(new Object[]{Items.silicon,1,Items.thorium,1,ModItems.zinc,1,ModItems.tin,2});
+            consumeItems(ItemStack.with(Items.scrap,1));
+            consumeLiquids(LiquidStack.with(ModItems.lava,0.2f));
+            results=ItemStack.with(new Object[]{Items.thorium,1,ModItems.zinc,1,ModItems.tin,2,ModItems.gold,1});
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
@@ -197,6 +199,17 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.oreZinc=new OreBlock("ore-zinc",ModItems.zinc);
         ModBlocks.oreTin=new OreBlock("ore-tin",ModItems.tin);
         ModBlocks.oreUranium=new OreBlock("ore-uranium",ModItems.uranium);
+
+
+        ModBlocks.fastItemBridge=new BufferedItemBridge("titanium-conveyor-bridge"){{
+            requirements(Category.distribution,with(Items.titanium,5,Items.copper,5,Items.silicon,5));
+            health=60;
+            range=8;
+            speed=74;
+            fadeIn=moveArrows=true;
+            arrowSpacing=6;
+            bufferCapacity=15;
+        }};
 
 
         ModTurrets.itemTurret1=new ItemTurret("item-turret-1"){{
@@ -765,6 +778,23 @@ public class ExampleJavaMod extends Mod{
                 }};
             }};
         }};
+        ModTurrets.disaster=new PowerTurret("disaster"){{
+            size=3;
+            requirements(Category.turret,with(Items.thorium,40,Items.titanium,35,Items.silicon,20,Items.metaglass,20));
+            consumePower(18f);
+            shootType=new LaserBulletType(){{
+                shake=3;
+                length=460;
+                width=75;
+                lifetime=60;
+                damage=560;
+                range=460;
+                chargeEffect=Fx.greenLaserCharge;
+                colors=new Color[]{Pal.heal.cpy().a(0.4F), Pal.heal, Color.white};
+                reload=90;
+            }};
+            coolant=consumeCoolant(0.3F);
+        }};
 
 
         ModUnits.unitType1=new UnitType("unit-type-1"){{
@@ -882,7 +912,9 @@ public class ExampleJavaMod extends Mod{
                             node(ModTurrets.frost);
                             node(ModTurrets.ash);
                         });
-                        node(Blocks.meltdown);
+                        node(Blocks.meltdown,()->{
+                            node(ModTurrets.disaster);
+                        });
                     });
                     node(ModTurrets.powerTurret4,()->{});
                 });

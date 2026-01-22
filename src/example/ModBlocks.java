@@ -1,6 +1,7 @@
 package example;
 
 import mindustry.world.Block;
+import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
@@ -24,5 +25,6 @@ public class ModBlocks {
     public static ConsumeGenerator fluidThermalEnergyGenerator;
     public static Separator highSpeedDisassembler;
     public static BeamNode laserEnergyNode;
+    public static BufferedItemBridge fastItemBridge;
 }
 //

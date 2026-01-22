@@ -16,4 +16,5 @@ public class ModTurrets {
     public static PowerTurret powerTurret4;
     public static PowerTurret powerTurret6;
     public static PowerTurret powerTurret7;
+    public static PowerTurret disaster;
 }
