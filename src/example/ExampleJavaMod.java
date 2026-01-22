@@ -38,6 +38,7 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.draw.DrawTurret;
+import mindustry.world.meta.BuildVisibility;
 
 import static mindustry.content.TechTree.*;
 import static mindustry.type.ItemStack.with;
@@ -232,7 +233,7 @@ public class ExampleJavaMod extends Mod{
 
 
         ModBlocks.outpostCore=new CoreBlock("outpost-core"){{
-            requirements(Category.effect,with(Items.titanium,2000,Items.copper,1800,Items.silicon,1200));
+            requirements(Category.effect, BuildVisibility.shown,with(Items.titanium,2000,Items.copper,1800,Items.silicon,1200));
             health=1200;
             size=3;
             unitType = UnitTypes.alpha;
