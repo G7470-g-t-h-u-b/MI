@@ -16,9 +16,7 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
-import mindustry.gen.Sounds;
 import mindustry.gen.TankUnit;
-import mindustry.gen.UnitEntity;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.HexMesh;
 import mindustry.graphics.g3d.NoiseMesh;
@@ -38,7 +36,7 @@ import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
-import mindustry.world.consumers.ConsumeLiquidFlammable;
+import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.draw.DrawTurret;
 
 import static mindustry.content.TechTree.*;
@@ -93,6 +91,18 @@ public class ExampleJavaMod extends Mod{
         }};
         ModItems.iron=new Item("iron",Color.HSVtoRGB(233,16,25));
         ModItems.frostAlloy=new Item("frost-alloy",Color.HSVtoRGB(196,46,89));
+        ModItems.kerosene=new Liquid("kerosene",Color.HSVtoRGB(29,43,97)){{
+            flammability=1.2f;
+            explosiveness=1.2f;
+        }};//煤油
+        ModItems.diesel=new Liquid("diesel",Color.HSVtoRGB(32,63,91)){{
+            flammability=0.2f;
+            explosiveness=0.2f;
+        }};//柴油
+        ModItems.gasoline=new Liquid("gasoline",Color.HSVtoRGB(32,81,86)){{
+            flammability=1;
+            explosiveness=0.9f;
+        }};//汽油
 
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
@@ -160,7 +170,7 @@ public class ExampleJavaMod extends Mod{
             consumeLiquid(Liquids.cryofluid,heating/coolantPower*1.2f).update(false);
         }};
         ModBlocks.highSpeedDisassembler=new Separator("high-speed-disassembler"){{
-            health=200;
+            health=240;
             size=3;
             craftTime=60f;
             requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
@@ -168,6 +178,15 @@ public class ExampleJavaMod extends Mod{
             consumeItems(ItemStack.with(Items.scrap,1));
             consumeLiquids(LiquidStack.with(ModItems.lava,0.2f));
             results=ItemStack.with(new Object[]{Items.thorium,1,ModItems.zinc,1,ModItems.tin,2,ModItems.gold,1});
+        }};
+        ModBlocks.petroleumFractionatingTower=new GenericCrafter("petroleum-fractionating-tower"){{
+            health=240;
+            size=3;
+            craftTime=60f;
+            requirements(Category.crafting,with(Items.titanium,70,Items.silicon,30,Items.plastanium,20));
+            consumePower(4);
+            consumeLiquids(LiquidStack.with(Liquids.oil));
+            outputLiquids = LiquidStack.with(ModItems.diesel,0.2,ModItems.kerosene,0.2,ModItems.gasoline,0.2);
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
@@ -204,11 +223,19 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.fastItemBridge=new BufferedItemBridge("titanium-conveyor-bridge"){{
             requirements(Category.distribution,with(Items.titanium,5,Items.copper,5,Items.silicon,5));
             health=60;
-            range=8;
+            range=10;
             speed=74;
             fadeIn=moveArrows=true;
             arrowSpacing=6;
             bufferCapacity=15;
+        }};
+
+
+        ModBlocks.outpostCore=new CoreBlock("outpost-core"){{
+            requirements(Category.effect,with(Items.titanium,2000,Items.copper,1800,Items.silicon,1200));
+            health=1200;
+            size=3;
+            unitType = UnitTypes.alpha;
         }};
 
 
@@ -782,13 +809,13 @@ public class ExampleJavaMod extends Mod{
             size=3;
             requirements(Category.turret,with(Items.thorium,40,Items.titanium,35,Items.silicon,20,Items.metaglass,20));
             consumePower(18f);
+            range=400;
             shootType=new LaserBulletType(){{
                 shake=3;
                 length=460;
                 width=75;
                 lifetime=60;
                 damage=560;
-                range=460;
                 chargeEffect=Fx.greenLaserCharge;
                 colors=new Color[]{Pal.heal.cpy().a(0.4F), Pal.heal, Color.white};
                 reload=90;
@@ -947,6 +974,7 @@ public class ExampleJavaMod extends Mod{
                     nodeProduce(Liquids.hydrogen,()->{});
                 });
             });
+            node(ModBlocks.outpostCore);
         });
     }
 }
