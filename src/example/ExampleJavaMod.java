@@ -879,7 +879,9 @@ public class ExampleJavaMod extends Mod{
                 });
             });
             node(Blocks.conveyor,()->{
-                node(Blocks.titaniumConveyor,()->{});
+                node(Blocks.titaniumConveyor,()->{
+                    node(ModBlocks.fastItemBridge);
+                });
             });
             nodeProduce(ModItems.experimentalExplosives,()->{});
             node(ModBlocks.laboratory, () ->{});
