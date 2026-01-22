@@ -185,7 +185,7 @@ public class ExampleJavaMod extends Mod{
             craftTime=60f;
             requirements(Category.crafting,with(Items.titanium,70,Items.silicon,30,Items.plastanium,20));
             consumePower(4);
-            consumeLiquids(LiquidStack.with(Liquids.oil));
+            consumeLiquids(LiquidStack.with(Liquids.oil,1));
             outputLiquids = LiquidStack.with(ModItems.diesel,0.2,ModItems.kerosene,0.2,ModItems.gasoline,0.2);
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
@@ -885,6 +885,9 @@ public class ExampleJavaMod extends Mod{
                         node(Blocks.kiln,()->{});
                         node(ModBlocks.siliconSteelMixer,()->{//硅钢混合机
                             node(ModBlocks.electrolyticSeparator,()->{});//电解分离机
+                            node(Blocks.plastaniumCompressor,()->{
+                                node(ModBlocks.petroleumFractionatingTower);
+                            });
                         });
                         node(Blocks.pulverizer,()->{
                             node(Blocks.melter,()->{
@@ -961,6 +964,11 @@ public class ExampleJavaMod extends Mod{
                     nodeProduce(Items.sand,()->{
                         nodeProduce(Items.scrap,()->{});
                         nodeProduce(ModItems.rock,()->{});
+                    });
+                    nodeProduce(Liquids.oil,()->{
+                        nodeProduce(ModItems.gasoline,()->{});
+                        nodeProduce(ModItems.diesel,()->{});
+                        nodeProduce(ModItems.kerosene,()->{});
                     });
                     nodeProduce(Items.graphite,()->{});
                     nodeProduce(Items.silicon,()->{
