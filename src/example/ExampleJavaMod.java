@@ -21,8 +21,7 @@ import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
 import mindustry.gen.TankUnit;
 import mindustry.graphics.Pal;
-import mindustry.graphics.g3d.HexMesh;
-import mindustry.graphics.g3d.NoiseMesh;
+import mindustry.graphics.g3d.*;
 import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.mod.*;
 import mindustry.type.*;
@@ -976,12 +975,18 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
-        ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 2f, 3){{
+        ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
             generator=new SerpuloPlanetGenerator();
             new NoiseMesh(Planets.serpulo,1,1,Color.sky,
                     1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
+            cloudMeshLoader = () -> new MultiMesh(new GenericMesh[]{new HexSkyMesh(this, 11, 0.15F, 0.13F, 5, (new Color()).set(Pal.spore).mul(0.9F).a(0.75F), 2, 0.45F, 0.9F, 0.38F), new HexSkyMesh(this, 1, 0.6F, 0.16F, 5, Color.white.cpy().lerp(Pal.spore, 0.55F).a(0.75F), 2, 0.45F, 1.0F, 0.41F)});
             alwaysUnlocked=true;
+            atmosphereRadIn=0.02f;
+            atmosphereRadOut=0.3f;
+            landCloudColor=Color.HSVtoRGB(210,44,92);
+            allowSectorInvasion=true;
+            iconColor=Color.HSVtoRGB(210,44,92);
         }};
         ModSectorPresets.t1=new SectorPreset("testSector",ModPlanets.planetEee,0){{
             alwaysUnlocked=true;
