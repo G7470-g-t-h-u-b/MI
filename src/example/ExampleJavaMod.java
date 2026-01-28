@@ -1142,106 +1142,44 @@ public class ExampleJavaMod extends Mod{
                 });
             });
         });
-        nodeRoot("eee_x", Blocks.coreShard, () -> {
-            node(ModSectorPresets.t1, () -> {
-                node(ModSectorPresets.testSector, () -> {
-                    node(ModSectorPresets.t174);
-                });
-            });
-            node(Blocks.mechanicalDrill, () -> {
-                node(Blocks.graphitePress, () -> {
-                    node(Blocks.pneumaticDrill, () -> {
-                        node(ModBlocks.smallDrillBit, () -> {
-                        });
-                        node(Blocks.laserDrill, () -> {
-                        });
-                    });
-                    node(Blocks.siliconSmelter, () -> {
-                        node(Blocks.illuminator, () -> {
-                        });
-                        node(Blocks.kiln, () -> {
-                        });
-                        node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
-                            node(ModBlocks.electrolyticSeparator, () -> {
-                            });//电解分离机
-                            node(Blocks.plastaniumCompressor, () -> {
-                                node(ModBlocks.petroleumFractionatingTower);
-                            });
-                        });
-                        node(Blocks.pulverizer, () -> {
-                            node(Blocks.melter, () -> {
-                                node(Blocks.separator, () -> {
-                                });
-                                node(ModBlocks.rockDrilling, () -> {
-                                    node(ModBlocks.highTemperatureSmeltingPlant);
-                                    node(ModBlocks.highTemperatureMeltingFurnace, () -> {
-                                        node(ModBlocks.highSpeedDisassembler);
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-                node(Blocks.combustionGenerator, () -> {
-                    node(ModBlocks.laserEnergyNode, () -> {//激光电力节点
-                        node(Blocks.steamGenerator, () -> {
-                            node(ModBlocks.fluidThermalEnergyGenerator, () -> {
-                                node(ModBlocks.dieselGenerator);
-                            });
-                        });//涡轮发电机
-                    });
-                });
-            });
-            node(Blocks.conveyor, () -> {
-                node(Blocks.titaniumConveyor, () -> {
-                    node(ModBlocks.fastItemBridge);
-                });
-            });
-            nodeProduce(ModItems.experimentalExplosives, () -> {
-            });
-            node(ModBlocks.laboratory, () -> {
-            });
-            node(Blocks.duo, () -> {
-                node(Blocks.copperWall, () -> {
-                    node(Blocks.copperWallLarge, () -> {
-                        node(Blocks.titaniumWall, () -> {
-                            node(Blocks.titaniumWallLarge, () -> {
-                            });
-                        });
-                    });
-                });
-                node(Blocks.hail, () -> {
-                    node(Blocks.salvo, () -> {
-                        node(ModTurrets.puncture);
-                    });
-                    node(Blocks.scorch, () -> {
-                    });
-                });
-                node(Blocks.scatter, () -> {
-                });
-                node(ModTurrets.itemTurret3, () -> {
-                    node(ModTurrets.itemTurret2, () -> {
-                    });
-                });
-                node(Blocks.arc, () -> {
-                    node(ModTurrets.powerTurret7, () -> {
-                        node(ModTurrets.powerTurret6);
-                    });
-                    node(Blocks.wave, () -> {
-                    });
-                    node(Blocks.lancer, () -> {
-                        node(Blocks.foreshadow);
-                        node(ModTurrets.itemTurret5, () -> {
+        nodeRoot("",Blocks.coreShard,()->{
+            node(ModTurrets.itemTurret3,()->{
+                node(ModTurrets.puncture,()->{});
+                node(ModTurrets.itemTurret2);
+                node(ModTurrets.powerTurret7,()->{
+                    node(ModTurrets.powerTurret6);
+                    node(ModTurrets.powerTurret4,()->{
+                        node(ModTurrets.itemTurret5,()->{
                             node(ModTurrets.frost);
+                            node(ModTurrets.disaster);
                             node(ModTurrets.ash);
                         });
-                        node(Blocks.meltdown, () -> {
-                            node(ModTurrets.disaster);
-                        });
-                    });
-                    node(ModTurrets.powerTurret4, () -> {
                     });
                 });
+            });
+            node(Blocks.mechanicalDrill,()->{
+                node(ModBlocks.smallDrillBit);
+                node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
+                    node(ModBlocks.electrolyticSeparator, () -> {
+                    });//电解分离机
+                    node(Blocks.plastaniumCompressor, () -> {
+                        node(ModBlocks.petroleumFractionatingTower);
+                    });
+                    node(ModBlocks.rockDrilling, () -> {
+                        node(ModBlocks.highTemperatureSmeltingPlant);
+                        node(ModBlocks.highTemperatureMeltingFurnace, () -> {
+                            node(ModBlocks.highSpeedDisassembler);
+                        });
+                    });
+                });
+                node(ModBlocks.laserEnergyNode,()->{
+                    node(ModBlocks.fluidThermalEnergyGenerator,()->{
+                        node(ModBlocks.dieselGenerator);
+                    });
+                });
+            });
+            node(Blocks.titaniumConveyor,()->{
+                node(ModBlocks.fastItemBridge);
             });
             nodeProduce(Items.copper, () -> {
                 nodeProduce(Items.lead, () -> {
