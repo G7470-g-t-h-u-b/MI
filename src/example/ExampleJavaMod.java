@@ -14,6 +14,9 @@ import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.part.DrawPart;
+import mindustry.entities.part.HaloPart;
+import mindustry.entities.part.ShapePart;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
 import mindustry.gen.TankUnit;
@@ -37,7 +40,7 @@ import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.draw.DrawTurret;
+import mindustry.world.draw.*;
 import mindustry.world.meta.BuildVisibility;
 
 import static mindustry.content.TechTree.*;
@@ -126,6 +129,9 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.electrolyticSeparator=new GenericCrafter("electrolytic-separator"){{
             health=180;
             size=2;
+            drawer=new DrawMulti(
+                    new DrawDefault(),
+                    new DrawLiquidTile(Liquids.hydrogen,2) );
             requirements(Category.crafting,with(Items.titanium,30,Items.copper,20,ModItems.zinc,15));
             consumeLiquids(LiquidStack.with(Liquids.water,0.3f));
             consumePower(1f);
@@ -176,7 +182,7 @@ public class ExampleJavaMod extends Mod{
             craftTime=60f;
             requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
             consumePower(3.25f);
-            consumeItems(ItemStack.with(Items.scrap,1));
+//            consumeItems(ItemStack.with(Items.scrap,1));
             consumeLiquids(LiquidStack.with(ModItems.lava,0.2f));
             results=ItemStack.with(new Object[]{Items.thorium,1,ModItems.zinc,1,ModItems.tin,2,ModItems.gold,1});
         }};
@@ -208,10 +214,20 @@ public class ExampleJavaMod extends Mod{
 
 
         ModBlocks.fluidThermalEnergyGenerator=new ConsumeGenerator("fluid-thermal-energy-generator"){{
-            requirements(Category.power,with(Items.titanium,20,Items.silicon,10,ModItems.zinc,10));
+            requirements(Category.power,with(Items.copper,30,Items.lead,50,Items.titanium,20,Items.silicon,10,ModItems.zinc,10));
             powerProduction=7f;
             size=2;
-//            consumesLiquid(Liquids.slag);
+            drawer=new DrawMulti(new DrawDefault(),new DrawRegion("-cap"),
+                    new DrawLiquidRegion());
+            consumeLiquid(Liquids.slag,0.5f);
+        }};
+        ModBlocks.dieselGenerator=new ConsumeGenerator("diesel-generator"){{
+            requirements(Category.power,with(Items.copper,35,Items.lead,40,Items.titanium,20,ModItems.siliconSteel,20));
+            powerProduction=7;
+            size=2;
+            drawer=new DrawMulti(new DrawDefault(),new DrawRegion("-cap"),
+                    new DrawLiquidRegion());
+            consumeLiquid(ModItems.diesel,0.2f);
         }};
 
 
@@ -297,12 +313,12 @@ public class ExampleJavaMod extends Mod{
             size=2;
             reload=2;
             requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
-            ammo(Items.lead,new FlakBulletType(1.7f,12){{
+            ammo(Items.lead,new FlakBulletType(4f,12){{
                 hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=3;
                 lifetime=160;
 //                range=192;
-            }},ModItems.siliconSteel,new MissileBulletType(1.5f,11){{
+            }},ModItems.siliconSteel,new MissileBulletType(3.8f,11){{
                 hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
                 ammoMultiplier=5;
 //                range=192;
@@ -699,12 +715,17 @@ public class ExampleJavaMod extends Mod{
             range=800;
             unitSort=UnitSorts.strongest;
             consumesPower=true;
-            consumePower(18F);
+            consumePower(30F);
             maxAmmo=120;
+            final DrawPart.PartProgress haloProgress = DrawPart.PartProgress.warmup;
+            final float circleY = 20f;
+            final DrawPart.PartProgress circleProgress = DrawPart.PartProgress.warmup.delay(0.9F);
+            final float circleRad = 11.0F;
+            final float circleStroke = 1.6F;
+            final float haloY=-12f;
 //            shootSound=Sounds.malignShoot;
 //            loopSound=Sounds.spellLoop;
 //            loopSoundVolume=1.2f;
-            drawer=new DrawTurret(){{parts.addAll();}};
             ammo(Liquids.hydrogen,new FlakBulletType(8.5f,75f){{
                 buildingDamageMultiplier=0.5f;
                 lifetime=180f;
@@ -745,6 +766,55 @@ public class ExampleJavaMod extends Mod{
                 collideTerrain=false;
                 collidesTiles=false;
             }});
+            drawer=new DrawTurret(){{parts.addAll(new DrawPart[]{new ShapePart(){{
+                progress=haloProgress;
+                color=Color.sky;
+                circle=true;
+                hollow=true;
+                stroke=0;
+                strokeTo=2;
+                radius=10;
+                layer=10;
+                y=haloY;
+            }},new ShapePart(){{
+                progress=haloProgress;
+                color=Color.sky;
+                circle=false;
+                hollow=true;
+                stroke=0;
+                strokeTo=2;
+                radius=6;
+                sides=3;
+                layer=10;
+                y=haloY;
+                rotateSpeed=0;
+            }},new ShapePart(){{
+                progress=haloProgress;
+                color=Color.sky;
+                circle=false;
+                hollow=true;
+                stroke=0;
+                strokeTo=2;
+                radius=14;
+                layer=10;
+                y=haloY;
+                sides=3;
+            }},new HaloPart(){{
+                progress=haloProgress;
+                shapes=3;
+                tri=true;
+                color=Color.sky;
+                hollow=false;
+                stroke=0;
+                strokeTo=2;
+                triLength=6;
+                triLengthTo=10;
+                radius=16;
+                layer=10;
+                y=haloY;
+            }}
+            });
+            }};
         }};
         ModTurrets.powerTurret4 =new PowerTurret("power-turret-4"){{
             requirements(Category.turret,with(Items.copper,50,ModItems.siliconSteel,20,Items.titanium,15));
@@ -808,19 +878,60 @@ public class ExampleJavaMod extends Mod{
         }};
         ModTurrets.disaster=new PowerTurret("disaster"){{
             size=3;
+            final DrawPart.PartProgress haloProgress = DrawPart.PartProgress.warmup;
+            final float circleY = 14f;
+            final DrawPart.PartProgress circleProgress = DrawPart.PartProgress.warmup.delay(0.9F);
+            final float circleRad = 11.0F;
+            final float circleStroke = 1.6F;
+            final float haloY=-10f;
+            final float circleRotSpeed=3.5f;
             requirements(Category.turret,with(Items.thorium,40,Items.titanium,35,Items.silicon,20,Items.metaglass,20));
             consumePower(18f);
-            range=400;
+            range=450;
             shootType=new LaserBulletType(){{
-                shake=3;
+                shake=6;
                 length=460;
-                width=75;
-                lifetime=60;
+                width=70;
+                lifetime=55;
                 damage=560;
                 chargeEffect=Fx.greenLaserCharge;
-                colors=new Color[]{Pal.heal.cpy().a(0.4F), Pal.heal, Color.white};
+                colors=new Color[]{Pal.meltdownHit.cpy().a(0.4F), Pal.meltdownHit, Color.white};
                 reload=90;
             }};
+            drawer=new DrawTurret(){{parts.addAll(new DrawPart[]{new ShapePart(){{
+                progress=circleProgress;
+                y=circleY;
+                color=Pal.meltdownHit;
+                rotateSpeed=-circleRotSpeed;
+                hollow=true;
+                stroke=0;
+                strokeTo=circleStroke;
+                sides=4;
+                radius=6;
+            }},new ShapePart(){{
+                progress=circleProgress;
+                y=circleY;
+                color=Pal.meltdownHit;
+                rotateSpeed=circleRotSpeed;
+                hollow=true;
+                stroke=0;
+                strokeTo=circleStroke;
+                sides=4;
+                radius=6;
+            }},new HaloPart(){{
+                progress=circleProgress;
+                y=circleY;
+                color=Pal.meltdownHit;
+                rotateSpeed=circleRotSpeed;
+                hollow=true;
+                stroke=0;
+                strokeTo=circleStroke;
+                sides=4;
+                radius=6;
+            }}
+            });
+            }};
+            recoil=3;
             coolant=consumeCoolant(0.3F);
         }};
 
@@ -864,6 +975,7 @@ public class ExampleJavaMod extends Mod{
             new NoiseMesh(Planets.serpulo,1,1,Color.sky,
                     1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
+            alwaysUnlocked=true;
         }};
         ModSectorPresets.t1=new SectorPreset("t1",ModPlanets.planetEee,0){{
             alwaysUnlocked=true;
@@ -905,7 +1017,11 @@ public class ExampleJavaMod extends Mod{
                 });
                 node(Blocks.combustionGenerator,()->{
                     node(ModBlocks.laserEnergyNode,()->{//激光电力节点
-                        node(Blocks.steamGenerator,()->{});//涡轮发电机
+                        node(Blocks.steamGenerator,()->{
+                            node(ModBlocks.fluidThermalEnergyGenerator,()->{
+                                node(ModBlocks.dieselGenerator);
+                            });
+                        });//涡轮发电机
                     });
                 });
             });
@@ -983,7 +1099,6 @@ public class ExampleJavaMod extends Mod{
                     nodeProduce(Liquids.hydrogen,()->{});
                 });
             });
-            node(ModBlocks.outpostCore);
         });
     }
 }
