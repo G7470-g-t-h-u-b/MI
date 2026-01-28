@@ -824,11 +824,11 @@ public class ExampleJavaMod extends Mod{
                 shapes=3;
                 tri=true;
                 color=Color.sky;
-                hollow=false;
+                hollow=true;
                 stroke=0;
                 strokeTo=2;
-                triLength=6;
-                triLengthTo=10;
+                triLength=8;
+                triLengthTo=14;
                 radius=20;
                 y=haloY;
             }},new HaloPart(){{
@@ -837,11 +837,11 @@ public class ExampleJavaMod extends Mod{
                 shapes=3;
                 tri=true;
                 color=Color.sky;
-                hollow=false;
+                hollow=true;
                 stroke=0;
                 strokeTo=2;
-                triLength=6;
-                triLengthTo=10;
+                triLength=8;
+                triLengthTo=14;
                 radius=20;
                 y=haloY;
             }}
@@ -914,7 +914,7 @@ public class ExampleJavaMod extends Mod{
             final float circleY = 10f;
             final DrawPart.PartProgress circleProgress = DrawPart.PartProgress.warmup.delay(0.9F);
             final float circleRad = 11.0F;
-            final float circleStroke = 1.6F;
+            final float circleStroke = 1.4F;
             final float haloY=-10f;
             final float circleRotSpeed=3.5f;
             requirements(Category.turret,with(Items.thorium,40,Items.titanium,35,Items.silicon,20,Items.metaglass,20));
@@ -951,6 +951,8 @@ public class ExampleJavaMod extends Mod{
                 sides=4;
                 radius=6;
             }},new HaloPart(){{
+                triLength=8;
+                triLengthTo=10;
                 progress=circleProgress;
                 y=circleY;
                 tri=true;
