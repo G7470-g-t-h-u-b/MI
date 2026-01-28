@@ -710,6 +710,7 @@ public class ExampleJavaMod extends Mod{
             }});
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
+            recoil=6;
             inaccuracy=3;
             xRand=0.5f;
             size=4;
@@ -719,6 +720,7 @@ public class ExampleJavaMod extends Mod{
             consumesPower=true;
             consumePower(30F);
             maxAmmo=120;
+            final float circleRotSpeed=3.5f;
             final DrawPart.PartProgress haloProgress = DrawPart.PartProgress.warmup;
             final float circleY = 20f;
             final DrawPart.PartProgress circleProgress = DrawPart.PartProgress.warmup.delay(0.9F);
@@ -728,6 +730,7 @@ public class ExampleJavaMod extends Mod{
 //            shootSound=Sounds.malignShoot;
 //            loopSound=Sounds.spellLoop;
 //            loopSoundVolume=1.2f;
+            shootY=12;
             ammo(Liquids.hydrogen,new FlakBulletType(8.5f,75f){{
                 buildingDamageMultiplier=0.5f;
                 lifetime=180f;
@@ -769,6 +772,7 @@ public class ExampleJavaMod extends Mod{
                 collidesTiles=false;
             }});
             drawer=new DrawTurret(){{parts.addAll(new DrawPart[]{new ShapePart(){{
+                rotateSpeed=circleRotSpeed;
                 progress=haloProgress;
                 color=Color.sky;
                 circle=true;
@@ -776,7 +780,6 @@ public class ExampleJavaMod extends Mod{
                 stroke=0;
                 strokeTo=2;
                 radius=10;
-                layer=10;
                 y=haloY;
             }},new ShapePart(){{
                 progress=haloProgress;
@@ -787,10 +790,10 @@ public class ExampleJavaMod extends Mod{
                 strokeTo=2;
                 radius=6;
                 sides=3;
-                layer=10;
                 y=haloY;
                 rotateSpeed=0;
             }},new ShapePart(){{
+                rotateSpeed=circleRotSpeed;
                 progress=haloProgress;
                 color=Color.sky;
                 circle=false;
@@ -798,10 +801,10 @@ public class ExampleJavaMod extends Mod{
                 stroke=0;
                 strokeTo=2;
                 radius=14;
-                layer=10;
                 y=haloY;
                 sides=3;
             }},new HaloPart(){{
+                rotateSpeed=circleRotSpeed;
                 progress=haloProgress;
                 shapes=3;
                 tri=true;
@@ -812,7 +815,6 @@ public class ExampleJavaMod extends Mod{
                 triLength=6;
                 triLengthTo=10;
                 radius=16;
-                layer=10;
                 y=haloY;
             }}
             });
@@ -923,8 +925,9 @@ public class ExampleJavaMod extends Mod{
             }},new HaloPart(){{
                 progress=circleProgress;
                 y=circleY;
+                tri=true;
                 color=Pal.meltdownHit;
-                rotateSpeed=circleRotSpeed;
+                haloRotateSpeed=circleRotSpeed;
                 hollow=true;
                 stroke=0;
                 strokeTo=circleStroke;
@@ -979,10 +982,10 @@ public class ExampleJavaMod extends Mod{
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
             alwaysUnlocked=true;
         }};
-        ModSectorPresets.t1=new SectorPreset("t1",ModPlanets.planetEee,0){{
+        ModSectorPresets.t1=new SectorPreset("testSector",ModPlanets.planetEee,0){{
             alwaysUnlocked=true;
         }};
-        ModSectorPresets.testSector=new SectorPreset("testSector", ModPlanets.planetEee, 1);
+        ModSectorPresets.testSector=new SectorPreset("043", ModPlanets.planetEee, 12);
 
 
         nodeRoot("eee",Blocks.coreShard,()->{
