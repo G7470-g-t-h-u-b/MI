@@ -816,7 +816,7 @@ public class ExampleJavaMod extends Mod{
                 strokeTo=2;
                 triLength=6;
                 triLengthTo=10;
-                radius=16;
+                radius=8;
                 y=haloY;
             }},new HaloPart(){{
                 haloRotateSpeed=-circleRotSpeed;
@@ -827,10 +827,11 @@ public class ExampleJavaMod extends Mod{
                 hollow=true;
                 stroke=0;
                 strokeTo=2;
-                triLength=8;
+                triLength=0;
                 triLengthTo=14;
-                radius=20;
+                radius=8;
                 y=haloY;
+                haloRadius=20;
             }},new HaloPart(){{
                 haloRotateSpeed=0;
                 progress=haloProgress;
@@ -840,10 +841,11 @@ public class ExampleJavaMod extends Mod{
                 hollow=true;
                 stroke=0;
                 strokeTo=2;
-                triLength=8;
+                triLength=0;
                 triLengthTo=14;
-                radius=20;
+                radius=8;
                 y=haloY;
+                haloRadius=20;
             }}
             });
             }};
