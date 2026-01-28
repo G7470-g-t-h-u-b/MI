@@ -217,6 +217,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.power,with(Items.copper,30,Items.lead,50,Items.titanium,20,Items.silicon,10,ModItems.zinc,10));
             powerProduction=7f;
             size=2;
+            hasLiquids=true;
             drawer=new DrawMulti(new DrawDefault(),new DrawRegion("-cap"),
                     new DrawLiquidRegion());
             consumeLiquid(Liquids.slag,0.5f);
@@ -225,6 +226,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.power,with(Items.copper,35,Items.lead,40,Items.titanium,20,ModItems.siliconSteel,20));
             powerProduction=7;
             size=2;
+            hasLiquids=true;
             drawer=new DrawMulti(new DrawDefault(),new DrawRegion("-cap"),
                     new DrawLiquidRegion());
             consumeLiquid(ModItems.diesel,0.2f);
