@@ -341,6 +341,7 @@ public class ExampleJavaMod extends Mod{
             reload=110;
             consumePower(4.5f);
             ammo(Items.surgeAlloy,new RailBulletType(){{
+                length=560;
                 hitColor=trailColor = Pal.blastAmmoBack;
                 hitEffect = Fx.instHit;
                 despawnEffect = Fx.instBomb;
@@ -359,6 +360,7 @@ public class ExampleJavaMod extends Mod{
             }},Items.titanium,new RailBulletType(){{
 //                maxRange=560;
 //                range=520;
+                length=560;
                 lifetime=290;
                 hitColor=trailColor=Pal.blastAmmoBack;
                 hitEffect = Fx.instHit;
