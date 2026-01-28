@@ -805,6 +805,7 @@ public class ExampleJavaMod extends Mod{
                 sides=3;
             }},new HaloPart(){{
                 rotateSpeed=circleRotSpeed;
+                haloRotateSpeed=circleRotSpeed;
                 progress=haloProgress;
                 shapes=3;
                 tri=true;
@@ -985,12 +986,15 @@ public class ExampleJavaMod extends Mod{
         ModSectorPresets.t1=new SectorPreset("testSector",ModPlanets.planetEee,0){{
             alwaysUnlocked=true;
         }};
-        ModSectorPresets.testSector=new SectorPreset("043", ModPlanets.planetEee, 12);
+        ModSectorPresets.testSector=new SectorPreset("043", ModPlanets.planetEee, 172);
+        ModSectorPresets.t174=new SectorPreset("t174",ModPlanets.planetEee,174);
 
 
         nodeRoot("eee",Blocks.coreShard,()->{
             node(ModSectorPresets.t1,()->{
-                node(ModSectorPresets.testSector);
+                node(ModSectorPresets.testSector,()->{
+                    node(ModSectorPresets.t174);
+                });
             });
             node(Blocks.mechanicalDrill,()->{
                 node(Blocks.graphitePress,()->{
