@@ -818,6 +818,32 @@ public class ExampleJavaMod extends Mod{
                 triLengthTo=10;
                 radius=16;
                 y=haloY;
+            }},new HaloPart(){{
+                haloRotateSpeed=-circleRotSpeed;
+                progress=haloProgress;
+                shapes=3;
+                tri=true;
+                color=Color.sky;
+                hollow=false;
+                stroke=0;
+                strokeTo=2;
+                triLength=6;
+                triLengthTo=10;
+                radius=20;
+                y=haloY;
+            }},new HaloPart(){{
+                haloRotateSpeed=0;
+                progress=haloProgress;
+                shapes=3;
+                tri=true;
+                color=Color.sky;
+                hollow=false;
+                stroke=0;
+                strokeTo=2;
+                triLength=6;
+                triLengthTo=10;
+                radius=20;
+                y=haloY;
             }}
             });
             }};
