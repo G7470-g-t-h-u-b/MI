@@ -712,10 +712,10 @@ public class ExampleJavaMod extends Mod{
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
             recoil=3;
-            inaccuracy=3;
+            inaccuracy=5;
             xRand=0.5f;
             size=4;
-            requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
+            requirements(Category.turret,with(Items.copper,1000,Items.lead,500,Items.titanium,240,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
             range=800;
             unitSort=UnitSorts.strongest;
             consumesPower=true;
@@ -953,7 +953,7 @@ public class ExampleJavaMod extends Mod{
                 sides=4;
                 radius=6;
             }},new HaloPart(){{
-                triLength=8;
+                triLength=0;
                 triLengthTo=10;
                 progress=circleProgress;
                 y=circleY;
@@ -1114,152 +1114,152 @@ public class ExampleJavaMod extends Mod{
         });
 
 
-        ModPlanets.planetEee.techTree= TechTree.nodeRoot("eee", Blocks.coreShard, () -> {
-            node(ModSectorPresets.t1, () -> {
-                node(ModSectorPresets.testSector, () -> {
-                    node(ModSectorPresets.t174);
-                });
-            });
-            node(Blocks.mechanicalDrill, () -> {
-                node(Blocks.graphitePress, () -> {
-                    node(Blocks.pneumaticDrill, () -> {
-                        node(ModBlocks.smallDrillBit, () -> {
-                        });
-                        node(Blocks.laserDrill, () -> {
-                        });
-                    });
-                    node(Blocks.siliconSmelter, () -> {
-                        node(Blocks.illuminator, () -> {
-                        });
-                        node(Blocks.kiln, () -> {
-                        });
-                        node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
-                            node(ModBlocks.electrolyticSeparator, () -> {
-                            });//电解分离机
-                            node(Blocks.plastaniumCompressor, () -> {
-                                node(ModBlocks.petroleumFractionatingTower);
-                            });
-                        });
-                        node(Blocks.pulverizer, () -> {
-                            node(Blocks.melter, () -> {
-                                node(Blocks.separator, () -> {
-                                });
-                                node(ModBlocks.rockDrilling, () -> {
-                                    node(ModBlocks.highTemperatureSmeltingPlant);
-                                    node(ModBlocks.highTemperatureMeltingFurnace, () -> {
-                                        node(ModBlocks.highSpeedDisassembler);
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-                node(Blocks.combustionGenerator, () -> {
-                    node(ModBlocks.laserEnergyNode, () -> {//激光电力节点
-                        node(Blocks.steamGenerator, () -> {
-                            node(ModBlocks.fluidThermalEnergyGenerator, () -> {
-                                node(ModBlocks.dieselGenerator);
-                            });
-                        });//涡轮发电机
-                    });
-                });
-            });
-            node(Blocks.conveyor, () -> {
-                node(Blocks.titaniumConveyor, () -> {
-                    node(ModBlocks.fastItemBridge);
-                });
-            });
-            nodeProduce(ModItems.experimentalExplosives, () -> {
-            });
-            node(ModBlocks.laboratory, () -> {
-            });
-            node(Blocks.duo, () -> {
-                node(Blocks.copperWall, () -> {
-                    node(Blocks.copperWallLarge, () -> {
-                        node(Blocks.titaniumWall, () -> {
-                            node(Blocks.titaniumWallLarge, () -> {
-                            });
-                        });
-                    });
-                });
-                node(Blocks.hail, () -> {
-                    node(Blocks.salvo, () -> {
-                        node(ModTurrets.puncture);
-                    });
-                    node(Blocks.scorch, () -> {
-                    });
-                });
-                node(Blocks.scatter, () -> {
-                });
-                node(ModTurrets.itemTurret3, () -> {
-                    node(ModTurrets.itemTurret2, () -> {
-                    });
-                });
-                node(Blocks.arc, () -> {
-                    node(ModTurrets.powerTurret7, () -> {
-                        node(ModTurrets.powerTurret6);
-                    });
-                    node(Blocks.wave, () -> {
-                    });
-                    node(Blocks.lancer, () -> {
-                        node(Blocks.foreshadow);
-                        node(ModTurrets.itemTurret5, () -> {
-                            node(ModTurrets.frost);
-                            node(ModTurrets.ash);
-                        });
-                        node(Blocks.meltdown, () -> {
-                            node(ModTurrets.disaster);
-                        });
-                    });
-                    node(ModTurrets.powerTurret4, () -> {
-                    });
-                });
-            });
-            nodeProduce(Items.copper, () -> {
-                nodeProduce(Items.lead, () -> {
-                    nodeProduce(Items.titanium, () -> {
-                        nodeProduce(Liquids.cryofluid, () -> {
-                        });
-                        nodeProduce(Items.thorium, () -> {
-                        });
-                    });
-                });
-                nodeProduce(ModItems.tin, () -> {
-                });
-                nodeProduce(ModItems.zinc, () -> {
-                });
-                nodeProduce(Items.coal, () -> {
-                    nodeProduce(Items.sand, () -> {
-                        nodeProduce(Items.scrap, () -> {
-                        });
-                        nodeProduce(ModItems.rock, () -> {
-                        });
-                    });
-                    nodeProduce(Liquids.oil, () -> {
-                        nodeProduce(ModItems.gasoline, () -> {
-                        });
-                        nodeProduce(ModItems.diesel, () -> {
-                        });
-                        nodeProduce(ModItems.kerosene, () -> {
-                        });
-                    });
-                    nodeProduce(Items.graphite, () -> {
-                    });
-                    nodeProduce(Items.silicon, () -> {
-                        nodeProduce(ModItems.siliconSteel, () -> {
-                        });
-                    });
-                });
-                nodeProduce(ModItems.gold, () -> {
-                });
-                nodeProduce(Liquids.water, () -> {
-                    nodeProduce(ModItems.lava, () -> {
-                    });
-                    nodeProduce(Liquids.hydrogen, () -> {
-                    });
-                });
-            });
-        });
+//        ModPlanets.planetEee.techTree= TechTree.nodeRoot("eee", Blocks.coreShard, () -> {
+//            node(ModSectorPresets.t1, () -> {
+//                node(ModSectorPresets.testSector, () -> {
+//                    node(ModSectorPresets.t174);
+//                });
+//            });
+//            node(Blocks.mechanicalDrill, () -> {
+//                node(Blocks.graphitePress, () -> {
+//                    node(Blocks.pneumaticDrill, () -> {
+//                        node(ModBlocks.smallDrillBit, () -> {
+//                        });
+//                        node(Blocks.laserDrill, () -> {
+//                        });
+//                    });
+//                    node(Blocks.siliconSmelter, () -> {
+//                        node(Blocks.illuminator, () -> {
+//                        });
+//                        node(Blocks.kiln, () -> {
+//                        });
+//                        node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
+//                            node(ModBlocks.electrolyticSeparator, () -> {
+//                            });//电解分离机
+//                            node(Blocks.plastaniumCompressor, () -> {
+//                                node(ModBlocks.petroleumFractionatingTower);
+//                            });
+//                        });
+//                        node(Blocks.pulverizer, () -> {
+//                            node(Blocks.melter, () -> {
+//                                node(Blocks.separator, () -> {
+//                                });
+//                                node(ModBlocks.rockDrilling, () -> {
+//                                    node(ModBlocks.highTemperatureSmeltingPlant);
+//                                    node(ModBlocks.highTemperatureMeltingFurnace, () -> {
+//                                        node(ModBlocks.highSpeedDisassembler);
+//                                    });
+//                                });
+//                            });
+//                        });
+//                    });
+//                });
+//                node(Blocks.combustionGenerator, () -> {
+//                    node(ModBlocks.laserEnergyNode, () -> {//激光电力节点
+//                        node(Blocks.steamGenerator, () -> {
+//                            node(ModBlocks.fluidThermalEnergyGenerator, () -> {
+//                                node(ModBlocks.dieselGenerator);
+//                            });
+//                        });//涡轮发电机
+//                    });
+//                });
+//            });
+//            node(Blocks.conveyor, () -> {
+//                node(Blocks.titaniumConveyor, () -> {
+//                    node(ModBlocks.fastItemBridge);
+//                });
+//            });
+//            nodeProduce(ModItems.experimentalExplosives, () -> {
+//            });
+//            node(ModBlocks.laboratory, () -> {
+//            });
+//            node(Blocks.duo, () -> {
+//                node(Blocks.copperWall, () -> {
+//                    node(Blocks.copperWallLarge, () -> {
+//                        node(Blocks.titaniumWall, () -> {
+//                            node(Blocks.titaniumWallLarge, () -> {
+//                            });
+//                        });
+//                    });
+//                });
+//                node(Blocks.hail, () -> {
+//                    node(Blocks.salvo, () -> {
+//                        node(ModTurrets.puncture);
+//                    });
+//                    node(Blocks.scorch, () -> {
+//                    });
+//                });
+//                node(Blocks.scatter, () -> {
+//                });
+//                node(ModTurrets.itemTurret3, () -> {
+//                    node(ModTurrets.itemTurret2, () -> {
+//                    });
+//                });
+//                node(Blocks.arc, () -> {
+//                    node(ModTurrets.powerTurret7, () -> {
+//                        node(ModTurrets.powerTurret6);
+//                    });
+//                    node(Blocks.wave, () -> {
+//                    });
+//                    node(Blocks.lancer, () -> {
+//                        node(Blocks.foreshadow);
+//                        node(ModTurrets.itemTurret5, () -> {
+//                            node(ModTurrets.frost);
+//                            node(ModTurrets.ash);
+//                        });
+//                        node(Blocks.meltdown, () -> {
+//                            node(ModTurrets.disaster);
+//                        });
+//                    });
+//                    node(ModTurrets.powerTurret4, () -> {
+//                    });
+//                });
+//            });
+//            nodeProduce(Items.copper, () -> {
+//                nodeProduce(Items.lead, () -> {
+//                    nodeProduce(Items.titanium, () -> {
+//                        nodeProduce(Liquids.cryofluid, () -> {
+//                        });
+//                        nodeProduce(Items.thorium, () -> {
+//                        });
+//                    });
+//                });
+//                nodeProduce(ModItems.tin, () -> {
+//                });
+//                nodeProduce(ModItems.zinc, () -> {
+//                });
+//                nodeProduce(Items.coal, () -> {
+//                    nodeProduce(Items.sand, () -> {
+//                        nodeProduce(Items.scrap, () -> {
+//                        });
+//                        nodeProduce(ModItems.rock, () -> {
+//                        });
+//                    });
+//                    nodeProduce(Liquids.oil, () -> {
+//                        nodeProduce(ModItems.gasoline, () -> {
+//                        });
+//                        nodeProduce(ModItems.diesel, () -> {
+//                        });
+//                        nodeProduce(ModItems.kerosene, () -> {
+//                        });
+//                    });
+//                    nodeProduce(Items.graphite, () -> {
+//                    });
+//                    nodeProduce(Items.silicon, () -> {
+//                        nodeProduce(ModItems.siliconSteel, () -> {
+//                        });
+//                    });
+//                });
+//                nodeProduce(ModItems.gold, () -> {
+//                });
+//                nodeProduce(Liquids.water, () -> {
+//                    nodeProduce(ModItems.lava, () -> {
+//                    });
+//                    nodeProduce(Liquids.hydrogen, () -> {
+//                    });
+//                });
+//            });
+//        });
 
     }
 }
