@@ -17,6 +17,7 @@ import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.DrawPart;
 import mindustry.entities.part.HaloPart;
 import mindustry.entities.part.ShapePart;
+import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.game.EventType.*;
 import mindustry.gen.TankUnit;
@@ -710,10 +711,97 @@ public class ExampleJavaMod extends Mod{
                 keepVelocity=false;
             }});
         }};
+        ModTurrets.pureEmptiness=new ItemTurret("pure-emptiness"){{
+            size=4;
+            recoil=2;
+            inaccuracy=2;
+            shootCone=3;
+            reload=5;
+            requirements(Category.turret,with(Items.copper,120,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50));
+            range=320;
+            ammo(Items.titanium,new  BasicBulletType(8.5f,45){{
+                width=height=16;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.shootBig2;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=Pal.graphiteAmmoFront;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                backColor=trailColor=hitColor=Pal.techBlue;
+                ammoMultiplier=1f;
+                lifetime=40;
+            }},Items.graphite,new BasicBulletType(8.5f,38){{
+                width=height=16;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.shootBig2;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=Pal.graphiteAmmoFront;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                backColor=trailColor=hitColor=Pal.graphiteAmmoBack;
+                ammoMultiplier=2f;
+                lifetime=40;
+                trailLength=6;
+            }},ModItems.siliconSteel,new BasicBulletType(8.5f,40){{
+                width=height=16;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.shootBig2;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=Pal.graphiteAmmoFront;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                backColor=trailColor=hitColor=Pal.graphiteAmmoBack;
+                ammoMultiplier=2f;
+                lifetime=40;
+                trailLength=6;
+                homingPower=5;
+                homingRange=200;
+                splashDamage=5;
+                splashDamageRadius=12;
+            }});
+            drawer=new DrawTurret(){{parts.addAll(new ShapePart(){{
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                circle=true;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=4;
+                rotateSpeed=3;
+            }},new ShapePart(){{
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                circle=true;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=10;
+                rotateSpeed=3;
+            }},new HaloPart(){{
+                tri=true;
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=10;
+                haloRotateSpeed=3;
+                haloRadius=16;
+            }}
+            );}};
+            shoot=new ShootAlternate(){{
+                spread=4.2f;
+                shots=4;
+                barrels=4;
+            }};
+        }};
         ModTurrets.frost=new LiquidTurret("frost"){{
             recoil=3;
             inaccuracy=5;
-            xRand=0.5f;
+            xRand=2f;
             size=4;
             requirements(Category.turret,with(Items.copper,1000,Items.lead,500,Items.titanium,240,ModItems.zinc,100,ModItems.gold,50,ModItems.siliconSteel,100,Items.surgeAlloy,80));
             range=800;
@@ -1030,7 +1118,9 @@ public class ExampleJavaMod extends Mod{
 
         nodeRoot("e",Blocks.coreShard,()->{
             node(ModTurrets.itemTurret3,()->{
-                node(ModTurrets.puncture,()->{});
+                node(ModTurrets.puncture,()->{
+                    node(ModTurrets.pureEmptiness);
+                });
                 node(ModTurrets.itemTurret2);
                 node(ModTurrets.powerTurret7,()->{
                     node(ModTurrets.powerTurret6);
@@ -1088,27 +1178,20 @@ public class ExampleJavaMod extends Mod{
                         });
                     });
                     nodeProduce(Liquids.oil, () -> {
-                        nodeProduce(ModItems.gasoline, () -> {
-                        });
-                        nodeProduce(ModItems.diesel, () -> {
-                        });
-                        nodeProduce(ModItems.kerosene, () -> {
-                        });
+                        nodeProduce(ModItems.gasoline, () -> {});
+                        nodeProduce(ModItems.diesel, () -> {});
+                        nodeProduce(ModItems.kerosene, () -> {});
                     });
                     nodeProduce(Items.graphite, () -> {
                     });
                     nodeProduce(Items.silicon, () -> {
-                        nodeProduce(ModItems.siliconSteel, () -> {
-                        });
+                        nodeProduce(ModItems.siliconSteel, () -> {});
                     });
                 });
-                nodeProduce(ModItems.gold, () -> {
-                });
+                nodeProduce(ModItems.gold, () -> {});
                 nodeProduce(Liquids.water, () -> {
-                    nodeProduce(ModItems.lava, () -> {
-                    });
-                    nodeProduce(Liquids.hydrogen, () -> {
-                    });
+                    nodeProduce(ModItems.lava, () -> {});
+                    nodeProduce(Liquids.hydrogen, () -> {});
                 });
             });
         });
