@@ -32,6 +32,7 @@ import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
+import mindustry.world.blocks.distribution.Duct;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
@@ -132,7 +133,7 @@ public class ExampleJavaMod extends Mod{
             drawer=new DrawMulti(
                     new DrawDefault(),
                     new DrawLiquidTile(Liquids.hydrogen,2) );
-            requirements(Category.crafting,with(Items.titanium,30,Items.copper,20,ModItems.zinc,15));
+            requirements(Category.crafting,with(Items.titanium,30,Items.copper,20,Items.metaglass,20,ModItems.zinc,15));
             consumeLiquids(LiquidStack.with(Liquids.water,0.3f));
             consumePower(1f);
             outputLiquids=new LiquidStack[]{new LiquidStack(Liquids.hydrogen, 0.2f)};
@@ -239,6 +240,11 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.oreUranium=new OreBlock("ore-uranium",ModItems.uranium);
 
 
+        ModBlocks.itemTrack=new Duct("item-track"){{
+            requirements(Category.distribution,with(Items.phaseFabric,2));
+            health=60;
+            speed=100;
+        }};
         ModBlocks.fastItemBridge=new BufferedItemBridge("titanium-conveyor-bridge"){{
             requirements(Category.distribution,with(Items.titanium,5,Items.copper,5,Items.silicon,5));
             health=60;
@@ -717,18 +723,20 @@ public class ExampleJavaMod extends Mod{
             inaccuracy=2;
             shootCone=3;
             reload=5;
+            maxAmmo=60;
             requirements(Category.turret,with(Items.copper,120,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50));
             range=320;
-            ammo(Items.titanium,new  BasicBulletType(8.5f,45){{
+            ammo(Items.titanium,new BasicBulletType(8.5f,45){{
                 width=height=16;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
                 smokeEffect=Fx.shootSmokeDisperse;
-                frontColor=Pal.graphiteAmmoFront;
+                frontColor=Pal.techBlue;
+                trailEffect=Fx.disperseTrail;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 backColor=trailColor=hitColor=Pal.techBlue;
-                ammoMultiplier=1f;
+                ammoMultiplier=2f;
                 lifetime=40;
             }},Items.graphite,new BasicBulletType(8.5f,38){{
                 width=height=16;
@@ -739,7 +747,7 @@ public class ExampleJavaMod extends Mod{
                 frontColor=Pal.graphiteAmmoFront;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 backColor=trailColor=hitColor=Pal.graphiteAmmoBack;
-                ammoMultiplier=2f;
+                ammoMultiplier=3f;
                 lifetime=40;
                 trailLength=6;
             }},ModItems.siliconSteel,new BasicBulletType(8.5f,40){{
@@ -751,7 +759,7 @@ public class ExampleJavaMod extends Mod{
                 frontColor=Pal.graphiteAmmoFront;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 backColor=trailColor=hitColor=Pal.graphiteAmmoBack;
-                ammoMultiplier=2f;
+                ammoMultiplier=4f;
                 lifetime=40;
                 trailLength=6;
                 homingPower=5;
@@ -966,6 +974,7 @@ public class ExampleJavaMod extends Mod{
             rotateSpeed=2.8f;
             range=280;
             drawer=new DrawTurret(){{parts.addAll();}};
+            targetHealing=true;
             shootType=new LaserBoltBulletType(6.2f,15){{
                 buildingDamageMultiplier=0.5f;
                 lifetime=60;
@@ -1155,7 +1164,9 @@ public class ExampleJavaMod extends Mod{
                 });
             });
             node(Blocks.titaniumConveyor,()->{
-                node(ModBlocks.fastItemBridge);
+                node(ModBlocks.fastItemBridge,()->{
+                    node(ModBlocks.itemTrack);
+                });
             });
             nodeProduce(Items.copper, () -> {
                 nodeProduce(Items.lead, () -> {
