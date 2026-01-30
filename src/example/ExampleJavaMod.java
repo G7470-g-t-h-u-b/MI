@@ -719,8 +719,9 @@ public class ExampleJavaMod extends Mod{
         }};
         ModTurrets.pureEmptiness=new ItemTurret("pure-emptiness"){{
             size=4;
-            recoil=2;
-            inaccuracy=2;
+            shake=3;
+            recoil=1.6f;
+            inaccuracy=3;
             shootCone=3;
             reload=5;
             maxAmmo=60;
@@ -791,10 +792,10 @@ public class ExampleJavaMod extends Mod{
                 frontColor=Pal.thoriumAmmoFront;
                 trailEffect=Fx.disperseTrail;
                 trailChance=0.4f;
-                trailSpread=2.4f;
+                trailSpread=1f;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 backColor=trailColor=hitColor=Pal.thoriumAmmoBack;
-                ammoMultiplier=2f;
+                ammoMultiplier=3f;
                 lifetime=40;
             }});
             drawer=new DrawTurret(){{parts.addAll(new ShapePart(){{
@@ -818,6 +819,7 @@ public class ExampleJavaMod extends Mod{
                 radiusTo=10;
                 rotateSpeed=3;
             }},new HaloPart(){{
+                sides=4;
                 tri=true;
                 y=-12;
                 color=Color.HSVtoRGB(214,28,74);
@@ -829,6 +831,20 @@ public class ExampleJavaMod extends Mod{
                 triLength=0;
                 triLengthTo=10;
                 haloRotateSpeed=3;
+                haloRadius=16;
+            }},new HaloPart(){{
+                sides=4;
+                tri=true;
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=8;
+                triLength=0;
+                triLengthTo=10;
+                haloRotateSpeed=-3;
                 haloRadius=16;
             }}
             );}};
