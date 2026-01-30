@@ -726,7 +726,7 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=60;
             requirements(Category.turret,with(Items.copper,120,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50));
             range=320;
-            ammo(Items.titanium,new BasicBulletType(8.5f,45){{
+            ammo(Items.lead,new BasicBulletType(8f,12){{
                 width=height=16;
                 velocityRnd=0.1f;
                 collidesTiles=false;
@@ -734,6 +734,22 @@ public class ExampleJavaMod extends Mod{
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.techBlue;
                 trailEffect=Fx.disperseTrail;
+                trailChance=0.4f;
+                trailSpread=2.4f;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                backColor=trailColor=hitColor=Color.gray;
+                ammoMultiplier=1f;
+                lifetime=40;
+            }},Items.titanium,new BasicBulletType(8.5f,45){{
+                width=height=16;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.shootBig2;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=Pal.techBlue;
+                trailEffect=Fx.disperseTrail;
+                trailChance=0.4f;
+                trailSpread=2.4f;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 backColor=trailColor=hitColor=Pal.techBlue;
                 ammoMultiplier=2f;
@@ -766,6 +782,20 @@ public class ExampleJavaMod extends Mod{
                 homingRange=200;
                 splashDamage=5;
                 splashDamageRadius=12;
+            }},Items.thorium,new BasicBulletType(8.2f,45){{
+                width=height=16;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.shootBig2;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=Pal.thoriumAmmoFront;
+                trailEffect=Fx.disperseTrail;
+                trailChance=0.4f;
+                trailSpread=2.4f;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                backColor=trailColor=hitColor=Pal.thoriumAmmoBack;
+                ammoMultiplier=2f;
+                lifetime=40;
             }});
             drawer=new DrawTurret(){{parts.addAll(new ShapePart(){{
                 y=-12;
@@ -795,7 +825,9 @@ public class ExampleJavaMod extends Mod{
                 stroke=0;
                 strokeTo=1.8f;
                 radius=0;
-                radiusTo=10;
+                radiusTo=8;
+                triLength=0;
+                triLengthTo=10;
                 haloRotateSpeed=3;
                 haloRadius=16;
             }}
