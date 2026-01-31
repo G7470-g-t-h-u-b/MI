@@ -25,9 +25,13 @@ public class ModBlocks {
     public static GenericCrafter highTemperatureMeltingFurnace;
     public static GenericCrafter highTemperatureSmeltingPlant;
     public static GenericCrafter petroleumFractionatingTower;
+    public static GenericCrafter canyonBatteryCompressor;
+    public static GenericCrafter archipelagoBatteryCompressor;
     public static NuclearReactor largeThoriumReactor;
     public static ConsumeGenerator fluidThermalEnergyGenerator;
     public static ConsumeGenerator dieselGenerator;
+    public static ConsumeGenerator canyonBatteryGenerator;
+    public static ConsumeGenerator archipelagoBatteryGenerator;
     public static Separator highSpeedDisassembler;
     public static BeamNode laserEnergyNode;
     public static Duct itemTrack;

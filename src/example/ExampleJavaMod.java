@@ -12,6 +12,7 @@ import mindustry.entities.abilities.RegenAbility;
 import mindustry.entities.abilities.RepairFieldAbility;
 import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.bullet.*;
+import mindustry.entities.effect.ExplosionEffect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.DrawPart;
@@ -21,6 +22,7 @@ import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.game.EventType.*;
+import mindustry.gen.Sounds;
 import mindustry.gen.TankUnit;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
@@ -70,6 +72,24 @@ public class ExampleJavaMod extends Mod{
     @Override
     public void loadContent(){
         Log.info("Loading some example content.");
+//        Sounds.load();
+
+
+        ModFx.explosionEffect1=new ExplosionEffect(){{
+            waveColor=Pal.gray;
+            smokeColor=Color.gray;
+            sparkColor=Pal.lighterOrange;
+            waveRadBase=waveStroke=6;
+            sparkRad=60;
+            sparkLen=16;
+            smokeSizeBase=14;
+            smokeSize=30;
+            waveRad=120;
+            smokes=20;
+            sparks=30;
+        }};
+
+
         ModItems.experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
             explosiveness=2.8f;
             flammability=1.8f;
@@ -97,6 +117,8 @@ public class ExampleJavaMod extends Mod{
         }};
         ModItems.iron=new Item("iron",Color.HSVtoRGB(233,16,25));
         ModItems.frostAlloy=new Item("frost-alloy",Color.HSVtoRGB(196,46,89));
+        ModItems.canyonBattery=new Item("canyon-battery",Color.HSVtoRGB(232,47,77)){{charge=0.4f;}};
+        ModItems.archipelagoBattery=new Item("archipelago-battery",Color.HSVtoRGB(97,58,75)){{charge=0.6f;}};
         ModItems.kerosene=new Liquid("kerosene",Color.HSVtoRGB(29,43,97)){{
             flammability=1.2f;
             explosiveness=1.2f;
@@ -125,7 +147,6 @@ public class ExampleJavaMod extends Mod{
             size=2;
             requirements(Category.crafting,with(Items.copper,30,Items.lead,20,ModItems.tin,10,ModItems.zinc,10));
             consumeItems(ItemStack.with(Items.silicon,2,ModItems.zinc,1));
-            consumeLiquids(LiquidStack.with(Liquids.water,0.1f));
             consumePower(1.5f);
             outputItems=new ItemStack[]{new ItemStack(ModItems.siliconSteel,2)};
         }};
@@ -134,6 +155,7 @@ public class ExampleJavaMod extends Mod{
             health=320;
             requirements(Category.crafting,with(Items.copper,50,Items.silicon,50,Items.titanium,20,ModItems.gold,10));
             consumeItems(ItemStack.with(Items.silicon,4,ModItems.zinc,2));
+            consumeLiquids(LiquidStack.with(Liquids.water,0.1f));
             consumePower(3f);
             outputItems=new ItemStack[]{new ItemStack(ModItems.siliconSteel,10)};
         }};
@@ -206,6 +228,22 @@ public class ExampleJavaMod extends Mod{
             consumeLiquids(LiquidStack.with(Liquids.oil,1));
             outputLiquids = LiquidStack.with(ModItems.diesel,0.2,ModItems.kerosene,0.2,ModItems.gasoline,0.2);
         }};
+        ModBlocks.canyonBatteryCompressor=new GenericCrafter("canyon-battery-compressor"){{
+            health=200;
+            size=2;
+            requirements(Category.crafting,with(Items.copper,30,Items.lead,45,Items.titanium,30,Items.silicon,20));
+            consumePower(3);
+            craftTime=60;
+            outputItems=ItemStack.with(ModItems.canyonBattery,1);
+        }};
+        ModBlocks.archipelagoBatteryCompressor=new GenericCrafter("archipelago-battery-compressor"){{
+            health=200;
+            size=2;
+            requirements(Category.crafting,with(Items.copper,30,Items.lead,45,Items.plastanium,30,Items.silicon,20));
+            consumePower(3);
+            craftTime=60;
+            outputItems=ItemStack.with(ModItems.archipelagoBattery,1);
+        }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
             size=1;
@@ -241,6 +279,18 @@ public class ExampleJavaMod extends Mod{
             drawer=new DrawMulti(new DrawDefault(),new DrawRegion("-cap"),
                     new DrawLiquidRegion());
             consumeLiquid(ModItems.diesel,0.2f);
+        }};
+        ModBlocks.canyonBatteryGenerator=new ConsumeGenerator("canyon-battery-generator"){{
+            requirements(Category.power,with(Items.copper,30,Items.lead,50,Items.titanium,30,Items.silicon,30));
+            powerProduction=3f;
+            size=2;
+            consumeItems(ItemStack.with(ModItems.canyonBattery,1));
+        }};
+        ModBlocks.archipelagoBatteryGenerator=new ConsumeGenerator("archipelago-battery-generator"){{
+            requirements(Category.power,with(Items.copper,30,Items.lead,50,Items.titanium,30,Items.silicon,30));
+            powerProduction=5f;
+            size=2;
+            consumeItems(ItemStack.with(ModItems.archipelagoBattery,1));
         }};
 
 
@@ -736,8 +786,9 @@ public class ExampleJavaMod extends Mod{
             shootCone=3;
             reload=5;
             maxAmmo=60;
-            requirements(Category.turret,with(Items.copper,120,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50));
             range=320;
+            coolant = consumeCoolant(0.2f);
+            requirements(Category.turret,with(Items.copper,120,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50));
             ammo(Items.lead,new BasicBulletType(8f,12){{
                 width=height=16;
                 velocityRnd=0.1f;
@@ -809,6 +860,77 @@ public class ExampleJavaMod extends Mod{
                 backColor=trailColor=hitColor=Pal.thoriumAmmoBack;
                 ammoMultiplier=3f;
                 lifetime=40;
+            }},Items.plastanium,new BasicBulletType(8.2f,24){{
+                width=height=16;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.shootBig2;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=Pal.plastaniumFront;
+                trailEffect=Fx.disperseTrail;
+                trailChance=0.4f;
+                trailSpread=1f;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                backColor=trailColor=hitColor=Pal.plastaniumBack;
+                ammoMultiplier=2f;
+                lifetime=40;
+                fragBullet=new BasicBulletType(8.2f,20){{
+                    width=height=16;
+                    velocityRnd=0.1f;
+                    collidesTiles=false;
+                    shootEffect=Fx.shootBig2;
+                    smokeEffect=Fx.shootSmokeDisperse;
+                    frontColor=Pal.plastaniumFront;
+                    trailEffect=Fx.disperseTrail;
+                    trailChance=0.4f;
+                    trailSpread=1f;
+                    hitEffect=despawnEffect=Fx.hitBulletColor;
+                    backColor=trailColor=hitColor=Pal.plastaniumBack;
+                    lifetime=15;
+                }};
+            }},Items.blastCompound,new BasicBulletType(8.2f,45){{
+                splashDamage=30;
+                splashDamageRadius=60;
+                reloadMultiplier=0.8f;
+                width=height=16;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.shootBig2;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=Pal.blastAmmoFront;
+                trailEffect=Fx.disperseTrail;
+                trailChance=0.4f;
+                trailSpread=1f;
+                hitEffect=Fx.hitBulletColor;
+                despawnEffect=ModFx.explosionEffect1;
+                backColor=trailColor=hitColor=Pal.blastAmmoBack;
+                ammoMultiplier=3f;
+                lifetime=40;
+            }},Items.surgeAlloy,new BasicBulletType(8.2f,60){{
+                width=height=16;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.shootBig2;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=Pal.surgeAmmoFront;
+                trailEffect=Fx.disperseTrail;
+                trailChance=0.4f;
+                trailSpread=1f;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                backColor=trailColor=hitColor=Pal.surgeAmmoBack;
+                ammoMultiplier=3f;
+                lifetime=40;
+                bulletInterval=4;
+                intervalBullet=new BulletType(){{
+                    lightningLengthRand=4;
+                    lightningLength=3;
+                    lightningCone=30;
+                    lightningDamage=25;
+                    lightning=2;
+                    hittable=false;
+                    instantDisappear=true;
+                    hitEffect=despawnEffect=Fx.none;
+                }};
             }});
             drawer=new DrawTurret(){{parts.addAll(new ShapePart(){{
                 y=-12;
@@ -1327,10 +1449,12 @@ public class ExampleJavaMod extends Mod{
                 });
             });
             node(Blocks.mechanicalDrill,()->{
+                node(ModBlocks.largeThoriumReactor);
                 node(ModBlocks.smallDrillBit);
                 node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
                     node(ModBlocks.electrolyticSeparator, () -> {});//电解分离机
                     node(Blocks.plastaniumCompressor, () -> {
+                        node(ModBlocks.largeSiliconSteelMixer);
                         node(ModBlocks.petroleumFractionatingTower);
                     });
                     node(ModBlocks.rockDrilling, () -> {
@@ -1353,17 +1477,14 @@ public class ExampleJavaMod extends Mod{
             });
             nodeProduce(Items.copper, () -> {
                 nodeProduce(Items.lead, () -> {
+                    nodeProduce(ModItems.canyonBattery,()->{});
                     nodeProduce(Items.titanium, () -> {
-                        nodeProduce(Liquids.cryofluid, () -> {
-                        });
-                        nodeProduce(Items.thorium, () -> {
-                        });
+                        nodeProduce(Liquids.cryofluid, () -> {});
+                        nodeProduce(Items.thorium, () -> {});
                     });
                 });
-                nodeProduce(ModItems.tin, () -> {
-                });
-                nodeProduce(ModItems.zinc, () -> {
-                });
+                nodeProduce(ModItems.tin, () -> {});
+                nodeProduce(ModItems.zinc, () -> {});
                 nodeProduce(Items.coal, () -> {
                     nodeProduce(Items.sand, () -> {
                         nodeProduce(Items.scrap, () -> {

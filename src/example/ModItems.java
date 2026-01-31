@@ -13,6 +13,8 @@ public class ModItems {
     public static Item rock;
     public static Item iron;
     public static Item frostAlloy;
+    public static Item canyonBattery;
+    public static Item archipelagoBattery;
     public static Liquid lava;
     public static Liquid kerosene;
     public static Liquid diesel;
