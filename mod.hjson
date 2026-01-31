@@ -14,7 +14,7 @@ main: "example.ExampleJavaMod"
 description: "A Mindustry Java mod"
 
 #the mod version
-version: 0.1.15a-fix2
+version: 0.1.15a-fix3
 
 #the minimum game build required to run this mod
 minGameVersion: 147

@@ -80,13 +80,15 @@ public class ExampleJavaMod extends Mod{
             smokeColor=Color.gray;
             sparkColor=Pal.lighterOrange;
             waveRadBase=waveStroke=6;
-            sparkRad=60;
+            sparkRad=20;
             sparkLen=16;
-            smokeSizeBase=14;
-            smokeSize=30;
-            waveRad=120;
+            sparkStroke=5;
+            smokeSizeBase=8;
+            smokeSize=14;
+            waveRad=30;
+            smokeRad=30;
             smokes=20;
-            sparks=30;
+            sparks=60;
         }};
 
 
