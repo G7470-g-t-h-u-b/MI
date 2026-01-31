@@ -19,6 +19,7 @@ import mindustry.entities.part.HaloPart;
 import mindustry.entities.part.ShapePart;
 import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
+import mindustry.entities.pattern.ShootSpread;
 import mindustry.game.EventType.*;
 import mindustry.gen.TankUnit;
 import mindustry.graphics.Pal;
@@ -124,8 +125,17 @@ public class ExampleJavaMod extends Mod{
             size=2;
             requirements(Category.crafting,with(Items.copper,30,Items.lead,20,ModItems.tin,10,ModItems.zinc,10));
             consumeItems(ItemStack.with(Items.silicon,2,ModItems.zinc,1));
+            consumeLiquids(LiquidStack.with(Liquids.water,0.1f));
             consumePower(1.5f);
             outputItems=new ItemStack[]{new ItemStack(ModItems.siliconSteel,2)};
+        }};
+        ModBlocks.largeSiliconSteelMixer=new GenericCrafter("large-silicon-steel-mixer"){{
+            size=3;
+            health=320;
+            requirements(Category.crafting,with(Items.copper,50,Items.silicon,50,Items.titanium,20,ModItems.gold,10));
+            consumeItems(ItemStack.with(Items.silicon,4,ModItems.zinc,2));
+            consumePower(3f);
+            outputItems=new ItemStack[]{new ItemStack(ModItems.siliconSteel,10)};
         }};
         ModBlocks.electrolyticSeparator=new GenericCrafter("electrolytic-separator"){{
             health=180;
@@ -852,6 +862,44 @@ public class ExampleJavaMod extends Mod{
                 spread=4.2f;
                 shots=4;
                 barrels=4;
+            }};
+        }};
+        ModTurrets.daytime=new ItemTurret("daytime"){{
+            recoil=3.2f;
+            inaccuracy=1;
+            range=380;
+            size=4;
+            maxAmmo=60;
+            reload=120;
+            final Effect sfe = new MultiEffect(new Effect[]{Fx.shootBigColor, Fx.colorSparkBig});
+            requirements(Category.turret,with());
+            ammo(Items.surgeAlloy,new BasicBulletType(8,50){{
+                inaccuracy=10;
+                velocityRnd=0.1f;
+                shootCone=6;
+                width = 10.0F;
+                height = 21.0F;
+                hitSize = 7.0F;
+                shootEffect=sfe;
+                smokeEffect=Fx.shootBigSmoke;
+                pierce=true;
+                pierceCap=5;
+                hittable=false;
+                ammoMultiplier=2;
+                reloadMultiplier=0.2f;
+                hitColor=backColor=trailColor=Color.valueOf("ab8ec5");
+                frontColor = Color.white;
+                trailWidth = 2.2F;
+                trailLength = 11;
+                trailEffect = Fx.disperseTrail;
+                trailInterval = 2.0F;
+                hitEffect=despawnEffect = Fx.hitBulletColor;
+                buildingDamageMultiplier = 0.5f;
+                trailRotation=true;
+            }});
+            shoot=new ShootSpread(){{
+                spread=0.5f;
+                shots=30;
             }};
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{

@@ -13,7 +13,8 @@ import mindustry.world.blocks.storage.CoreBlock;
 
 public class ModBlocks {
     public static Block laboratory;
-    public static Block siliconSteelMixer;
+    public static GenericCrafter siliconSteelMixer;
+    public static GenericCrafter largeSiliconSteelMixer;
     public static Block oreGold;
     public static Block oreZinc;
     public static Block oreTin;
