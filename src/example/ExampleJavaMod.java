@@ -873,7 +873,7 @@ public class ExampleJavaMod extends Mod{
             range=380;
             size=4;
             shootY=4;
-            maxAmmo=60;
+            maxAmmo=50;
             reload=120;
             final Effect sfe = new MultiEffect(new Effect[]{Fx.shootBigColor, Fx.colorSparkBig});
             requirements(Category.turret,with());
@@ -889,7 +889,7 @@ public class ExampleJavaMod extends Mod{
                 pierce=true;
                 pierceCap=5;
                 hittable=false;
-                ammoMultiplier=0.1f;
+                ammoMultiplier=1f;
                 reloadMultiplier=0.6f;
                 hitColor=backColor=trailColor=Color.sky;
                 frontColor = Color.white;
@@ -912,7 +912,7 @@ public class ExampleJavaMod extends Mod{
                 pierce=true;
                 pierceCap=5;
                 hittable=false;
-                ammoMultiplier=0.2f;
+                ammoMultiplier=1f;
                 hitColor=backColor=trailColor=Color.valueOf("ab8ec5");
                 frontColor = Color.white;
                 trailWidth = 2.2F;
@@ -985,6 +985,9 @@ public class ExampleJavaMod extends Mod{
                 spread=0.5f;
                 shots=36;
             }};
+            ammoPerShot=10;
+            consumeAmmoOnce=true;
+            coolant = consumeCoolant(0.5f);
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
             recoil=3;
