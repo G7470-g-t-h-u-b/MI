@@ -1449,6 +1449,12 @@ public class ExampleJavaMod extends Mod{
                 });
             });
             node(Blocks.mechanicalDrill,()->{
+                node(ModBlocks.canyonBatteryCompressor,()->{
+                    node(ModBlocks.archipelagoBatteryCompressor);
+                });
+                node(ModBlocks.canyonBatteryGenerator,()->{
+                    node(ModBlocks.archipelagoBatteryGenerator);
+                });
                 node(ModBlocks.largeThoriumReactor);
                 node(ModBlocks.smallDrillBit);
                 node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
@@ -1477,7 +1483,9 @@ public class ExampleJavaMod extends Mod{
             });
             nodeProduce(Items.copper, () -> {
                 nodeProduce(Items.lead, () -> {
-                    nodeProduce(ModItems.canyonBattery,()->{});
+                    nodeProduce(ModItems.canyonBattery,()->{
+                        nodeProduce(ModItems.archipelagoBattery,()->{});
+                    });
                     nodeProduce(Items.titanium, () -> {
                         nodeProduce(Liquids.cryofluid, () -> {});
                         nodeProduce(Items.thorium, () -> {});
