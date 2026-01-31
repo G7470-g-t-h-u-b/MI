@@ -621,11 +621,12 @@ public class ExampleJavaMod extends Mod{
                 hitColor=backColor=trailColor=Pal.techBlue;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 buildingDamageMultiplier=0.5f;
-            }},Items.thorium,new BasicBulletType(6f,30){{
+            }},Items.thorium,new BasicBulletType(6f,45){{
                 lifetime=60;
                 width=12f;
                 hitSize=20;
                 shootEffect=new MultiEffect(new Effect[]{Fx.shootBigColor,Fx.colorSparkBig});
+                reloadMultiplier=0.8f;
                 ammoMultiplier=3;
                 trailWidth=2.8f;
                 trailLength=10;
@@ -794,6 +795,7 @@ public class ExampleJavaMod extends Mod{
                 splashDamage=5;
                 splashDamageRadius=12;
             }},Items.thorium,new BasicBulletType(8.2f,45){{
+                reloadMultiplier=0.8f;
                 width=height=16;
                 velocityRnd=0.1f;
                 collidesTiles=false;
@@ -866,16 +868,18 @@ public class ExampleJavaMod extends Mod{
         }};
         ModTurrets.daytime=new ItemTurret("daytime"){{
             recoil=3.2f;
+            shake=6;
             inaccuracy=1;
             range=380;
             size=4;
+            shootY=4;
             maxAmmo=60;
             reload=120;
             final Effect sfe = new MultiEffect(new Effect[]{Fx.shootBigColor, Fx.colorSparkBig});
             requirements(Category.turret,with());
-            ammo(Items.surgeAlloy,new BasicBulletType(8,50){{
+            ammo(Items.titanium,new BasicBulletType(9.3f,20){{
                 inaccuracy=10;
-                velocityRnd=0.1f;
+                velocityRnd=0.08f;
                 shootCone=6;
                 width = 10.0F;
                 height = 21.0F;
@@ -885,8 +889,30 @@ public class ExampleJavaMod extends Mod{
                 pierce=true;
                 pierceCap=5;
                 hittable=false;
-                ammoMultiplier=2;
-                reloadMultiplier=0.2f;
+                ammoMultiplier=0.1f;
+                reloadMultiplier=0.6f;
+                hitColor=backColor=trailColor=Color.sky;
+                frontColor = Color.white;
+                trailWidth = 2.2F;
+                trailLength = 11;
+                trailEffect = Fx.disperseTrail;
+                trailInterval = 2.0F;
+                hitEffect=despawnEffect = Fx.hitBulletColor;
+                buildingDamageMultiplier = 0.5f;
+                trailRotation=true;
+            }},Items.surgeAlloy,new BasicBulletType(9f,50){{
+                inaccuracy=10;
+                velocityRnd=0.08f;
+                shootCone=6;
+                width = 10.0F;
+                height = 21.0F;
+                hitSize = 7.0F;
+                shootEffect=sfe;
+                smokeEffect=Fx.shootBigSmoke;
+                pierce=true;
+                pierceCap=5;
+                hittable=false;
+                ammoMultiplier=0.2f;
                 hitColor=backColor=trailColor=Color.valueOf("ab8ec5");
                 frontColor = Color.white;
                 trailWidth = 2.2F;
@@ -897,9 +923,67 @@ public class ExampleJavaMod extends Mod{
                 buildingDamageMultiplier = 0.5f;
                 trailRotation=true;
             }});
+            drawer=new DrawTurret(){{parts.addAll(new ShapePart(){{
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                circle=true;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=4;
+                rotateSpeed=3;
+            }},new ShapePart(){{
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                circle=true;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=10;
+                rotateSpeed=3;
+            }},new HaloPart(){{
+                sides=4;
+                tri=true;
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=8;
+                triLength=0;
+                triLengthTo=10;
+                haloRotateSpeed=3;
+                haloRadius=16;
+            }},new ShapePart(){{
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                circle=false;
+                sides=3;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=10;
+                rotateSpeed=-3;
+            }},new ShapePart(){{
+                y=-12;
+                color=Color.HSVtoRGB(214,28,74);
+                hollow=true;
+                circle=false;
+                sides=3;
+                stroke=0;
+                strokeTo=1.8f;
+                radius=0;
+                radiusTo=10;
+                rotateSpeed=3;
+            }}
+            );}};
             shoot=new ShootSpread(){{
                 spread=0.5f;
-                shots=30;
+                shots=36;
             }};
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
@@ -1225,6 +1309,7 @@ public class ExampleJavaMod extends Mod{
             node(ModTurrets.itemTurret3,()->{
                 node(ModTurrets.puncture,()->{
                     node(ModTurrets.pureEmptiness);
+                    node(ModTurrets.daytime);
                 });
                 node(ModTurrets.itemTurret2);
                 node(ModTurrets.powerTurret7,()->{
@@ -1241,8 +1326,7 @@ public class ExampleJavaMod extends Mod{
             node(Blocks.mechanicalDrill,()->{
                 node(ModBlocks.smallDrillBit);
                 node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
-                    node(ModBlocks.electrolyticSeparator, () -> {
-                    });//电解分离机
+                    node(ModBlocks.electrolyticSeparator, () -> {});//电解分离机
                     node(Blocks.plastaniumCompressor, () -> {
                         node(ModBlocks.petroleumFractionatingTower);
                     });
