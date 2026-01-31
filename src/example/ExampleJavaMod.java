@@ -233,7 +233,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
             requirements(Category.crafting,with(Items.copper,30,Items.lead,45,Items.titanium,30,Items.silicon,20));
             consumePower(3);
-            craftTime=60;
+            craftTime=120;
             outputItems=ItemStack.with(ModItems.canyonBattery,1);
         }};
         ModBlocks.archipelagoBatteryCompressor=new GenericCrafter("archipelago-battery-compressor"){{
@@ -241,7 +241,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
             requirements(Category.crafting,with(Items.copper,30,Items.lead,45,Items.plastanium,30,Items.silicon,20));
             consumePower(3);
-            craftTime=60;
+            craftTime=120;
             outputItems=ItemStack.with(ModItems.archipelagoBattery,1);
         }};
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
@@ -788,7 +788,7 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=60;
             range=320;
             coolant = consumeCoolant(0.2f);
-            requirements(Category.turret,with(Items.copper,120,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50));
+            requirements(Category.turret,with(Items.copper,800,Items.lead,100,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50));
             ammo(Items.lead,new BasicBulletType(8f,12){{
                 width=height=16;
                 velocityRnd=0.1f;
@@ -998,7 +998,7 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=50;
             reload=120;
             final Effect sfe = new MultiEffect(new Effect[]{Fx.shootBigColor, Fx.colorSparkBig});
-            requirements(Category.turret,with());
+            requirements(Category.turret,with(Items.copper,1000,Items.lead,400,Items.titanium,280,Items.plastanium,100,ModItems.siliconSteel,50));
             ammo(Items.titanium,new BasicBulletType(9.3f,20){{
                 inaccuracy=10;
                 velocityRnd=0.08f;
