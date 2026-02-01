@@ -37,5 +37,6 @@ public class ModBlocks {
     public static Duct itemTrack;
     public static BufferedItemBridge fastItemBridge;
     public static CoreBlock outpostCore;
+    public static CoreBlock sentinelCore;
 }
 //

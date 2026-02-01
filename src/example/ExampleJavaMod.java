@@ -80,8 +80,8 @@ public class ExampleJavaMod extends Mod{
             smokeColor=Color.gray;
             sparkColor=Pal.lighterOrange;
             waveRadBase=waveStroke=6;
-            sparkRad=20;
-            sparkLen=16;
+            sparkRad=10;
+            sparkLen=6;
             sparkStroke=5;
             smokeSizeBase=8;
             smokeSize=14;
@@ -1385,16 +1385,20 @@ public class ExampleJavaMod extends Mod{
                 reload=5;
             }});
             abilities.add(new ShieldArcAbility());
-            abilities.add(new RepairFieldAbility(1,1,80));
+            abilities.add(new RepairFieldAbility(1,120,80));
             speed=1.5f;
             health=100;
         }};
         ModUnits.unitType2=new UnitType("unit-type-2"){{
             canBoost=true;
             constructor=TankUnit::create;
-            weapons.add(new Weapon("artillery-weapon"){{
-                bullet=new ArtilleryBulletType(2.8f, 9){{
-                    lifetime=30;
+            weapons.add(new Weapon("weapon-1"){{
+                bullet=new LaserBulletType(30){{
+                    length=40;
+                    width=2;
+                    lifetime=25;
+                    reload=6;
+                    colors= new Color[]{Pal.heal};
                 }};
                 x=0;
                 y=0;
@@ -1402,12 +1406,19 @@ public class ExampleJavaMod extends Mod{
                 mirror=false;
             }});
             abilities.add(new RegenAbility());
-            abilities.add(new RepairFieldAbility(1,1,96));
+            abilities.add(new RepairFieldAbility(1,120,96));
             buildSpeed=0.75f;
             mineSpeed=2f;
             mineTier=2;
             speed=1.2f;
             health=150;
+        }};
+        ModBlocks.sentinelCore=new CoreBlock("sentinel-core"){{
+            alwaysUnlocked=true;
+            health=1400;
+            size=4;
+            unitType=ModUnits.unitType2;
+            requirements(Category.effect,with(Items.copper,1000,Items.lead,200,Items.titanium,200));
         }};
 
 
@@ -1522,6 +1533,7 @@ public class ExampleJavaMod extends Mod{
         });
 
 
+        ModPlanets.planetEee.techTree=TechTree.nodeRoot("PlanetEee",ModBlocks.sentinelCore,()->{});
 //        ModPlanets.planetEee.techTree= TechTree.nodeRoot("eee", Blocks.coreShard, () -> {
 //            node(ModSectorPresets.t1, () -> {
 //                node(ModSectorPresets.testSector, () -> {
