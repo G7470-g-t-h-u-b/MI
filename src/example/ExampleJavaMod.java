@@ -1412,6 +1412,7 @@ public class ExampleJavaMod extends Mod{
             health=150;
         }};
         ModUnits.unitType3=new TankUnitType("unit-type-3"){{
+            constructor=TankUnit::create;
             weapons.add(new Weapon("unit-type-3-weapon-1"){{
                 bullet=new ContinuousLaserBulletType(200){{
                     length=180;
