@@ -1387,11 +1387,12 @@ public class ExampleJavaMod extends Mod{
             speed=1.5f;
             health=100;
         }};
-        ModUnits.unitType2=new TankUnitType("unit-type-2"){{
+        ModUnits.unitType2=new UnitType("unit-type-2"){{
             rotateSpeed=4;
             canBoost=true;
             constructor=TankUnit::create;
             weapons.add(new Weapon("unit-type-2-weapon-1"){{
+                layerOffset = 1.0E-4F;
                 bullet=new LaserBulletType(30){{
                     length=120;
                     width=2;
@@ -1417,7 +1418,9 @@ public class ExampleJavaMod extends Mod{
         ModUnits.unitType3=new TankUnitType("unit-type-3"){{
             constructor=TankUnit::create;
             weapons.add(new Weapon("unit-3-weapon-1"){{
+                layerOffset = 1.0E-4F;
                 bullet=new ContinuousLaserBulletType(200){{
+                    continuous=true;
                     lifetime=300;
                     length=180;
                     pierceCap=3;
