@@ -7,10 +7,7 @@ import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.Effect;
 import mindustry.entities.UnitSorts;
-import mindustry.entities.abilities.MoveEffectAbility;
-import mindustry.entities.abilities.RegenAbility;
-import mindustry.entities.abilities.RepairFieldAbility;
-import mindustry.entities.abilities.ShieldArcAbility;
+import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ExplosionEffect;
 import mindustry.entities.effect.MultiEffect;
@@ -30,6 +27,7 @@ import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.mod.*;
 import mindustry.type.*;
 import mindustry.type.unit.MissileUnitType;
+import mindustry.type.unit.TankUnitType;
 import mindustry.ui.dialogs.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
@@ -83,11 +81,11 @@ public class ExampleJavaMod extends Mod{
             sparkRad=10;
             sparkLen=6;
             sparkStroke=5;
-            smokeSizeBase=8;
-            smokeSize=14;
+            smokeSizeBase=1;
+            smokeSize=3;
             waveRad=30;
             smokeRad=30;
-            smokes=20;
+            smokes=10;
             sparks=60;
         }};
 
@@ -1389,15 +1387,15 @@ public class ExampleJavaMod extends Mod{
             speed=1.5f;
             health=100;
         }};
-        ModUnits.unitType2=new UnitType("unit-type-2"){{
+        ModUnits.unitType2=new TankUnitType("unit-type-2"){{
             canBoost=true;
             constructor=TankUnit::create;
-            weapons.add(new Weapon("weapon-1"){{
+            weapons.add(new Weapon("unit-type-2-weapon-1"){{
                 bullet=new LaserBulletType(30){{
-                    length=40;
+                    length=120;
                     width=2;
                     lifetime=25;
-                    reload=6;
+                    reload=10;
                     colors= new Color[]{Pal.heal};
                 }};
                 x=0;
@@ -1412,6 +1410,25 @@ public class ExampleJavaMod extends Mod{
             mineTier=2;
             speed=1.2f;
             health=150;
+        }};
+        ModUnits.unitType3=new TankUnitType("unit-type-3"){{
+            weapons.add(new Weapon("unit-type-3-weapon-1"){{
+                bullet=new ContinuousLaserBulletType(200){{
+                    length=180;
+                    pierceCap=3;
+                    timescaleDamage=true;
+                    hitColor=lightColor=Pal.heal;
+                    knockback=3;
+                    buildingDamageMultiplier=0.5f;
+                }};
+            }});
+            canBoost=true;
+            buildSpeed=1.5f;
+            mineSpeed=6;
+            speed=0.75f;
+            health=12000;
+            abilities.add(new RepairFieldAbility(10,180,96));
+            abilities.add(new ShieldRegenFieldAbility(20,60,300,80));
         }};
         ModBlocks.sentinelCore=new CoreBlock("sentinel-core"){{
             alwaysUnlocked=true;
