@@ -1388,6 +1388,7 @@ public class ExampleJavaMod extends Mod{
             health=100;
         }};
         ModUnits.unitType2=new TankUnitType("unit-type-2"){{
+            rotateSpeed=4;
             canBoost=true;
             constructor=TankUnit::create;
             weapons.add(new Weapon("unit-type-2-weapon-1"){{
@@ -1403,6 +1404,7 @@ public class ExampleJavaMod extends Mod{
                 reload=5;
                 mirror=false;
                 rotate=true;
+                top=true;
             }});
             abilities.add(new RegenAbility());
             abilities.add(new RepairFieldAbility(1,120,96));
@@ -1416,6 +1418,7 @@ public class ExampleJavaMod extends Mod{
             constructor=TankUnit::create;
             weapons.add(new Weapon("unit-3-weapon-1"){{
                 bullet=new ContinuousLaserBulletType(200){{
+                    lifetime=300;
                     length=180;
                     pierceCap=3;
                     timescaleDamage=true;
@@ -1423,6 +1426,7 @@ public class ExampleJavaMod extends Mod{
                     knockback=3;
                     buildingDamageMultiplier=0.5f;
                 }};
+                top=true;
                 mirror=false;
                 reload=90;
                 shake=5;
