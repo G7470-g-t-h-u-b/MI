@@ -1402,6 +1402,7 @@ public class ExampleJavaMod extends Mod{
                 y=0;
                 reload=5;
                 mirror=false;
+                rotate=true;
             }});
             abilities.add(new RegenAbility());
             abilities.add(new RepairFieldAbility(1,120,96));
@@ -1422,6 +1423,10 @@ public class ExampleJavaMod extends Mod{
                     knockback=3;
                     buildingDamageMultiplier=0.5f;
                 }};
+                mirror=false;
+                reload=90;
+                shake=5;
+                rotate=true;
             }});
             canBoost=true;
             buildSpeed=1.5f;
