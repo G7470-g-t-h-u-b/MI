@@ -90,6 +90,14 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
+        ModStatusEffects.erosionX=new StatusEffect("erosion-x"){{
+            healthMultiplier=0.8f;
+            reloadMultiplier=0.8f;
+            speedMultiplier=0.6f;
+            damage=0.2f;
+        }};
+
+
         ModItems.experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
             explosiveness=2.8f;
             flammability=1.8f;
@@ -114,6 +122,7 @@ public class ExampleJavaMod extends Mod{
         ModItems.lava=new Liquid("lava",Color.red){{
             temperature=1.3f;
             viscosity=0.75f;
+            effect=StatusEffects.melting;
         }};
         ModItems.iron=new Item("iron",Color.HSVtoRGB(233,16,25));
         ModItems.frostAlloy=new Item("frost-alloy",Color.HSVtoRGB(196,46,89));
@@ -995,7 +1004,7 @@ public class ExampleJavaMod extends Mod{
             range=380;
             size=4;
             shootY=4;
-            maxAmmo=50;
+            maxAmmo=10;
             reload=120;
             final Effect sfe = new MultiEffect(new Effect[]{Fx.shootBigColor, Fx.colorSparkBig});
             requirements(Category.turret,with(Items.copper,1000,Items.lead,400,Items.titanium,280,Items.plastanium,100,ModItems.siliconSteel,50));
@@ -1133,7 +1142,7 @@ public class ExampleJavaMod extends Mod{
 //            loopSound=Sounds.spellLoop;
 //            loopSoundVolume=1.2f;
             shootY=12;
-            ammo(Liquids.hydrogen,new FlakBulletType(8.5f,75f){{
+            ammo(Liquids.hydrogen,new FlakBulletType(8.9f,75f){{
                 buildingDamageMultiplier=0.5f;
                 lifetime=180f;
                 shootEffect=Fx.shootSmokeSquareBig;
@@ -1145,12 +1154,6 @@ public class ExampleJavaMod extends Mod{
                 homingDelay=18f;
                 homingRange=240f;
                 homingPower=3;
-                intervalBullet=new LightningBulletType(){{
-                    buildingDamageMultiplier=0.5f;
-                    lightningColor=Color.sky;
-                    lightningLength=20;
-                    damage=16f;
-                }};
                 fragBullet=new LaserBulletType(55f){{
                     colors= new Color[]{Color.sky};
                     buildingDamageMultiplier=0.5f;
@@ -1194,6 +1197,19 @@ public class ExampleJavaMod extends Mod{
                 sides=3;
                 y=haloY;
                 rotateSpeed=0;
+                rotation=0;
+            }},new ShapePart(){{
+                progress=haloProgress;
+                color=Color.sky;
+                circle=false;
+                hollow=true;
+                stroke=0;
+                strokeTo=2;
+                radius=6;
+                sides=3;
+                y=haloY;
+                rotateSpeed=0;
+                rotation=180;
             }},new ShapePart(){{
                 rotateSpeed=circleRotSpeed;
                 progress=haloProgress;
@@ -1222,7 +1238,7 @@ public class ExampleJavaMod extends Mod{
             }},new HaloPart(){{
                 haloRotateSpeed=-circleRotSpeed;
                 progress=haloProgress;
-                shapes=3;
+                shapes=6;
                 tri=true;
                 color=Color.sky;
                 hollow=true;
@@ -1235,6 +1251,7 @@ public class ExampleJavaMod extends Mod{
                 haloRadius=20;
             }},new HaloPart(){{
                 haloRotateSpeed=0;
+                haloRotation=180;
                 progress=haloProgress;
                 shapes=3;
                 tri=true;
@@ -1391,10 +1408,10 @@ public class ExampleJavaMod extends Mod{
             rotateSpeed=4;
             canBoost=true;
             constructor=TankUnit::create;
-            weapons.add(new Weapon("unit-type-2-weapon-1"){{
+            weapons.add(new Weapon("unit-type-2-weapon"){{
                 layerOffset = 1.0E-4F;
                 bullet=new LaserBulletType(30){{
-                    length=120;
+                    length=160;
                     width=2;
                     lifetime=25;
                     reload=10;
@@ -1417,24 +1434,24 @@ public class ExampleJavaMod extends Mod{
         }};
         ModUnits.unitType3=new TankUnitType("unit-type-3"){{
             constructor=TankUnit::create;
-            weapons.add(new Weapon("unit-3-weapon-1"){{
+            treadFrames=60;
+            weapons.add(new Weapon("unit-3-weapon"){{
                 layerOffset = 1.0E-4F;
-                bullet=new ContinuousLaserBulletType(200){{
-                    continuous=true;
-                    lifetime=300;
-                    length=180;
-                    pierceCap=3;
-                    timescaleDamage=true;
-                    hitColor=lightColor=Pal.heal;
-                    knockback=3;
-                    buildingDamageMultiplier=0.5f;
-                }};
+                bullet=new LaserBulletType(30){{
+                    length=200;
+                    width=14;
+                    lifetime=25;
+                    reload=45;
+                    colors= new Color[]{Pal.heal};
+                }};;
+                recoil=1;
                 top=true;
                 mirror=false;
                 reload=90;
                 shake=5;
                 rotate=true;
             }});
+            engines.add(new UnitEngine(0,-12.5f,4,0));
             canBoost=true;
             buildSpeed=1.5f;
             mineSpeed=6;
