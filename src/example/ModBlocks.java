@@ -27,6 +27,7 @@ public class ModBlocks {
     public static GenericCrafter petroleumFractionatingTower;
     public static GenericCrafter canyonBatteryCompressor;
     public static GenericCrafter archipelagoBatteryCompressor;
+    public static GenericCrafter photoLithographyMachine;
     public static NuclearReactor largeThoriumReactor;
     public static ConsumeGenerator fluidThermalEnergyGenerator;
     public static ConsumeGenerator dieselGenerator;
@@ -35,6 +36,7 @@ public class ModBlocks {
     public static Separator highSpeedDisassembler;
     public static BeamNode laserEnergyNode;
     public static Duct itemTrack;
+    public static Duct logisticsPipeline;
     public static BufferedItemBridge fastItemBridge;
     public static CoreBlock outpostCore;
     public static CoreBlock sentinelCore;
