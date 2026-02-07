@@ -349,6 +349,17 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
+        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher"){{
+            health=100;
+            size=1;
+            requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite));
+            plans=Seq.with(
+                    new ItemPlan(new ItemStack(Items.copper,1),40f,with(Items.copper,1)),
+                    new ItemPlan(new ItemStack(Items.lead,1),40f,with(Items.copper))
+            );
+        }};
+
+
         ModTurrets.itemTurret1=new ItemTurret("item-turret-1"){{
             requirements(Category.turret, with(Items.copper, 40,ModItems.zinc,10,ModItems.gold,5));
             ammo(ModItems.experimentalExplosives, new MissileBulletType(1.5f,32){{

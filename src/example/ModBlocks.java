@@ -40,5 +40,6 @@ public class ModBlocks {
     public static BufferedItemBridge fastItemBridge;
     public static CoreBlock outpostCore;
     public static CoreBlock sentinelCore;
+    public static MultiFormulaFactory metalCrusher;
 }
 //
