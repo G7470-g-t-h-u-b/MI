@@ -58,6 +58,7 @@ public class MultiFormulaFactory extends GenericCrafter {
         this.rotate = true;
         this.regionRotated1 = 1;
         this.commandable = true;
+        this.config(ItemPlan.class, (tile, itemPlan) -> {});
     }
 
     public void init() {
@@ -154,7 +155,7 @@ public class MultiFormulaFactory extends GenericCrafter {
     }
 
     public static class ItemPlan {
-        public ItemStack item;
+        public static ItemStack item;
         public ItemStack[] requirements;
         public float time;
 
