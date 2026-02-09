@@ -353,6 +353,7 @@ public class ExampleJavaMod extends Mod{
             health=100;
             size=1;
             requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
+            consumePower(2);
             plans=Seq.with(
                     new ItemPlan(new ItemStack(Items.copper,1),40f,with(Items.lead,1)),
                     new ItemPlan(new ItemStack(Items.lead,1),40f,with(Items.copper,1))

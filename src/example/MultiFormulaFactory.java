@@ -58,7 +58,11 @@ public class MultiFormulaFactory extends GenericCrafter {
         this.rotate = true;
         this.regionRotated1 = 1;
         this.commandable = true;
-        this.config(ItemPlan.class, (tile, itemPlan) -> {});
+        this.config(Item.class, (build, val) -> {
+            if (this.configurable) {
+                int next = this.plans.indexOf((p) -> ItemPlan.item.item == val);
+            }
+        });
     }
 
     public void init() {
