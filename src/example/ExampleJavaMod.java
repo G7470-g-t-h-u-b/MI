@@ -2,6 +2,7 @@ package example;
 
 import arc.*;
 import arc.graphics.Color;
+import arc.graphics.g2d.Fill;
 import arc.struct.Seq;
 import arc.util.*;
 import mindustry.content.*;
@@ -19,7 +20,6 @@ import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.game.EventType.*;
-import mindustry.gen.Sounds;
 import mindustry.gen.TankUnit;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
@@ -89,6 +89,17 @@ public class ExampleJavaMod extends Mod{
             smokes=5;
             sparks=30;
         }};
+        ModFx.shapeEffect1 =new Effect(50, e->{
+            e.scaled(50,b->{
+                Fill.circle(0,0,80);
+                Fill.circle(0,0,1);
+                Fill.circle(0,0,3);
+                Fill.circle(0,0,5);
+                Fill.circle(0,0,100);
+                Fill.square(0,0,120,0);
+                Fill.square(0,0,120,180);
+            });
+        });
 
 
         ModStatusEffects.erosionX=new StatusEffect("erosion-x"){{
@@ -1039,7 +1050,7 @@ public class ExampleJavaMod extends Mod{
             ammo(Items.titanium,new BasicBulletType(9.3f,20){{
                 inaccuracy=10;
                 velocityRnd=0.08f;
-                shootCone=6;
+                shootCone=10;
                 width = 10.0F;
                 height = 21.0F;
                 hitSize = 7.0F;
@@ -1062,7 +1073,7 @@ public class ExampleJavaMod extends Mod{
             }},Items.surgeAlloy,new BasicBulletType(9f,50){{
                 inaccuracy=10;
                 velocityRnd=0.08f;
-                shootCone=6;
+                shootCone=10;
                 width = 10.0F;
                 height = 21.0F;
                 hitSize = 7.0F;
@@ -1142,11 +1153,57 @@ public class ExampleJavaMod extends Mod{
             );}};
             shoot=new ShootSpread(){{
                 spread=0.5f;
-                shots=36;
+                shots=40;
             }};
             ammoPerShot=10;
             consumeAmmoOnce=true;
             coolant = consumeCoolant(0.5f);
+        }};
+        ModTurrets.end=new ItemTurret("end"){{
+            recoil=2;
+            inaccuracy=3;
+            size=4;
+            requirements(Category.turret,with(Items.copper,1200,Items.lead,600,Items.titanium,400,ModItems.processor,200,Items.plastanium,100,Items.surgeAlloy,100,Items.silicon,50));
+            unitSort=UnitSorts.strongest;
+            consumesPower=true;
+            consumePower(20f);
+            maxAmmo=80;
+            shootY=12;
+            range=800;
+            final Color turretC=Color.black;
+            ammo(Items.surgeAlloy,new FlakBulletType(7f,200f){{
+                lifetime=280;
+                trailWidth=1.8f;
+                trailLength=40;
+                shootEffect=Fx.shootSmokeSquareBig;
+                trailEffect=Fx.colorSpark;
+                smokeEffect=Fx.shootSmokeDisperse;
+                hitColor=trailColor=lightningColor=Color.black;
+                homingDelay=1f;
+                homingRange=200f;
+                homingPower=3.2f;
+                fragSpread=30;
+                fragBullets=5;
+                fragBullet=new EmpBulletType(){{
+                    splashDamage=80;
+                    splashDamageRadius=100;
+                    splashDamagePierce=true;
+                    damage=100;
+                    speed=6.4f;
+                    hitColor=trailColor=lightningColor=Color.black;
+                    homingDelay=2f;
+                    homingRange=120f;
+                    homingPower=3f;
+                    lifetime=60;
+                    hitEffect=ModFx.shapeEffect1;
+                    makeFire=true;
+                    status=StatusEffects.unmoving;
+                }};
+            }});
+            shoot=new ShootSpread(){{
+                spread=10;
+                shots=5;
+            }};
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
             recoil=3;
@@ -1173,6 +1230,7 @@ public class ExampleJavaMod extends Mod{
             ammo(Liquids.hydrogen,new FlakBulletType(8.9f,75f){{
                 buildingDamageMultiplier=0.5f;
                 lifetime=180f;
+                hitEffect=ModFx.shapeEffect1;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
                 smokeEffect=Fx.shootSmokeDisperse;
@@ -1196,7 +1254,9 @@ public class ExampleJavaMod extends Mod{
                 intervalBullets=8;
                 bulletInterval=10f;
                 hitEffect=Fx.hitSquaresColor;
-                splashDamage=3f;
+                splashDamage=20;
+                splashDamageRadius=72;
+                splashDamagePierce=true;
                 homingPower=0.2f;
                 homingDelay=16f;
                 homingRange=160f;
