@@ -3,6 +3,7 @@ package example;
 import arc.*;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.Lines;
 import arc.struct.Seq;
 import arc.util.*;
 import mindustry.content.*;
@@ -91,13 +92,11 @@ public class ExampleJavaMod extends Mod{
         }};
         ModFx.shapeEffect1 =new Effect(50, e->{
             e.scaled(50,b->{
-                Fill.circle(0,0,80);
-                Fill.circle(0,0,1);
-                Fill.circle(0,0,3);
-                Fill.circle(0,0,5);
-                Fill.circle(0,0,100);
-                Fill.square(0,0,120,0);
-                Fill.square(0,0,120,180);
+                Fill.circle(e.x,e.y,5);
+                Lines.circle(e.x,e.y,80);
+                Lines.circle(e.x,e.y,100);
+                Lines.square(e.x,e.y,120,0);
+                Lines.square(e.x,e.y,120,180);
             });
         });
 
@@ -1174,7 +1173,7 @@ public class ExampleJavaMod extends Mod{
             ammo(Items.surgeAlloy,new FlakBulletType(7f,200f){{
                 lifetime=280;
                 trailWidth=1.8f;
-                trailLength=40;
+                trailLength=56;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
                 smokeEffect=Fx.shootSmokeDisperse;
