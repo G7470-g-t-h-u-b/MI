@@ -1195,6 +1195,7 @@ public class ExampleJavaMod extends Mod{
                     homingPower=3f;
                     lifetime=60;
                     hitEffect=ModFx.shapeEffect1;
+                    trailEffect=Fx.colorSpark;
                     makeFire=true;
                     status=StatusEffects.unmoving;
                 }};
@@ -1252,7 +1253,6 @@ public class ExampleJavaMod extends Mod{
                 }};
                 intervalBullets=8;
                 bulletInterval=10f;
-                hitEffect=Fx.hitSquaresColor;
                 splashDamage=20;
                 splashDamageRadius=72;
                 splashDamagePierce=true;
