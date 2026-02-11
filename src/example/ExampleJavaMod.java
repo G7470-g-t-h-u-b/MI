@@ -274,6 +274,12 @@ public class ExampleJavaMod extends Mod{
             heatOutput=32;
             drawer=new DrawMulti(new DrawDefault(),new DrawHeatOutput());
         }};
+        ModBlocks.smallHeatTransmitter=new HeatConductor("small-heat-transmitter"){{
+            size=1;
+            requirements(Category.crafting,with(Items.graphite,10,Items.lead,8));
+            drawer=new DrawMulti(new DrawDefault(), new DrawHeatOutput(), new DrawHeatInput("-heat"));
+            regionRotated1=1;
+        }};
         ModBlocks.heatTransmitter=new HeatConductor("heat-transmitter"){{
             size=2;
             requirements(Category.crafting,with(Items.graphite,20,Items.lead,10));

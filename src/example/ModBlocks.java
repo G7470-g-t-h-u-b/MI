@@ -29,6 +29,7 @@ public class ModBlocks {
     public static GenericCrafter highTemperatureMeltingFurnace;
     public static GenericCrafter highTemperatureSmeltingPlant;
     public static HeatCrafter petroleumFractionatingTower;
+    public static HeatConductor smallHeatTransmitter;
     public static HeatConductor heatTransmitter;
     public static GenericCrafter canyonBatteryCompressor;
     public static GenericCrafter archipelagoBatteryCompressor;
