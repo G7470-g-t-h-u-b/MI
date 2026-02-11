@@ -41,12 +41,14 @@ import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.power.HeaterGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.HeatCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.consumers.ConsumeItemRadioactive;
 import mindustry.world.draw.*;
 import mindustry.world.meta.BuildVisibility;
 
@@ -263,6 +265,15 @@ public class ExampleJavaMod extends Mod{
             heatOutput=8;
             drawer=new DrawMulti(new DrawDefault(),new DrawHeatOutput());
         }};
+        ModBlocks.fissionReactor=new HeaterGenerator("fission-reactor"){{
+            size=3;
+            requirements(Category.power,with(Items.lead,300,Items.metaglass,80,Items.titanium,100,Items.graphite,150,Items.thorium,60,Items.silicon,80));
+            powerProduction=12f;
+            consume(new ConsumeItemRadioactive());
+            consumeLiquid(Liquids.cryofluid,0.75f);
+            heatOutput=32;
+            drawer=new DrawMulti(new DrawDefault(),new DrawHeatOutput());
+        }};
         ModBlocks.heatTransmitter=new HeatConductor("heat-transmitter"){{
             size=2;
             requirements(Category.crafting,with(Items.graphite,20,Items.lead,10));
@@ -336,7 +347,7 @@ public class ExampleJavaMod extends Mod{
         }};
         ModBlocks.dieselGenerator=new ConsumeGenerator("diesel-generator"){{
             requirements(Category.power,with(Items.copper,35,Items.lead,40,Items.titanium,20,ModItems.siliconSteel,20));
-            powerProduction=7;
+            powerProduction=10f;
             size=2;
             hasLiquids=true;
             drawer=new DrawMulti(new DrawDefault(),new DrawRegion("-cap"),
@@ -868,6 +879,7 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=60;
             range=320;
             coolant = consumeCoolant(0.2f);
+            heatRequirement=24;
             requirements(Category.turret,with(Items.copper,800,Items.lead,100,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50,ModItems.processor,20));
             ammo(Items.lead,new BasicBulletType(8f,12){{
                 width=height=16;
@@ -1634,6 +1646,10 @@ public class ExampleJavaMod extends Mod{
                 });
             });
             node(Blocks.mechanicalDrill,()->{
+                node(ModBlocks.electricHeater,()->{
+                    node(ModBlocks.heatTransmitter);
+                    node(ModBlocks.fissionReactor);
+                });
                 node(ModBlocks.canyonBatteryCompressor,()->{
                     node(ModBlocks.archipelagoBatteryCompressor);
                 });

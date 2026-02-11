@@ -7,6 +7,7 @@ import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.power.HeaterGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
@@ -34,6 +35,7 @@ public class ModBlocks {
     public static GenericCrafter photoLithographyMachine;
     public static NuclearReactor largeThoriumReactor;
     public static HeatProducer electricHeater;
+    public static HeaterGenerator fissionReactor;
     public static ConsumeGenerator fluidThermalEnergyGenerator;
     public static ConsumeGenerator dieselGenerator;
     public static ConsumeGenerator canyonBatteryGenerator;
