@@ -1598,18 +1598,6 @@ public class ExampleJavaMod extends Mod{
                 shake=5;
                 rotate=true;
             }});
-            for (final float f:new float[]{3f,-3f}){
-                parts.add(new HoverPart(){{
-                    x=3.2f;
-                    y=f;
-                    mirror=true;
-                    radius=4.8f;
-                    color=Pal.heal;
-                    phase=90;
-                    layerOffset=-0.001f;
-                    stroke=2;
-                }});
-            }
             engineSize=3.6f;
             canBoost=true;
             buildSpeed=1.5f;
@@ -1637,6 +1625,18 @@ public class ExampleJavaMod extends Mod{
             researchCostMultiplier=0;
             abilities.add(new MoveEffectAbility(0.0F,-7.0f,Pal.sapBulletBack,Fx.missileTrailShort,4.0F){{teamColor=true;}});
             abilities.add(new RepairFieldAbility(18,150,96));
+            for (final float f:new float[]{3f,-3f}){
+                parts.add(new HoverPart(){{
+                    x=3.2f;
+                    y=f;
+                    mirror=true;
+                    radius=4.8f;
+                    color=Pal.heal;
+                    phase=90;
+                    layerOffset=-0.001f;
+                    stroke=2;
+                }});
+            }
             weapons.add(new Weapon("charge-weapon"){{
                 top=true;
                 y=-2;
