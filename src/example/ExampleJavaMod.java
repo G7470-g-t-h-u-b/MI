@@ -111,10 +111,10 @@ public class ExampleJavaMod extends Mod{
             e.scaled(45,b->{
                 Draw.color(Color.sky);
                 Fill.circle(e.x,e.y,3);
+                Lines.circle(e.x,e.y,32);
                 Lines.circle(e.x,e.y,40);
-                Lines.circle(e.x,e.y,50);
-                Lines.square(e.x,e.y,60,0);
-                Lines.square(e.x,e.y,60,45);
+                Lines.square(e.x,e.y,56,0);
+                Lines.square(e.x,e.y,56,45);
             });
         });
 
@@ -1578,7 +1578,7 @@ public class ExampleJavaMod extends Mod{
             health=150;
         }};
         ModUnits.unitType3=new TankUnitType("unit-type-3"){{
-            hitSize=18;
+            hitSize=8;
             constructor=TankUnit::create;
             treadFrames=60;
             weapons.add(new Weapon("unit-3-weapon"){{
@@ -1607,8 +1607,8 @@ public class ExampleJavaMod extends Mod{
             abilities.add(new ShieldRegenFieldAbility(20,60,300,80));
         }};
         ModUnits.charge=new ErekirUnitType("charge"){{
-            buildSpeed=1;
-            mineSpeed=2;
+            buildSpeed=3.6f;
+            mineSpeed=3;
             hitSize=10;
             hovering=true;
             constructor=ElevationMoveUnit::create;
@@ -1623,7 +1623,7 @@ public class ExampleJavaMod extends Mod{
             useEngineElevation=false;
             researchCostMultiplier=0;
             abilities.add(new MoveEffectAbility(0.0F,-7.0f,Pal.sapBulletBack,Fx.missileTrailShort,4.0F){{teamColor=true;}});
-            abilities.add(new RepairFieldAbility(16,150,96));
+            abilities.add(new RepairFieldAbility(18,150,96));
             weapons.add(new Weapon("charge-weapon"){{
                 top=true;
                 y=-2;
@@ -1632,11 +1632,11 @@ public class ExampleJavaMod extends Mod{
                 shoot=new ShootSpread(2,11.0F);
                 reload=40;
                 shootCone=360;
-                bullet=new LaserBoltBulletType(6,20){{
-                    trailLength=18;
+                bullet=new LaserBoltBulletType(6.4f,22){{
+                    trailLength=14;
                     hitColor=trailColor=lightningColor=backColor=Pal.heal;
                     homingPower=1;
-                    width=6;
+                    width=2.4f;
                     lifetime=45;
                     healPercent=6;
                 }};
