@@ -96,7 +96,7 @@ public class ExampleJavaMod extends Mod{
                 Lines.circle(e.x,e.y,80);
                 Lines.circle(e.x,e.y,100);
                 Lines.square(e.x,e.y,120,0);
-                Lines.square(e.x,e.y,120,180);
+                Lines.square(e.x,e.y,120,45);
             });
         });
 
@@ -1171,6 +1171,7 @@ public class ExampleJavaMod extends Mod{
             range=800;
             final Color turretC=Color.black;
             ammo(Items.surgeAlloy,new FlakBulletType(7f,200f){{
+                ammoMultiplier=3;
                 lifetime=280;
                 trailWidth=1.8f;
                 trailLength=56;
@@ -1181,6 +1182,8 @@ public class ExampleJavaMod extends Mod{
                 homingDelay=1f;
                 homingRange=200f;
                 homingPower=3.2f;
+                collidesAir=true;
+                collidesGround=true;
                 fragSpread=30;
                 fragBullets=5;
                 fragBullet=new EmpBulletType(){{
@@ -1198,10 +1201,12 @@ public class ExampleJavaMod extends Mod{
                     trailEffect=Fx.colorSpark;
                     makeFire=true;
                     status=StatusEffects.unmoving;
+                    collidesAir=true;
+                    collidesGround=true;
                 }};
             }});
             shoot=new ShootSpread(){{
-                spread=10;
+                spread=6;
                 shots=5;
             }};
         }};
