@@ -2,6 +2,7 @@ package example;
 
 import arc.*;
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.struct.Seq;
@@ -36,11 +37,13 @@ import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Duct;
 import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.HeatCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.draw.*;
@@ -97,6 +100,16 @@ public class ExampleJavaMod extends Mod{
                 Lines.circle(e.x,e.y,100);
                 Lines.square(e.x,e.y,120,0);
                 Lines.square(e.x,e.y,120,45);
+            });
+        });
+        ModFx.shapeEffect2=new Effect(45,e->{
+            e.scaled(45,b->{
+                Draw.color(Color.sky);
+                Fill.circle(e.x,e.y,3);
+                Lines.circle(e.x,e.y,40);
+                Lines.circle(e.x,e.y,50);
+                Lines.square(e.x,e.y,60,0);
+                Lines.square(e.x,e.y,60,45);
             });
         });
 
@@ -240,12 +253,25 @@ public class ExampleJavaMod extends Mod{
             consumeLiquids(LiquidStack.with(ModItems.lava,0.2f));
             results=ItemStack.with(new Object[]{Items.thorium,1,ModItems.zinc,1,ModItems.tin,2,ModItems.gold,1});
         }};
-        ModBlocks.petroleumFractionatingTower=new GenericCrafter("petroleum-fractionating-tower"){{
+
+
+        ModBlocks.electricHeater=new HeatProducer("2"){{
+            size=2;
+            requirements(Category.crafting,with(Items.copper,30,Items.lead,40,Items.silicon,30,ModItems.tin,20));
+            consumePower(1.5f);
+            heatOutput=8;
+            drawer=new DrawMulti(new DrawDefault(),new DrawHeatOutput());
+        }};
+
+
+        ModBlocks.petroleumFractionatingTower=new HeatCrafter("petroleum-fractionating-tower"){{
             health=240;
             size=3;
             craftTime=60f;
             requirements(Category.crafting,with(Items.titanium,70,Items.silicon,30,Items.plastanium,20,ModItems.processor,5));
-            consumePower(4);
+            consumePower(2.5f);
+            heatRequirement=16;
+            maxEfficiency=2.4f;
             consumeLiquids(LiquidStack.with(Liquids.oil,1));
             outputLiquids = LiquidStack.with(ModItems.diesel,0.2,ModItems.kerosene,0.2,ModItems.gasoline,0.2);
         }};
@@ -1235,7 +1261,7 @@ public class ExampleJavaMod extends Mod{
             ammo(Liquids.hydrogen,new FlakBulletType(8.9f,75f){{
                 buildingDamageMultiplier=0.5f;
                 lifetime=180f;
-                hitEffect=ModFx.shapeEffect1;
+                hitEffect=ModFx.shapeEffect2;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
                 smokeEffect=Fx.shootSmokeDisperse;

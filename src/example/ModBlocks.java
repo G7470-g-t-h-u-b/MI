@@ -3,11 +3,13 @@ package example;
 import mindustry.world.Block;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Duct;
+import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.HeatCrafter;
 import mindustry.world.blocks.production.Separator;
 import mindustry.world.blocks.storage.CoreBlock;
 
@@ -24,11 +26,12 @@ public class ModBlocks {
     public static GenericCrafter rockDrilling;
     public static GenericCrafter highTemperatureMeltingFurnace;
     public static GenericCrafter highTemperatureSmeltingPlant;
-    public static GenericCrafter petroleumFractionatingTower;
+    public static HeatCrafter petroleumFractionatingTower;
     public static GenericCrafter canyonBatteryCompressor;
     public static GenericCrafter archipelagoBatteryCompressor;
     public static GenericCrafter photoLithographyMachine;
     public static NuclearReactor largeThoriumReactor;
+    public static HeatProducer electricHeater;
     public static ConsumeGenerator fluidThermalEnergyGenerator;
     public static ConsumeGenerator dieselGenerator;
     public static ConsumeGenerator canyonBatteryGenerator;
