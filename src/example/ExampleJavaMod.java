@@ -22,12 +22,14 @@ import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.game.EventType.*;
+import mindustry.gen.ElevationMoveUnit;
 import mindustry.gen.TankUnit;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
 import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.mod.*;
 import mindustry.type.*;
+import mindustry.type.unit.ErekirUnitType;
 import mindustry.type.unit.MissileUnitType;
 import mindustry.type.unit.TankUnitType;
 import mindustry.ui.dialogs.*;
@@ -1548,7 +1550,7 @@ public class ExampleJavaMod extends Mod{
             health=100;
         }};
         ModUnits.unitType2=new UnitType("unit-type-2"){{
-            rotateSpeed=4;
+            rotateSpeed=5.6f;
             canBoost=true;
             constructor=TankUnit::create;
             weapons.add(new Weapon("unit-type-2-weapon"){{
@@ -1576,6 +1578,7 @@ public class ExampleJavaMod extends Mod{
             health=150;
         }};
         ModUnits.unitType3=new TankUnitType("unit-type-3"){{
+            hitSize=18;
             constructor=TankUnit::create;
             treadFrames=60;
             weapons.add(new Weapon("unit-3-weapon"){{
@@ -1594,7 +1597,7 @@ public class ExampleJavaMod extends Mod{
                 shake=5;
                 rotate=true;
             }});
-            engines.add(new UnitEngine(0,-12.5f,4,0));
+            engineSize=3.6f;
             canBoost=true;
             buildSpeed=1.5f;
             mineSpeed=6;
@@ -1602,6 +1605,42 @@ public class ExampleJavaMod extends Mod{
             health=12000;
             abilities.add(new RepairFieldAbility(10,180,96));
             abilities.add(new ShieldRegenFieldAbility(20,60,300,80));
+        }};
+        ModUnits.charge=new ErekirUnitType("charge"){{
+            buildSpeed=1;
+            mineSpeed=2;
+            hitSize=10;
+            hovering=true;
+            constructor=ElevationMoveUnit::create;
+            canDrown=false;
+            shadowElevation=0.1f;
+            speed=2;
+            rotateSpeed=5.6f;
+            health=360;
+            engineOffset=7;
+            engineSize=2;
+            itemCapacity=10;
+            useEngineElevation=false;
+            researchCostMultiplier=0;
+            abilities.add(new MoveEffectAbility(0.0F,-7.0f,Pal.sapBulletBack,Fx.missileTrailShort,4.0F){{teamColor=true;}});
+            abilities.add(new RepairFieldAbility(16,150,96));
+            weapons.add(new Weapon("charge-weapon"){{
+                top=true;
+                y=-2;
+                x=4;
+                mirror=true;
+                shoot=new ShootSpread(2,11.0F);
+                reload=40;
+                shootCone=360;
+                bullet=new LaserBoltBulletType(6,20){{
+                    trailLength=18;
+                    hitColor=trailColor=lightningColor=backColor=Pal.heal;
+                    homingPower=1;
+                    width=6;
+                    lifetime=45;
+                    healPercent=6;
+                }};
+            }});
         }};
         ModBlocks.sentinelCore=new CoreBlock("sentinel-core"){{
             alwaysUnlocked=true;
