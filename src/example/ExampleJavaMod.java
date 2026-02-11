@@ -17,6 +17,7 @@ import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.DrawPart;
 import mindustry.entities.part.HaloPart;
+import mindustry.entities.part.HoverPart;
 import mindustry.entities.part.ShapePart;
 import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
@@ -1578,7 +1579,7 @@ public class ExampleJavaMod extends Mod{
             health=150;
         }};
         ModUnits.unitType3=new TankUnitType("unit-type-3"){{
-            hitSize=8;
+            hitSize=20;
             constructor=TankUnit::create;
             treadFrames=60;
             weapons.add(new Weapon("unit-3-weapon"){{
@@ -1597,6 +1598,18 @@ public class ExampleJavaMod extends Mod{
                 shake=5;
                 rotate=true;
             }});
+            for (final float f:new float[]{3f,-3f}){
+                parts.add(new HoverPart(){{
+                    x=3.2f;
+                    y=f;
+                    mirror=true;
+                    radius=4.8f;
+                    color=Pal.heal;
+                    phase=90;
+                    layerOffset=-0.001f;
+                    stroke=2;
+                }});
+            }
             engineSize=3.6f;
             canBoost=true;
             buildSpeed=1.5f;
@@ -1607,8 +1620,8 @@ public class ExampleJavaMod extends Mod{
             abilities.add(new ShieldRegenFieldAbility(20,60,300,80));
         }};
         ModUnits.charge=new ErekirUnitType("charge"){{
-            buildSpeed=3.6f;
-            mineSpeed=3;
+            buildSpeed=4f;
+            mineSpeed=3.2f;
             hitSize=10;
             hovering=true;
             constructor=ElevationMoveUnit::create;
@@ -1692,7 +1705,9 @@ public class ExampleJavaMod extends Mod{
             });
             node(Blocks.mechanicalDrill,()->{
                 node(ModBlocks.electricHeater,()->{
-                    node(ModBlocks.heatTransmitter);
+                    node(ModBlocks.heatTransmitter,()->{
+                        node(ModBlocks.smallHeatTransmitter);
+                    });
                     node(ModBlocks.fissionReactor);
                 });
                 node(ModBlocks.canyonBatteryCompressor,()->{
