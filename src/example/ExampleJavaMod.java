@@ -37,6 +37,7 @@ import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Duct;
 import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
@@ -261,6 +262,12 @@ public class ExampleJavaMod extends Mod{
             consumePower(1.5f);
             heatOutput=8;
             drawer=new DrawMulti(new DrawDefault(),new DrawHeatOutput());
+        }};
+        ModBlocks.heatTransmitter=new HeatConductor("heat-transmitter"){{
+            size=2;
+            requirements(Category.crafting,with(Items.graphite,20,Items.lead,10));
+            drawer=new DrawMulti(new DrawDefault(), new DrawHeatOutput(), new DrawHeatInput("-heat"));
+            regionRotated1=1;
         }};
 
 

@@ -3,6 +3,7 @@ package example;
 import mindustry.world.Block;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Duct;
+import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
@@ -27,6 +28,7 @@ public class ModBlocks {
     public static GenericCrafter highTemperatureMeltingFurnace;
     public static GenericCrafter highTemperatureSmeltingPlant;
     public static HeatCrafter petroleumFractionatingTower;
+    public static HeatConductor heatTransmitter;
     public static GenericCrafter canyonBatteryCompressor;
     public static GenericCrafter archipelagoBatteryCompressor;
     public static GenericCrafter photoLithographyMachine;
