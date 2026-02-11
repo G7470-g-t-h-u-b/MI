@@ -255,7 +255,7 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
-        ModBlocks.electricHeater=new HeatProducer("2"){{
+        ModBlocks.electricHeater=new HeatProducer("electric-heater"){{
             size=2;
             requirements(Category.crafting,with(Items.copper,30,Items.lead,40,Items.silicon,30,ModItems.tin,20));
             consumePower(1.5f);
