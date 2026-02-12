@@ -1625,7 +1625,7 @@ public class ExampleJavaMod extends Mod{
             researchCostMultiplier=0;
             abilities.add(new MoveEffectAbility(0.0F,-7.0f,Pal.sapBulletBack,Fx.missileTrailShort,4.0F){{teamColor=true;}});
             abilities.add(new RepairFieldAbility(18,150,96));
-            for (final float f:new float[]{3f,-3f}){
+            for(final float f:new float[]{3f,-3f}){
                 parts.add(new HoverPart(){{
                     x=3.2f;
                     y=f;
@@ -1638,6 +1638,8 @@ public class ExampleJavaMod extends Mod{
                 }});
             }
             weapons.add(new Weapon("charge-weapon"){{
+                rotate=true;
+                rotateSpeed=3.2f;
                 top=true;
                 y=-2;
                 x=4;
@@ -1646,6 +1648,7 @@ public class ExampleJavaMod extends Mod{
                 reload=40;
                 shootCone=360;
                 bullet=new LaserBoltBulletType(6.4f,22){{
+                    collidesTeam=true;
                     trailLength=14;
                     hitColor=trailColor=lightningColor=backColor=Pal.heal;
                     homingPower=1;
