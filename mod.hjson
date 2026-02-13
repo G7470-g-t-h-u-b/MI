@@ -14,7 +14,7 @@ main: "example.ExampleJavaMod"
 description: "热力工业-Thermal Industry"
 
 #the mod version
-version: 0.1.18b
+version: 0.1.18b-fix1
 
 #the minimum game build required to run this mod
 minGameVersion:147

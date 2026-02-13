@@ -1469,27 +1469,31 @@ public class ExampleJavaMod extends Mod{
                 moveX=2f;
                 moveY=1;
             }},new RegionPart(){{
+                layer=1;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-1";
                 color=Color.sky;
                 outline=true;
                 rotation=15;
-                moveX=3.2f;
+                moveX=4.8f;
             }},new RegionPart(){{
+                layer=1;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-2";
                 color=Color.sky;
                 outline=true;
                 rotation=15;
-                moveX=3.2f;
+                moveX=4.8f;
             }},new RegionPart(){{
+                layer=1;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-3";
                 color=Color.sky;
                 outline=true;
+                moveX=4.8f;
                 rotation=45;
             }}
             });
@@ -1614,11 +1618,11 @@ public class ExampleJavaMod extends Mod{
             }},new RegionPart(){{
                 suffix="-l";
                 moveX=-0.8f;
-                rotation=-5;
+                rotation=5;
             }},new RegionPart(){{
                 suffix="-r";
                 moveX=0.8f;
-                rotation=5;
+                rotation=-5;
             }}
             });
             }};
