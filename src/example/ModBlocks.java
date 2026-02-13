@@ -26,8 +26,10 @@ public class ModBlocks {
     public static Drill smallDrillBit;
     public static GenericCrafter electrolyticSeparator;
     public static GenericCrafter rockDrilling;
+    public static GenericCrafter rockCrusher;
     public static GenericCrafter highTemperatureMeltingFurnace;
     public static GenericCrafter highTemperatureSmeltingPlant;
+    public static GenericCrafter assemblyMachine;
     public static HeatCrafter petroleumFractionatingTower;
     public static HeatConductor smallHeatTransmitter;
     public static HeatConductor heatTransmitter;

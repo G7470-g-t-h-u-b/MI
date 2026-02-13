@@ -15,10 +15,7 @@ public class ModItems {
     public static Item frostAlloy;
     public static Item canyonBattery;
     public static Item archipelagoBattery;
+    public static Item heatConductionComponent;
     public static Item processor;
-    public static Liquid lava;
-    public static Liquid kerosene;
-    public static Liquid diesel;
-    public static Liquid gasoline;
 }
 //

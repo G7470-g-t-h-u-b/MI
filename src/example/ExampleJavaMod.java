@@ -15,10 +15,7 @@ import mindustry.entities.bullet.*;
 import mindustry.entities.effect.ExplosionEffect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.WaveEffect;
-import mindustry.entities.part.DrawPart;
-import mindustry.entities.part.HaloPart;
-import mindustry.entities.part.HoverPart;
-import mindustry.entities.part.ShapePart;
+import mindustry.entities.part.*;
 import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.entities.pattern.ShootSpread;
@@ -125,6 +122,7 @@ public class ExampleJavaMod extends Mod{
             reloadMultiplier=0.8f;
             speedMultiplier=0.6f;
             damage=0.2f;
+            color=Color.HSVtoRGB(296,60,37);
         }};
 
 
@@ -149,25 +147,26 @@ public class ExampleJavaMod extends Mod{
             hardness=1;
         }};
         ModItems.rock=new Item("rock",Color.HSVtoRGB(240,7,50));
-        ModItems.lava=new Liquid("lava",Color.red){{
-            temperature=1.4f;
-            viscosity=0.75f;
-            effect=StatusEffects.melting;
-        }};
         ModItems.iron=new Item("iron",Color.HSVtoRGB(233,16,25));
         ModItems.frostAlloy=new Item("frost-alloy",Color.HSVtoRGB(196,46,89));
         ModItems.canyonBattery=new Item("canyon-battery",Color.HSVtoRGB(232,47,77)){{charge=0.4f;}};
         ModItems.archipelagoBattery=new Item("archipelago-battery",Color.HSVtoRGB(97,58,75)){{charge=0.6f;}};
+        ModItems.heatConductionComponent=new Item("heat-conduction-component",Color.HSVtoRGB(8,49,92));
         ModItems.processor=new Item("processor",Color.HSVtoRGB(226,24,65));
-        ModItems.kerosene=new Liquid("kerosene",Color.HSVtoRGB(29,43,97)){{
+        ModLiquids.lava=new Liquid("lava",Color.red){{
+            temperature=1.4f;
+            viscosity=0.75f;
+            effect=StatusEffects.melting;
+        }};
+        ModLiquids.kerosene=new Liquid("kerosene",Color.HSVtoRGB(29,43,97)){{
             flammability=1.2f;
             explosiveness=1.2f;
         }};//煤油
-        ModItems.diesel=new Liquid("diesel",Color.HSVtoRGB(32,63,91)){{
+        ModLiquids.diesel=new Liquid("diesel",Color.HSVtoRGB(32,63,91)){{
             flammability=0.2f;
             explosiveness=0.4f;
         }};//柴油
-        ModItems.gasoline=new Liquid("gasoline",Color.HSVtoRGB(32,81,86)){{
+        ModLiquids.gasoline=new Liquid("gasoline",Color.HSVtoRGB(32,81,86)){{
             flammability=1;
             explosiveness=0.9f;
         }};//汽油
@@ -205,7 +204,7 @@ public class ExampleJavaMod extends Mod{
             drawer=new DrawMulti(
                     new DrawDefault(),
                     new DrawLiquidTile(Liquids.hydrogen,2) );
-            requirements(Category.crafting,with(Items.titanium,30,Items.copper,20,Items.metaglass,20,ModItems.zinc,15));
+            requirements(Category.crafting,with(Items.titanium,30,Items.graphite,25,Items.copper,20,Items.metaglass,20,ModItems.zinc,15));
             consumeLiquids(LiquidStack.with(Liquids.water,0.3f));
             consumePower(1f);
             outputLiquids=new LiquidStack[]{new LiquidStack(Liquids.hydrogen, 0.2f)};
@@ -222,6 +221,15 @@ public class ExampleJavaMod extends Mod{
             consumePower(3f);
             consumeLiquid(Liquids.water,0.5f);
             outputItems=ItemStack.with(ModItems.rock,1);
+            craftEffect = Fx.pulverize;
+        }};
+        ModBlocks.rockCrusher=new GenericCrafter("rock-crusher"){{
+            requirements(Category.crafting,with(Items.copper,25,Items.lead,20,Items.graphite,10));
+            size=1;
+            craftTime=45;
+            craftEffect = Fx.pulverize;
+            consumePower(0.5f);
+            outputItems=ItemStack.with(Items.sand,2);
         }};
         ModBlocks.highTemperatureMeltingFurnace=new GenericCrafter("high-temperature-melting-furnace"){{
             health=200;
@@ -230,7 +238,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.crafting,with(Items.copper,35,Items.titanium,25,Items.graphite,10));
             consumeItems(ItemStack.with(ModItems.rock,1));
             consumePower(2f);
-            outputLiquid=new LiquidStack(ModItems.lava,0.4f);
+            outputLiquid=new LiquidStack(ModLiquids.lava,0.4f);
         }};
         ModBlocks.highTemperatureSmeltingPlant=new GenericCrafter("high-temperature-smelting-plant"){{
             health=200;
@@ -241,11 +249,22 @@ public class ExampleJavaMod extends Mod{
             consumeItems(ItemStack.with(ModItems.rock,2));
             outputItems=ItemStack.with(Items.silicon,1);
         }};
+        ModBlocks.assemblyMachine=new GenericCrafter("assembly-machine"){{
+            size=2;
+            requirements(Category.crafting,with(Items.copper,50,Items.copper,50,ModItems.siliconSteel,25,ModItems.gold,10,ModItems.processor,10));
+            consumePower(1.5f);
+            consumeItems(ItemStack.with(Items.silicon,1,Items.graphite,1,Items.plastanium,1));
+            outputItems=ItemStack.with(ModItems.heatConductionComponent,1);
+            craftTime=60;
+            craftEffect = Fx.pulverize;
+        }};
+
+
         ModBlocks.largeThoriumReactor=new NuclearReactor("large-thorium-reactor"){{
             size=4;
             health=850;
             requirements(Category.power,with(Items.titanium,30,Items.silicon,20,Items.graphite,10,ModItems.siliconSteel,15));
-            powerProduction=18f;
+            powerProduction=20f;
             consumeItem(Items.thorium);
             consumeLiquid(Liquids.cryofluid,heating/coolantPower*1.2f).update(false);
         }};
@@ -256,7 +275,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.crafting,with(Items.copper,45,Items.titanium,25,Items.silicon,30));
             consumePower(3.25f);
 //            consumeItems(ItemStack.with(Items.scrap,1));
-            consumeLiquids(LiquidStack.with(ModItems.lava,0.2f));
+            consumeLiquids(LiquidStack.with(ModLiquids.lava,0.2f));
             results=ItemStack.with(new Object[]{Items.thorium,1,ModItems.zinc,1,ModItems.tin,2,ModItems.gold,1});
         }};
 
@@ -270,7 +289,7 @@ public class ExampleJavaMod extends Mod{
         }};
         ModBlocks.fissionReactor=new HeaterGenerator("fission-reactor"){{
             size=3;
-            requirements(Category.power,with(Items.lead,300,Items.metaglass,80,Items.titanium,100,Items.graphite,150,Items.thorium,60,Items.silicon,80));
+            requirements(Category.power,with(Items.lead,300,Items.metaglass,80,Items.titanium,100,Items.graphite,150,Items.thorium,60,Items.silicon,80,ModItems.heatConductionComponent,80));
             powerProduction=12f;
             consume(new ConsumeItemRadioactive());
             consumeLiquid(Liquids.cryofluid,0.75f);
@@ -279,7 +298,7 @@ public class ExampleJavaMod extends Mod{
         }};
         ModBlocks.smallHeatTransmitter=new HeatConductor("small-heat-transmitter"){{
             size=1;
-            requirements(Category.crafting,with(Items.graphite,10,Items.lead,8));
+            requirements(Category.crafting,with(Items.graphite,10,Items.lead,8,ModItems.heatConductionComponent,5));
             drawer=new DrawMulti(new DrawDefault(), new DrawHeatOutput(), new DrawHeatInput("-heat"));
             regionRotated1=1;
         }};
@@ -300,7 +319,7 @@ public class ExampleJavaMod extends Mod{
             heatRequirement=16;
             maxEfficiency=2.4f;
             consumeLiquids(LiquidStack.with(Liquids.oil,1));
-            outputLiquids = LiquidStack.with(ModItems.diesel,0.2,ModItems.kerosene,0.2,ModItems.gasoline,0.2);
+            outputLiquids = LiquidStack.with(ModLiquids.diesel,0.2,ModLiquids.kerosene,0.2,ModLiquids.gasoline,0.2);
         }};
         ModBlocks.canyonBatteryCompressor=new GenericCrafter("canyon-battery-compressor"){{
             health=200;
@@ -361,7 +380,7 @@ public class ExampleJavaMod extends Mod{
             hasLiquids=true;
             drawer=new DrawMulti(new DrawDefault(),new DrawRegion("-cap"),
                     new DrawLiquidRegion());
-            consumeLiquid(ModItems.diesel,0.2f);
+            consumeLiquid(ModLiquids.diesel,0.2f);
         }};
         ModBlocks.canyonBatteryGenerator=new ConsumeGenerator("canyon-battery-generator"){{
             requirements(Category.power,with(Items.copper,30,Items.lead,50,Items.titanium,30,Items.silicon,30));
@@ -541,6 +560,49 @@ public class ExampleJavaMod extends Mod{
                 collidesTiles=false;
                 collideTerrain=false;
             }});
+        }};
+        ModTurrets.burst=new ItemTurret("burst"){{
+            size=3;
+            requirements(Category.turret,with(Items.titanium,120,Items.silicon,50,Items.graphite,50));
+            reload=90;
+            range=240;
+            heatRequirement=8;
+            ammo(Items.plastanium,new ArtilleryBulletType(5.6f,120f){{
+                lightColor=trailColor=hitColor=backColor=Pal.techBlue;
+                frontColor=Color.white;
+                trailLength=20;
+                trailWidth=6;
+                lifetime=70;
+                splashDamage=64;
+                splashDamageRadius=80;
+                fragBullets=10;
+                fragLifeMin=0.8f;
+                fragLifeMax=20f;
+                fragRandomSpread=120;
+                ammoMultiplier=1;
+                fragBullet=new BasicBulletType(6.2f,28f){{
+                    shootEffect=Fx.shootBigColor;
+                    smokeEffect=Fx.shootSmokeSquareBig;
+                    pierceCap=3;
+                    width=2;
+                    trailWidth=1.8f;
+                    trailLength=32;
+                }};
+            }});
+            shoot = new ShootAlternate(7.2f){{barrels=2;}};
+            drawer=new DrawTurret(){{
+                parts.addAll(new RegionPart(){{
+                    under=true;
+                    suffix="-l";
+                    moveY=-1.5f;
+                    recoilIndex=0;
+                }},new RegionPart(){{
+                    under=true;
+                    suffix="-r";
+                    moveY=-1.5f;
+                    recoilIndex=1;
+                }});
+            }};
         }};
         ModTurrets.ash=new ItemTurret("ash"){{
             requirements(Category.turret,with(Items.titanium,160,ModItems.zinc,120,ModItems.gold,80,ModItems.siliconSteel,100,Items.surgeAlloy,50));
@@ -1223,8 +1285,7 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=80;
             shootY=12;
             range=800;
-            final Color turretC=Color.black;
-            ammo(Items.surgeAlloy,new FlakBulletType(7f,200f){{
+            ammo(Items.surgeAlloy,new ArtilleryBulletType(7f,200f){{
                 ammoMultiplier=3;
                 lifetime=280;
                 trailWidth=1.8f;
@@ -1383,21 +1444,6 @@ public class ExampleJavaMod extends Mod{
                 y=haloY;
             }},new HaloPart(){{
                 haloRotateSpeed=-circleRotSpeed;
-                progress=haloProgress;
-                shapes=6;
-                tri=true;
-                color=Color.sky;
-                hollow=true;
-                stroke=0;
-                strokeTo=2;
-                triLength=0;
-                triLengthTo=14;
-                radius=8;
-                y=haloY;
-                haloRadius=20;
-            }},new HaloPart(){{
-                haloRotateSpeed=0;
-                haloRotation=180;
                 progress=haloProgress;
                 shapes=3;
                 tri=true;
@@ -1591,7 +1637,7 @@ public class ExampleJavaMod extends Mod{
                     reload=45;
                     colors= new Color[]{Pal.heal};
                 }};;
-                recoil=1;
+                recoil=1.4f;
                 top=true;
                 mirror=false;
                 reload=90;
@@ -1638,6 +1684,7 @@ public class ExampleJavaMod extends Mod{
                 }});
             }
             weapons.add(new Weapon("charge-weapon"){{
+                recoil=1.2f;
                 rotate=true;
                 rotateSpeed=3.2f;
                 top=true;
@@ -1691,6 +1738,7 @@ public class ExampleJavaMod extends Mod{
         nodeRoot("e",Blocks.coreShard,()->{
             node(ModTurrets.itemTurret3,()->{
                 node(ModTurrets.puncture,()->{
+                    node(ModTurrets.burst);
                     node(ModTurrets.pureEmptiness);
                     node(ModTurrets.daytime);
                 });
@@ -1707,11 +1755,13 @@ public class ExampleJavaMod extends Mod{
                 });
             });
             node(Blocks.mechanicalDrill,()->{
-                node(ModBlocks.electricHeater,()->{
-                    node(ModBlocks.heatTransmitter,()->{
-                        node(ModBlocks.smallHeatTransmitter);
+                node(ModBlocks.assemblyMachine,()->{
+                    node(ModBlocks.electricHeater,()->{
+                        node(ModBlocks.heatTransmitter,()->{
+                            node(ModBlocks.smallHeatTransmitter);
+                        });
+                        node(ModBlocks.fissionReactor);
                     });
-                    node(ModBlocks.fissionReactor);
                 });
                 node(ModBlocks.canyonBatteryCompressor,()->{
                     node(ModBlocks.archipelagoBatteryCompressor);
@@ -1729,6 +1779,7 @@ public class ExampleJavaMod extends Mod{
                         node(ModBlocks.petroleumFractionatingTower);
                     });
                     node(ModBlocks.rockDrilling, () -> {
+                        node(ModBlocks.rockCrusher);
                         node(ModBlocks.highTemperatureSmeltingPlant);
                         node(ModBlocks.highTemperatureMeltingFurnace, () -> {
                             node(ModBlocks.highSpeedDisassembler);
@@ -1761,26 +1812,25 @@ public class ExampleJavaMod extends Mod{
                 nodeProduce(ModItems.zinc, () -> {});
                 nodeProduce(Items.coal, () -> {
                     nodeProduce(Items.sand, () -> {
-                        nodeProduce(Items.scrap, () -> {
-                        });
-                        nodeProduce(ModItems.rock, () -> {
-                        });
+                        nodeProduce(Items.scrap, () -> {});
+                        nodeProduce(ModItems.rock, () -> {});
                     });
                     nodeProduce(Liquids.oil, () -> {
-                        nodeProduce(ModItems.gasoline, () -> {});
-                        nodeProduce(ModItems.diesel, () -> {});
-                        nodeProduce(ModItems.kerosene, () -> {});
+                        nodeProduce(ModLiquids.gasoline, () -> {});
+                        nodeProduce(ModLiquids.diesel, () -> {});
+                        nodeProduce(ModLiquids.kerosene, () -> {});
                     });
                     nodeProduce(Items.graphite, () -> {
                     });
                     nodeProduce(Items.silicon, () -> {
+                        nodeProduce(ModItems.heatConductionComponent,()->{});
                         nodeProduce(ModItems.processor,()->{});
                         nodeProduce(ModItems.siliconSteel, () -> {});
                     });
                 });
                 nodeProduce(ModItems.gold, () -> {});
                 nodeProduce(Liquids.water, () -> {
-                    nodeProduce(ModItems.lava, () -> {});
+                    nodeProduce(ModLiquids.lava, () -> {});
                     nodeProduce(Liquids.hydrogen, () -> {});
                 });
             });

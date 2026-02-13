@@ -2,7 +2,7 @@
 displayName: "A Java Mod"
 
 #the internal name of your mod
-name: "g7470mod-1"
+name: "thermal-industry"
 
 #your name
 author: "G7470"
@@ -11,10 +11,10 @@ author: "G7470"
 main: "example.ExampleJavaMod"
 
 #the mod description as seen in the mod dialog
-description: "A Mindustry Java mod"
+description: "热力工业-Thermal Industry"
 
 #the mod version
-version: 0.1.17f-fix5
+version: 0.1.18a
 
 #the minimum game build required to run this mod
 minGameVersion:147
