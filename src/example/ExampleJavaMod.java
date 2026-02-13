@@ -571,22 +571,24 @@ public class ExampleJavaMod extends Mod{
                 lightColor=trailColor=hitColor=backColor=Pal.techBlue;
                 frontColor=Color.white;
                 trailLength=20;
-                trailWidth=6;
+                trailWidth=2.8f;
                 lifetime=70;
+                width=3;
                 splashDamage=64;
                 splashDamageRadius=80;
                 fragBullets=10;
                 fragLifeMin=0.8f;
-                fragLifeMax=20f;
                 fragRandomSpread=120;
                 ammoMultiplier=1;
                 fragBullet=new BasicBulletType(6.2f,28f){{
+                    lightColor=trailColor=hitColor=backColor=Pal.techBlue;
                     shootEffect=Fx.shootBigColor;
                     smokeEffect=Fx.shootSmokeSquareBig;
+                    lifetime=24;
                     pierceCap=3;
-                    width=2;
-                    trailWidth=1.8f;
-                    trailLength=32;
+                    width=4;
+                    trailWidth=4;
+                    trailLength=24;
                 }};
             }});
             shoot = new ShootAlternate(7.2f){{barrels=2;}};
@@ -596,11 +598,13 @@ public class ExampleJavaMod extends Mod{
                     suffix="-l";
                     moveY=-1.5f;
                     recoilIndex=0;
+                    progress=PartProgress.recoil;
                 }},new RegionPart(){{
                     under=true;
                     suffix="-r";
                     moveY=-1.5f;
                     recoilIndex=1;
+                    progress=PartProgress.recoil;
                 }});
             }};
         }};
@@ -1456,6 +1460,37 @@ public class ExampleJavaMod extends Mod{
                 radius=8;
                 y=haloY;
                 haloRadius=20;
+            }},new RegionPart(){{
+                suffix="-a-l";
+                moveX=-4.8f;
+                moveY=1;
+            }},new RegionPart(){{
+                suffix="-a-r";
+                moveX=4.8f;
+                moveY=1;
+            }},new RegionPart(){{
+                mirror=true;
+                progress=PartProgress.warmup;
+                suffix="-b-1";
+                color=Color.sky;
+                outline=true;
+                rotation=15;
+                moveX=3.2f;
+            }},new RegionPart(){{
+                mirror=true;
+                progress=PartProgress.warmup;
+                suffix="-b-2";
+                color=Color.sky;
+                outline=true;
+                rotation=15;
+                moveX=3.2f;
+            }},new RegionPart(){{
+                mirror=true;
+                progress=PartProgress.warmup;
+                suffix="-b-3";
+                color=Color.sky;
+                outline=true;
+                rotation=45;
             }}
             });
             }};
@@ -1576,6 +1611,12 @@ public class ExampleJavaMod extends Mod{
                 strokeTo=circleStroke;
                 sides=4;
                 radius=6;
+            }},new RegionPart(){{
+                suffix="-l";
+                moveX=-6;
+            }},new RegionPart(){{
+                suffix="-r";
+                moveX=6;
             }}
             });
             }};
