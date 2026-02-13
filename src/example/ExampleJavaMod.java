@@ -1671,9 +1671,9 @@ public class ExampleJavaMod extends Mod{
             researchCostMultiplier=0;
             abilities.add(new MoveEffectAbility(0.0F,-7.0f,Pal.sapBulletBack,Fx.missileTrailShort,4.0F){{teamColor=true;}});
             abilities.add(new RepairFieldAbility(18,150,96));
-            for(final float f:new float[]{3f,-3f}){
+            for(final float f:new float[]{4f,-4f}){
                 parts.add(new HoverPart(){{
-                    x=3.2f;
+                    x=4f;
                     y=f;
                     mirror=true;
                     radius=4.8f;
@@ -1755,6 +1755,13 @@ public class ExampleJavaMod extends Mod{
                 });
             });
             node(Blocks.mechanicalDrill,()->{
+                node(ModBlocks.rockDrilling, () -> {
+                    node(ModBlocks.rockCrusher);
+                    node(ModBlocks.highTemperatureSmeltingPlant);
+                    node(ModBlocks.highTemperatureMeltingFurnace, () -> {
+                        node(ModBlocks.highSpeedDisassembler);
+                    });
+                });
                 node(ModBlocks.assemblyMachine,()->{
                     node(ModBlocks.electricHeater,()->{
                         node(ModBlocks.heatTransmitter,()->{
@@ -1777,13 +1784,6 @@ public class ExampleJavaMod extends Mod{
                     node(Blocks.plastaniumCompressor, () -> {
                         node(ModBlocks.largeSiliconSteelMixer);
                         node(ModBlocks.petroleumFractionatingTower);
-                    });
-                    node(ModBlocks.rockDrilling, () -> {
-                        node(ModBlocks.rockCrusher);
-                        node(ModBlocks.highTemperatureSmeltingPlant);
-                        node(ModBlocks.highTemperatureMeltingFurnace, () -> {
-                            node(ModBlocks.highSpeedDisassembler);
-                        });
                     });
                 });
                 node(ModBlocks.laserEnergyNode,()->{

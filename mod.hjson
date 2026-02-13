@@ -1,5 +1,5 @@
 #the mod name as displayed in-game
-displayName: "A Java Mod"
+displayName: "热力工业-Thermal Industry"
 
 #the internal name of your mod
 name: "thermal-industry"
@@ -14,7 +14,7 @@ main: "example.ExampleJavaMod"
 description: "热力工业-Thermal Industry"
 
 #the mod version
-version: 0.1.18a
+version: 0.1.18a-fix1
 
 #the minimum game build required to run this mod
 minGameVersion:147
