@@ -1330,7 +1330,7 @@ public class ExampleJavaMod extends Mod{
             }};
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
-            recoil=3;
+            recoil=0;
             inaccuracy=5;
             xRand=2f;
             size=4;
@@ -1462,11 +1462,11 @@ public class ExampleJavaMod extends Mod{
                 haloRadius=20;
             }},new RegionPart(){{
                 suffix="-a-l";
-                moveX=-4.8f;
+                moveX=-2f;
                 moveY=1;
             }},new RegionPart(){{
                 suffix="-a-r";
-                moveX=4.8f;
+                moveX=2f;
                 moveY=1;
             }},new RegionPart(){{
                 mirror=true;
@@ -1613,10 +1613,12 @@ public class ExampleJavaMod extends Mod{
                 radius=6;
             }},new RegionPart(){{
                 suffix="-l";
-                moveX=-6;
+                moveX=-0.8f;
+                rotation=-5;
             }},new RegionPart(){{
                 suffix="-r";
-                moveX=6;
+                moveX=0.8f;
+                rotation=5;
             }}
             });
             }};
