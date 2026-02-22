@@ -22,6 +22,8 @@ import mindustry.entities.pattern.ShootSpread;
 import mindustry.game.EventType.*;
 import mindustry.gen.ElevationMoveUnit;
 import mindustry.gen.TankUnit;
+import mindustry.gen.UnitEntity;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
 import mindustry.maps.planet.SerpuloPlanetGenerator;
@@ -37,6 +39,7 @@ import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Duct;
 import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.environment.RemoveWall;
 import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
@@ -52,6 +55,8 @@ import mindustry.world.consumers.ConsumeItemRadioactive;
 import mindustry.world.draw.*;
 import mindustry.world.meta.BuildVisibility;
 
+
+import javax.swing.*;
 
 import static mindustry.content.TechTree.*;
 import static mindustry.type.ItemStack.with;
@@ -86,15 +91,15 @@ public class ExampleJavaMod extends Mod{
             smokeColor=Color.gray;
             sparkColor=Pal.lighterOrange;
             waveRadBase=waveStroke=6;
-            sparkRad=10;
+            sparkRad=2;
             sparkLen=6;
             sparkStroke=5;
             smokeSizeBase=1;
             smokeSize=1.7f;
             waveRad=30;
             smokeRad=30;
-            smokes=5;
-            sparks=30;
+            smokes=3;
+            sparks=15;
         }};
         ModFx.shapeEffect1 =new Effect(50, e->{
             e.scaled(50,b->{
@@ -113,6 +118,22 @@ public class ExampleJavaMod extends Mod{
                 Lines.circle(e.x,e.y,40);
                 Lines.square(e.x,e.y,56,0);
                 Lines.square(e.x,e.y,56,45);
+            });
+        });
+        ModFx.teachBlueBomb=new Effect(30,100,e->{
+            e.scaled(45,b->{
+                Draw.color(Pal.techBlue);
+                Lines.circle(e.x,e.y,20);
+
+                for(int i=0;i<4;i++){
+                    Drawf.tri(e.x,e.y,3,26,(float) i*90);
+                }
+
+                Draw.color();
+
+                for(int i=0;i<4;i++){
+                    Drawf.tri(e.x,e.y,1.2f,20,(float) i*90);
+                }
             });
         });
 
@@ -171,6 +192,9 @@ public class ExampleJavaMod extends Mod{
             explosiveness=0.9f;
         }};//汽油
 
+        ModBlocks.explosive=new RemoveWall("explosive"){{
+            requirements(Category.effect,with(Items.lead,50,Items.pyratite,30,Items.blastCompound,10));
+        }};
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
             health=180;
@@ -228,6 +252,7 @@ public class ExampleJavaMod extends Mod{
             size=1;
             craftTime=45;
             craftEffect = Fx.pulverize;
+            consumeItem(ModItems.rock,1);
             consumePower(0.5f);
             outputItems=ItemStack.with(Items.sand,2);
         }};
@@ -254,9 +279,19 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.crafting,with(Items.copper,50,Items.copper,50,ModItems.siliconSteel,25,ModItems.gold,10,ModItems.processor,10));
             consumePower(1.5f);
             consumeItems(ItemStack.with(Items.silicon,1,Items.graphite,1,Items.plastanium,1));
-            outputItems=ItemStack.with(ModItems.heatConductionComponent,1);
+            outputItems=ItemStack.with(ModItems.heatConductionComponent,2);
             craftTime=60;
             craftEffect = Fx.pulverize;
+        }};
+        ModBlocks.aromatizationMachine=new GenericCrafter("aromatization-machine"){{
+            size=3;
+            requirements(Category.crafting,with(Items.lead,40,Items.titanium,30,Items.metaglass,20,Items.silicon,20));
+            consumePower(2.5f);
+            consumeItems(ItemStack.with(Items.graphite,1));
+            consumeLiquids(LiquidStack.with(Liquids.water,0.75f,Liquids.oil,0.5f));
+            outputLiquids=LiquidStack.with(Liquids.arkycite,1.5f);
+            craftTime=60;
+            drawer=new DrawMulti(new DrawRegion("-bottom"),new DrawLiquidTile(Liquids.arkycite,2),new DrawDefault());
         }};
 
 
@@ -1403,7 +1438,7 @@ public class ExampleJavaMod extends Mod{
                 circle=false;
                 hollow=true;
                 stroke=0;
-                strokeTo=2;
+                strokeTo=1.4f;
                 radius=6;
                 sides=3;
                 y=haloY;
@@ -1415,7 +1450,7 @@ public class ExampleJavaMod extends Mod{
                 circle=false;
                 hollow=true;
                 stroke=0;
-                strokeTo=2;
+                strokeTo=1.4f;
                 radius=6;
                 sides=3;
                 y=haloY;
@@ -1432,20 +1467,6 @@ public class ExampleJavaMod extends Mod{
                 radius=14;
                 y=haloY;
                 sides=3;
-            }},new HaloPart(){{
-                rotateSpeed=circleRotSpeed;
-                haloRotateSpeed=circleRotSpeed;
-                progress=haloProgress;
-                shapes=3;
-                tri=true;
-                color=Color.sky;
-                hollow=false;
-                stroke=0;
-                strokeTo=2;
-                triLength=6;
-                triLengthTo=10;
-                radius=8;
-                y=haloY;
             }},new HaloPart(){{
                 haloRotateSpeed=-circleRotSpeed;
                 progress=haloProgress;
@@ -1469,7 +1490,7 @@ public class ExampleJavaMod extends Mod{
                 moveX=2f;
                 moveY=1;
             }},new RegionPart(){{
-                layer=1;
+                layer=20;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-1";
@@ -1478,7 +1499,7 @@ public class ExampleJavaMod extends Mod{
                 rotation=15;
                 moveX=4.8f;
             }},new RegionPart(){{
-                layer=1;
+                layer=20;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-2";
@@ -1487,7 +1508,7 @@ public class ExampleJavaMod extends Mod{
                 rotation=15;
                 moveX=4.8f;
             }},new RegionPart(){{
-                layer=1;
+                layer=20;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-3";
@@ -1619,10 +1640,12 @@ public class ExampleJavaMod extends Mod{
                 suffix="-l";
                 moveX=-0.8f;
                 rotation=5;
+                progress=haloProgress;
             }},new RegionPart(){{
                 suffix="-r";
                 moveX=0.8f;
                 rotation=-5;
+                progress=haloProgress;
             }}
             });
             }};
@@ -1718,12 +1741,12 @@ public class ExampleJavaMod extends Mod{
             researchCostMultiplier=0;
             abilities.add(new MoveEffectAbility(0.0F,-7.0f,Pal.sapBulletBack,Fx.missileTrailShort,4.0F){{teamColor=true;}});
             abilities.add(new RepairFieldAbility(18,150,96));
-            for(final float f:new float[]{4f,-4f}){
+            for(final float f:new float[]{6f,-6f}){
                 parts.add(new HoverPart(){{
-                    x=4f;
+                    x=6f;
                     y=f;
                     mirror=true;
-                    radius=4.8f;
+                    radius=5f;
                     color=Pal.heal;
                     phase=90;
                     layerOffset=-0.001f;
@@ -1752,6 +1775,28 @@ public class ExampleJavaMod extends Mod{
                 }};
             }});
         }};
+        ModUnits.raid=new UnitType("raid"){{
+            hitSize=2.2f;
+            health=560;
+            speed=2.4f;
+            constructor=UnitEntity::create;
+            weapons.add(new Weapon(){{
+                reload=6;
+                mirror=false;
+                x=0;
+                y=0;
+                bullet=new BombBulletType(30,24){{
+                    lifetime=28;
+                    hitColor=trailColor=lightningColor=backColor=Pal.techBlue;
+                    frontColor=Color.white;
+                    despawnEffect=ModFx.teachBlueBomb;
+                    hitEffect=Fx.massiveExplosion;
+                    collidesAir=false;
+                }};
+            }});
+        }};
+
+
         ModBlocks.sentinelCore=new CoreBlock("sentinel-core"){{
             alwaysUnlocked=true;
             health=1400;
@@ -1827,6 +1872,7 @@ public class ExampleJavaMod extends Mod{
                 node(ModBlocks.smallDrillBit);
                 node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
                     node(ModBlocks.photoLithographyMachine);
+                    node(ModBlocks.aromatizationMachine);
                     node(ModBlocks.electrolyticSeparator, () -> {});//电解分离机
                     node(Blocks.plastaniumCompressor, () -> {
                         node(ModBlocks.largeSiliconSteelMixer);
@@ -1845,6 +1891,7 @@ public class ExampleJavaMod extends Mod{
                     node(ModBlocks.logisticsPipeline);
                 });
             });
+            node(ModBlocks.explosive);
             nodeProduce(Items.copper, () -> {
                 nodeProduce(Items.lead, () -> {
                     nodeProduce(ModItems.canyonBattery,()->{
@@ -1863,6 +1910,7 @@ public class ExampleJavaMod extends Mod{
                         nodeProduce(ModItems.rock, () -> {});
                     });
                     nodeProduce(Liquids.oil, () -> {
+                        nodeProduce(Liquids.arkycite,()->{});
                         nodeProduce(ModLiquids.gasoline, () -> {});
                         nodeProduce(ModLiquids.diesel, () -> {});
                         nodeProduce(ModLiquids.kerosene, () -> {});
@@ -2034,4 +2082,4 @@ public class ExampleJavaMod extends Mod{
 
     }
 }
-//
+//????/??/??
