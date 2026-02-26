@@ -56,8 +56,6 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.BuildVisibility;
 
 
-import javax.swing.*;
-
 import static mindustry.content.TechTree.*;
 import static mindustry.type.ItemStack.with;
 
@@ -174,10 +172,11 @@ public class ExampleJavaMod extends Mod{
         ModItems.archipelagoBattery=new Item("archipelago-battery",Color.HSVtoRGB(97,58,75)){{charge=0.6f;}};
         ModItems.heatConductionComponent=new Item("heat-conduction-component",Color.HSVtoRGB(8,49,92));
         ModItems.processor=new Item("processor",Color.HSVtoRGB(226,24,65));
-        ModLiquids.lava=new Liquid("lava",Color.red){{
+        ModLiquids.lava=new Liquid("lava",Color.HSVtoRGB(17,60,100)){{
             temperature=1.4f;
             viscosity=0.75f;
             effect=StatusEffects.melting;
+            lightColor=Color.HSVtoRGB(29,56,100);
         }};
         ModLiquids.kerosene=new Liquid("kerosene",Color.HSVtoRGB(29,43,97)){{
             flammability=1.2f;
@@ -311,6 +310,7 @@ public class ExampleJavaMod extends Mod{
             consumePower(3.25f);
 //            consumeItems(ItemStack.with(Items.scrap,1));
             consumeLiquids(LiquidStack.with(ModLiquids.lava,0.2f));
+            drawer=new DrawMulti(new DrawRegion("-b"),new DrawLiquidTile(ModLiquids.lava),new DrawDefault());
             results=ItemStack.with(new Object[]{Items.thorium,1,ModItems.zinc,1,ModItems.tin,2,ModItems.gold,1});
         }};
 
@@ -1583,7 +1583,6 @@ public class ExampleJavaMod extends Mod{
         }};
         ModTurrets.disaster=new PowerTurret("disaster"){{
             size=3;
-            final DrawPart.PartProgress haloProgress = DrawPart.PartProgress.warmup;
             final float circleY = 10f;
             final DrawPart.PartProgress circleProgress = DrawPart.PartProgress.warmup.delay(0.9F);
             final float circleRad = 11.0F;
@@ -1640,12 +1639,12 @@ public class ExampleJavaMod extends Mod{
                 suffix="-l";
                 moveX=-0.8f;
                 rotation=5;
-                progress=haloProgress;
+                progress=PartProgress.recoil;
             }},new RegionPart(){{
                 suffix="-r";
                 moveX=0.8f;
                 rotation=-5;
-                progress=haloProgress;
+                progress=PartProgress.recoil;
             }}
             });
             }};
@@ -1776,10 +1775,12 @@ public class ExampleJavaMod extends Mod{
             }});
         }};
         ModUnits.raid=new UnitType("raid"){{
-            hitSize=2.2f;
+            flying=true;
+            hitSize=25f;
             health=560;
-            speed=2.4f;
+            speed=2f;
             constructor=UnitEntity::create;
+            targetAir=false;
             weapons.add(new Weapon(){{
                 reload=6;
                 mirror=false;
@@ -1790,7 +1791,6 @@ public class ExampleJavaMod extends Mod{
                     hitColor=trailColor=lightningColor=backColor=Pal.techBlue;
                     frontColor=Color.white;
                     despawnEffect=ModFx.teachBlueBomb;
-                    hitEffect=Fx.massiveExplosion;
                     collidesAir=false;
                 }};
             }});
