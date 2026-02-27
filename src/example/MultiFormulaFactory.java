@@ -22,6 +22,7 @@ import mindustry.ui.Styles;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.blocks.payloads.Payload;
 import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.draw.DrawBlock;
 import mindustry.world.draw.DrawDefault;
@@ -53,12 +54,17 @@ public class MultiFormulaFactory extends GenericCrafter {
         this.rotate = true;
         this.regionRotated1 = 1;
         this.commandable = true;
-        this.config(Item.class, (build, val) -> {
-            if (this.configurable) {
-                int next = this.plans.indexOf((p) -> ItemPlan.item.item == val);
-            }
+        config(Item.class, (UnitFactory.UnitFactoryBuild build, Item val) -> {
+            if(!configurable) return;
+            int next = plans.indexOf(p -> p.item.item == val);
+            if(build.currentPlan == next) return;
+            build.currentPlan = next;
+            build.progress = 0;
         });
+
+
     }
+
 
     public void init() {
         super.init();
@@ -154,12 +160,12 @@ public class MultiFormulaFactory extends GenericCrafter {
     }
 
     public static class ItemPlan {
-        public static ItemStack item;
+        public ItemStack item;
         public ItemStack[] requirements;
         public float time;
 
-        public ItemPlan(ItemStack unit, float time, ItemStack[] requirements) {
-            this.item = unit;
+        public ItemPlan(ItemStack item, float time, ItemStack[] requirements) {
+            this.item = item;
             this.time = time;
             this.requirements = requirements;
         }
@@ -208,18 +214,21 @@ public class MultiFormulaFactory extends GenericCrafter {
         }
 
         public void updateTile() {
-            if (this.efficiency > 0.0F) {
-                this.progress += this.getProgressIncrease(MultiFormulaFactory.this.craftTime);
-                if (MultiFormulaFactory.this.outputLiquids != null) {
-                    float inc = this.getProgressIncrease(1.0F);
-
-                    for(LiquidStack output : MultiFormulaFactory.this.outputLiquids) {
-                        this.handleLiquid(this, output.liquid, Math.min(output.amount * inc, MultiFormulaFactory.this.liquidCapacity - this.liquids.get(output.liquid)));
-                    }
-                }
+            if (!MultiFormulaFactory.this.configurable){
+                currentPlan=0;
+            }
+            if (currentPlan<0||currentPlan>=MultiFormulaFactory.this.plans.size){
+                currentPlan=-1;
+            }
+            ItemPlan plan = MultiFormulaFactory.this.plans.get(currentPlan);
+            if (this.efficiency > 0.0F && currentPlan != -1) {
+                progress+=getProgressIncrease(plan.time);
+            }
+            if (progress>=1f){
+                craft();
             }
 
-            this.dumpOutputs();
+            dumpOutputs();
         }
 
         public void dumpOutputs() {
@@ -229,6 +238,19 @@ public class MultiFormulaFactory extends GenericCrafter {
                 }
             }
 
+        }
+
+        public void craft(){
+            consume();
+            ItemPlan plan = MultiFormulaFactory.this.plans.get(currentPlan);
+            if (plan.item!=null){
+                for (ItemStack output: plan.requirements){
+                    for (int j=0;j<=output.amount;j++){
+                        offload(output.item);
+                    }
+                }
+            }
+            progress%=1;
         }
 
         public boolean shouldConsume() {

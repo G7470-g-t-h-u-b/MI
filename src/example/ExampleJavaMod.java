@@ -473,7 +473,7 @@ public class ExampleJavaMod extends Mod{
             consumePower(2);
             plans=Seq.with(
                     new ItemPlan(new ItemStack(Items.copper,1),40f,with(Items.lead,1)),
-                    new ItemPlan(new ItemStack(Items.lead,1),40f,with(Items.copper,1))
+                    new ItemPlan(new ItemStack(Items.lead,1),60f,with(Items.copper,1))
             );
         }};
 
