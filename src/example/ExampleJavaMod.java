@@ -984,7 +984,7 @@ public class ExampleJavaMod extends Mod{
             shake=3;
             recoil=1.6f;
             inaccuracy=3;
-            shootCone=3;
+            shootCone=10;
             reload=5;
             maxAmmo=60;
             range=320;

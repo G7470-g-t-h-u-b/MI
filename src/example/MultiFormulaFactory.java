@@ -44,16 +44,16 @@ public class MultiFormulaFactory extends GenericCrafter {
     public LiquidStack[] outputLiquids;
     public MultiFormulaFactory(String name) {
         super(name);
-        this.update = true;
-        this.hasPower = true;
-        this.hasItems = true;
-        this.solid = true;
-        this.configurable = true;
-        this.clearOnDoubleTap = true;
-        this.outputsPayload = true;
-        this.rotate = true;
-        this.regionRotated1 = 1;
-        this.commandable = true;
+        update = true;
+        hasPower = true;
+        hasItems = true;
+        solid = true;
+        configurable = true;
+        clearOnDoubleTap = true;
+        outputsPayload = true;
+        rotate = true;
+        regionRotated1 = 1;
+        commandable = true;
         config(Item.class, (UnitFactory.UnitFactoryBuild build, Item val) -> {
             if(!configurable) return;
 
@@ -65,18 +65,19 @@ public class MultiFormulaFactory extends GenericCrafter {
     }
 
     public void init() {
+        initCapacities();
+        consItems = findConsumer((c) -> c instanceof ConsumeItems);
         super.init();
-        this.consItems = (ConsumeItems)this.findConsumer((c) -> c instanceof ConsumeItems);
     }
 
     public void afterPatch() {
-        this.initCapacities();
+        initCapacities();
         super.afterPatch();
     }
 
     public void initCapacities() {
-        this.capacities = new int[Vars.content.items().size];
-        this.itemCapacity = 10;
+        capacities = new int[Vars.content.items().size];
+        itemCapacity = 10;
 
         for(MultiFormulaFactory.ItemPlan plan : this.plans) {
             for(ItemStack stack : plan.requirements) {
@@ -97,10 +98,10 @@ public class MultiFormulaFactory extends GenericCrafter {
     }
 
     public void setStats() {
-        this.stats.timePeriod = this.craftTime;
+        stats.timePeriod = this.craftTime;
         super.setStats();
-        this.stats.remove(Stat.itemCapacity);
-        this.stats.add(Stat.output, (table) -> {
+        stats.remove(Stat.itemCapacity);
+        stats.add(Stat.output, (table) -> {
             table.row();
 
             for(MultiFormulaFactory.ItemPlan plan : this.plans) {
@@ -170,8 +171,8 @@ public class MultiFormulaFactory extends GenericCrafter {
     }
 
     public class MultiFormulaFactoryBuild extends Building {
+        public int configure;
         public float progress;
-        public float counter;
         public Item outputItem;
         public int currentPlan = -1;
         public MultiFormulaFactoryBuild() {}
@@ -212,18 +213,28 @@ public class MultiFormulaFactory extends GenericCrafter {
         }
 
         public void updateTile() {
-            if (this.efficiency > 0.0F) {
-                this.progress += this.getProgressIncrease(MultiFormulaFactory.this.craftTime);
-                if (MultiFormulaFactory.this.outputLiquids != null) {
-                    float inc = this.getProgressIncrease(1.0F);
+            if (efficiency>0){
+                progress += getProgressIncrease(craftTime);
 
-                    for(LiquidStack output : MultiFormulaFactory.this.outputLiquids) {
-                        this.handleLiquid(this, output.liquid, Math.min(output.amount * inc, MultiFormulaFactory.this.liquidCapacity - this.liquids.get(output.liquid)));
+            }
+            if(progress>1)craft();
+            dumpOutputs();
+        }
+
+        public void craft(){
+            if (plans.items!=null){
+                for(var output : outputItems){
+                    for(int i = 0; i < output.amount; i++){
+                        offload(output.item);
                     }
                 }
             }
 
-            this.dumpOutputs();
+            if (wasVisible){
+                craftEffect.at(x,y);
+            }
+
+            consume();
         }
 
         public void dumpOutputs() {
@@ -232,7 +243,6 @@ public class MultiFormulaFactory extends GenericCrafter {
                     this.dump(output.item);
                 }
             }
-
         }
 
         public boolean shouldConsume() {
@@ -240,12 +250,12 @@ public class MultiFormulaFactory extends GenericCrafter {
         }
 
         public boolean acceptItem(Building source, Item item) {
-            return this.currentPlan != -1 && this.items.get(item) < this.getMaximumAccepted(item) && Structs.contains(((MultiFormulaFactory.ItemPlan)MultiFormulaFactory.this.plans.get(this.currentPlan)).requirements, (stack) -> stack.item == item);
+            return this.currentPlan != -1 && this.items.get(item) < this.getMaximumAccepted(item) && Structs.contains(MultiFormulaFactory.this.plans.get(this.currentPlan).requirements, (stack) -> stack.item == item);
         }
 
         @Nullable
         public ItemStack item() {
-            return this.currentPlan == -1 ? null : ((MultiFormulaFactory.ItemPlan)MultiFormulaFactory.this.plans.get(this.currentPlan)).item;
+            return this.currentPlan == -1 ? null : MultiFormulaFactory.this.plans.get(this.currentPlan).item;
         }
 
         public byte version() {
