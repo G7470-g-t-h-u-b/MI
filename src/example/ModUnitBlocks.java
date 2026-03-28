@@ -17,7 +17,8 @@ public class ModUnitBlocks {
             constructTime=60*2;
             consumePower(2f);
             consumeItems(ItemStack.with(Items.silicon,20,Items.titanium,40));
-            upgrades.addAll(new UnitType[]{UnitTypes.horizon, ModUnits.raid});
+            upgrades.addAll(new UnitType[]{UnitTypes.horizon, ModUnits.raid}
+                    ,new UnitType[]{UnitTypes.oxynoe,ModUnits.mysticSnail});
         }};
     }
 }

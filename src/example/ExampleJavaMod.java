@@ -1823,6 +1823,8 @@ public class ExampleJavaMod extends Mod{
             speed=1.1f;
             rotateSpeed=5f;
             mineSpeed=1.8f;
+            abilities.add(new RegenAbility());
+            abilities.add(new RepairFieldAbility(1,120,120));
             weapons.add(new Weapon(){{
                 reload=15;
                 mirror=true;
@@ -1832,10 +1834,12 @@ public class ExampleJavaMod extends Mod{
                 shake=0.2f;
                 rotate=false;
                 bullet=new LaserBoltBulletType(6.4f,18){{
+                    backColor=frontColor=hitColor=Pal.heal;
                     healPercent=4.8f;
                 }};
             }});
             weapons.add(new Weapon("mystic-snail-weapon-1"){{
+                layerOffset=1E-4f;
                 reload=45;
                 mirror=false;
                 rotate=true;
@@ -1846,6 +1850,7 @@ public class ExampleJavaMod extends Mod{
                 recoil=0.85f;
                 bullet=new LaserBulletType(64){{
                     healPercent=7.2f;
+                    colors=new Color[]{Pal.heal};
                 }};
             }});
         }};
