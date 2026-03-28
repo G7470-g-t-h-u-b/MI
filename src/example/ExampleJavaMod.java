@@ -532,7 +532,7 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=30;
             size=2;
             reload=2;
-            requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
+            requirements(Category.turret,with(Items.copper,45,Items.lead,20,Items.titanium,20,ModItems.tin,10));
             ammo(Items.lead,new BasicBulletType(4f,12){{
                 hitColor = this.backColor = this.trailColor = Pal.graphiteAmmoBack;
                 width=2;
