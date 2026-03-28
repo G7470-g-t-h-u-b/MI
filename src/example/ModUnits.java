@@ -8,5 +8,6 @@ public class ModUnits {
     public static UnitType unitType2;
     public static UnitType unitType3;
     public static UnitType raid;
+    public static UnitType mysticSnail;
     public static ErekirUnitType charge;
 }

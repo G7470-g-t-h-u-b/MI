@@ -23,6 +23,7 @@ import mindustry.game.EventType.*;
 import mindustry.gen.ElevationMoveUnit;
 import mindustry.gen.TankUnit;
 import mindustry.gen.UnitEntity;
+import mindustry.gen.UnitWaterMove;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
@@ -524,26 +525,27 @@ public class ExampleJavaMod extends Mod{
             maxAmmo=20;
             size=2;
         }};
-        ModTurrets.itemTurret3=new ItemTurret("item-turret-3"){{
+        ModTurrets.sharpSpear=new ItemTurret("sharp-spear"){{
             targetGround=false;
             range=192;
             inaccuracy=3f;
             maxAmmo=30;
-            drawer = new DrawTurret(){{
-                parts.addAll();
-            }};
             size=2;
             reload=2;
             requirements(Category.turret,with(Items.copper,45,Items.lead,15,ModItems.tin,8));
-            ammo(Items.lead,new FlakBulletType(4f,12){{
-                hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
+            ammo(Items.lead,new BasicBulletType(4f,12){{
+                hitColor = this.backColor = this.trailColor = Pal.graphiteAmmoBack;
+                width=2;
+                height=8;
                 ammoMultiplier=3;
                 lifetime=160;
-//                range=192;
             }},ModItems.siliconSteel,new MissileBulletType(3.8f,11){{
-                hitColor = this.backColor = this.trailColor = Pal.blastAmmoBack;
+                hitColor = this.backColor = this.trailColor = Pal.siliconAmmoBack;
+                width=3;
+                height=8;
+                trailLength=16;
+                trailWidth=3;
                 ammoMultiplier=5;
-//                range=192;
                 lifetime=160;
             }});
 
@@ -992,7 +994,8 @@ public class ExampleJavaMod extends Mod{
             heatRequirement=24;
             requirements(Category.turret,with(Items.copper,800,Items.lead,100,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50,ModItems.processor,20));
             ammo(Items.lead,new BasicBulletType(8f,12){{
-                width=height=16;
+                height=14;
+                width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
@@ -1006,7 +1009,8 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=1f;
                 lifetime=40;
             }},Items.titanium,new BasicBulletType(8.5f,45){{
-                width=height=16;
+                height=14;
+                width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
@@ -1020,7 +1024,8 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=2f;
                 lifetime=40;
             }},Items.graphite,new BasicBulletType(8.5f,38){{
-                width=height=16;
+                height=14;
+                width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
@@ -1032,7 +1037,8 @@ public class ExampleJavaMod extends Mod{
                 lifetime=40;
                 trailLength=6;
             }},ModItems.siliconSteel,new BasicBulletType(8.5f,40){{
-                width=height=16;
+                height=14;
+                width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
@@ -1049,7 +1055,8 @@ public class ExampleJavaMod extends Mod{
                 splashDamageRadius=12;
             }},Items.thorium,new BasicBulletType(8.2f,45){{
                 reloadMultiplier=0.8f;
-                width=height=16;
+                height=14;
+                width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
@@ -1063,7 +1070,8 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=3f;
                 lifetime=40;
             }},Items.plastanium,new BasicBulletType(8.2f,24){{
-                width=height=16;
+                height=14;
+                width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
@@ -1094,7 +1102,8 @@ public class ExampleJavaMod extends Mod{
                 splashDamage=30;
                 splashDamageRadius=60;
                 reloadMultiplier=0.8f;
-                width=height=16;
+                height=14;
+                width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
@@ -1109,7 +1118,8 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=3f;
                 lifetime=40;
             }},Items.surgeAlloy,new BasicBulletType(8.2f,60){{
-                width=height=16;
+                height=14;
+                width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
                 shootEffect=Fx.shootBig2;
@@ -1636,15 +1646,17 @@ public class ExampleJavaMod extends Mod{
                 sides=4;
                 radius=6;
             }},new RegionPart(){{
+                rotate=true;
                 suffix="-l";
                 moveX=-0.8f;
                 rotation=5;
-                progress=PartProgress.recoil;
+                progress=PartProgress.warmup;
             }},new RegionPart(){{
+                rotate=true;
                 suffix="-r";
                 moveX=0.8f;
                 rotation=-5;
-                progress=PartProgress.recoil;
+                progress=PartProgress.warmup;
             }}
             });
             }};
@@ -1683,7 +1695,7 @@ public class ExampleJavaMod extends Mod{
                 reload=5;
                 mirror=false;
                 rotate=true;
-                top=true;
+                top=false;
             }});
             abilities.add(new RegenAbility());
             abilities.add(new RepairFieldAbility(1,120,96));
@@ -1707,7 +1719,7 @@ public class ExampleJavaMod extends Mod{
                     colors= new Color[]{Pal.heal};
                 }};;
                 recoil=1.4f;
-                top=true;
+                top=false;
                 mirror=false;
                 reload=90;
                 shake=5;
@@ -1723,6 +1735,9 @@ public class ExampleJavaMod extends Mod{
             abilities.add(new ShieldRegenFieldAbility(20,60,300,80));
         }};
         ModUnits.charge=new ErekirUnitType("charge"){{
+            outlineColor=Pal.gray;
+            drag=0.07f;
+            accel=0.09f;
             buildSpeed=4f;
             mineSpeed=3.2f;
             hitSize=10;
@@ -1756,7 +1771,7 @@ public class ExampleJavaMod extends Mod{
                 recoil=1.2f;
                 rotate=true;
                 rotateSpeed=3.2f;
-                top=true;
+                top=false;
                 y=-2;
                 x=4;
                 mirror=true;
@@ -1775,8 +1790,11 @@ public class ExampleJavaMod extends Mod{
             }});
         }};
         ModUnits.raid=new UnitType("raid"){{
+            outlineColor=Pal.gray;
+            drag=0.05f;
+            accel=0.06f;
             flying=true;
-            hitSize=25f;
+            hitSize=30f;
             health=560;
             speed=2f;
             constructor=UnitEntity::create;
@@ -1795,6 +1813,42 @@ public class ExampleJavaMod extends Mod{
                 }};
             }});
         }};
+        ModUnits.mysticSnail=new UnitType("mystic-snail"){{
+            constructor=UnitWaterMove::create;
+            health=560f;
+            hitSize=14f;
+            drag=0.14f;
+            armor=5f;
+            accel=0.4f;
+            speed=1.1f;
+            rotateSpeed=5f;
+            mineSpeed=1.8f;
+            weapons.add(new Weapon(){{
+                reload=15;
+                mirror=true;
+                x=4;
+                y=6;
+                recoil=0.6f;
+                shake=0.2f;
+                rotate=false;
+                bullet=new LaserBoltBulletType(6.4f,18){{
+                    healPercent=4.8f;
+                }};
+            }});
+            weapons.add(new Weapon("mystic-snail-weapon-1"){{
+                reload=45;
+                mirror=false;
+                rotate=true;
+                rotateSpeed=5.4f;
+                x=0;
+                y=0;
+                shake=0.5f;
+                recoil=0.85f;
+                bullet=new LaserBulletType(64){{
+                    healPercent=7.2f;
+                }};
+            }});
+        }};
 
 
         ModBlocks.sentinelCore=new CoreBlock("sentinel-core"){{
@@ -1805,6 +1859,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.effect,with(Items.copper,1000,Items.lead,200,Items.titanium,200));
         }};
 
+        ModUnitBlocks.load();
 
         ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
             generator=new SerpuloPlanetGenerator();
@@ -1828,7 +1883,7 @@ public class ExampleJavaMod extends Mod{
 
 
         nodeRoot("e",Blocks.coreShard,()->{
-            node(ModTurrets.itemTurret3,()->{
+            node(ModTurrets.sharpSpear,()->{
                 node(ModTurrets.puncture,()->{
                     node(ModTurrets.burst);
                     node(ModTurrets.pureEmptiness);
@@ -1890,6 +1945,9 @@ public class ExampleJavaMod extends Mod{
                     node(ModBlocks.itemTrack);
                     node(ModBlocks.logisticsPipeline);
                 });
+            });
+            node(ModUnitBlocks.secondaryModificationFactory,()->{
+                node(ModUnits.raid);
             });
             node(ModBlocks.explosive);
             nodeProduce(Items.copper, () -> {
@@ -2010,7 +2068,7 @@ public class ExampleJavaMod extends Mod{
 //                });
 //                node(Blocks.scatter, () -> {
 //                });
-//                node(ModTurrets.itemTurret3, () -> {
+//                node(ModTurrets.sharpSpear, () -> {
 //                    node(ModTurrets.itemTurret2, () -> {
 //                    });
 //                });

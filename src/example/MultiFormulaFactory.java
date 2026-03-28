@@ -32,7 +32,7 @@ import mindustry.world.meta.StatValues;
 public class MultiFormulaFactory extends GenericCrafter {
     public DrawBlock drawer = new DrawDefault();
     public int[] capacities = new int[0];
-    public Seq<MultiFormulaFactory.ItemPlan> plans = new Seq(4);
+    public Seq<ItemPlan> plans = new Seq<>(10);
     public float craftTime;
     @Nullable
     public ItemStack outputItem;
@@ -79,7 +79,7 @@ public class MultiFormulaFactory extends GenericCrafter {
         capacities = new int[Vars.content.items().size];
         itemCapacity = 10;
 
-        for(MultiFormulaFactory.ItemPlan plan : this.plans) {
+        for(ItemPlan plan : this.plans) {
             for(ItemStack stack : plan.requirements) {
                 this.capacities[stack.item.id] = Math.max(this.capacities[stack.item.id], stack.amount * 2);
                 this.itemCapacity = Math.max(this.itemCapacity, stack.amount * 2);
@@ -104,7 +104,7 @@ public class MultiFormulaFactory extends GenericCrafter {
         stats.add(Stat.output, (table) -> {
             table.row();
 
-            for(MultiFormulaFactory.ItemPlan plan : this.plans) {
+            for(ItemPlan plan : this.plans) {
                 table.table(Styles.grayPanel, (t) -> {
                     if (plan.item.item.isBanned()) {
                         t.image(Icon.cancel).color(Pal.remove).size(40.0F);
@@ -150,7 +150,7 @@ public class MultiFormulaFactory extends GenericCrafter {
     }
 
     public void getPlanConfigs(Seq<UnlockableContent> options) {
-        for(MultiFormulaFactory.ItemPlan plan : this.plans) {
+        for(ItemPlan plan : this.plans) {
             if (!plan.item.item.isBanned()) {
                 options.add(plan.item.item);
             }
@@ -163,8 +163,8 @@ public class MultiFormulaFactory extends GenericCrafter {
         public ItemStack[] requirements;
         public float time;
 
-        public ItemPlan(ItemStack unit, float time, ItemStack[] requirements) {
-            this.item = unit;
+        public ItemPlan(ItemStack item_, float time, ItemStack[] requirements) {
+            this.item = item_;
             this.time = time;
             this.requirements = requirements;
         }
@@ -213,28 +213,33 @@ public class MultiFormulaFactory extends GenericCrafter {
         }
 
         public void updateTile() {
+            if (!configurable) {
+                this.currentPlan = 0;
+            }
+            if (this.currentPlan < 0 || this.currentPlan >= plans.size) {
+                this.currentPlan = -1;
+            }
+
+            ItemPlan plan=plans.get(currentPlan);
             if (efficiency>0){
                 progress += getProgressIncrease(craftTime);
-
             }
-            if(progress>1)craft();
-            dumpOutputs();
-        }
-
-        public void craft(){
-            if (plans.items!=null){
-                for(var output : outputItems){
-                    for(int i = 0; i < output.amount; i++){
-                        offload(output.item);
+            if(progress>1) {
+                if (plan.item!=null){
+                    for(var output : plans.items){
+                        for(int i = 0; i < plan.requirements[currentPlan].amount; i++){
+                            offload(output.item.item);
+                        }
                     }
                 }
-            }
 
-            if (wasVisible){
-                craftEffect.at(x,y);
-            }
+                if (wasVisible){
+                    craftEffect.at(x,y);
+                }
 
-            consume();
+                consume();
+            }
+            dumpOutputs();
         }
 
         public void dumpOutputs() {
