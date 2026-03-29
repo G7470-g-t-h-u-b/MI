@@ -1,0 +1,17 @@
+{
+  "displayName": "热力工业-Thermal Industry",
+
+  "name": "thermal-industry",
+
+  "author": "G7470",
+
+  "main": "example.ExampleJavaMod",
+
+  "description": "热力工业-Thermal Industry",
+
+  "version": "0.1.21a",
+
+  "minGameVersion": "154",
+
+  "java": "true"
+}
