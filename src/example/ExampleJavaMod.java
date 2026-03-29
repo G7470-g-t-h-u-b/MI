@@ -531,20 +531,20 @@ public class ExampleJavaMod extends Mod{
             inaccuracy=3f;
             maxAmmo=30;
             size=2;
-            reload=2;
+            reload=1;
             requirements(Category.turret,with(Items.copper,45,Items.lead,20,Items.titanium,20,ModItems.tin,10));
-            ammo(Items.lead,new BasicBulletType(4f,12){{
+            ammo(Items.lead,new BasicBulletType(6.7f,12){{
                 hitColor = this.backColor = this.trailColor = Pal.graphiteAmmoBack;
-                width=2;
-                height=8;
+                width=4;
+                height=10;
                 ammoMultiplier=3;
                 lifetime=160;
             }},ModItems.siliconSteel,new MissileBulletType(3.8f,11){{
                 hitColor = this.backColor = this.trailColor = Pal.siliconAmmoBack;
-                width=3;
-                height=8;
-                trailLength=16;
-                trailWidth=3;
+                width=5;
+                height=10;
+                trailLength=12;
+                trailWidth=2;
                 ammoMultiplier=5;
                 lifetime=160;
             }});
@@ -1207,7 +1207,7 @@ public class ExampleJavaMod extends Mod{
             range=380;
             size=4;
             shootY=4;
-            maxAmmo=10;
+            maxAmmo=20;
             reload=120;
             final Effect sfe = new MultiEffect(new Effect[]{Fx.shootBigColor, Fx.colorSparkBig});
             requirements(Category.turret,with(Items.copper,1000,Items.lead,400,Items.titanium,280,Items.plastanium,100,ModItems.siliconSteel,50,ModItems.processor,30));
@@ -1834,6 +1834,7 @@ public class ExampleJavaMod extends Mod{
                 shake=0.2f;
                 rotate=false;
                 bullet=new LaserBoltBulletType(6.4f,18){{
+                    collidesTeam=true;
                     backColor=frontColor=hitColor=Pal.heal;
                     healPercent=4.8f;
                 }};
@@ -1849,6 +1850,7 @@ public class ExampleJavaMod extends Mod{
                 shake=0.5f;
                 recoil=0.85f;
                 bullet=new LaserBulletType(64){{
+                    collidesTeam=true;
                     healPercent=7.2f;
                     colors=new Color[]{Pal.heal};
                 }};
@@ -1953,6 +1955,7 @@ public class ExampleJavaMod extends Mod{
             });
             node(ModUnitBlocks.secondaryModificationFactory,()->{
                 node(ModUnits.raid);
+                node(ModUnits.mysticSnail);
             });
             node(ModBlocks.explosive);
             nodeProduce(Items.copper, () -> {
