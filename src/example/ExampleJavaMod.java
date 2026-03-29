@@ -487,7 +487,7 @@ public class ExampleJavaMod extends Mod{
                 splashDamageRadius=2.5f;
                 makeFire=true;
                 lifetime=160;
-            }},Items.surgeAlloy,new BasicBulletType(0,0){{}});
+            }},Items.surgeAlloy,new BasicBulletType(0,0));
             displayAmmoMultiplier=true;
             range=160;
             shoot = new ShootPattern();
@@ -527,18 +527,19 @@ public class ExampleJavaMod extends Mod{
         }};
         ModTurrets.sharpSpear=new ItemTurret("sharp-spear"){{
             targetGround=false;
-            range=192;
+            range=240;
             inaccuracy=3f;
             maxAmmo=30;
             size=2;
             reload=1;
+            rotateSpeed=8f;
             requirements(Category.turret,with(Items.copper,45,Items.lead,20,Items.titanium,20,ModItems.tin,10));
             ammo(Items.lead,new BasicBulletType(6.7f,12){{
                 hitColor = this.backColor = this.trailColor = Pal.graphiteAmmoBack;
                 width=4;
                 height=10;
                 ammoMultiplier=3;
-                lifetime=160;
+                lifetime=140;
             }},ModItems.siliconSteel,new MissileBulletType(3.8f,11){{
                 hitColor = this.backColor = this.trailColor = Pal.siliconAmmoBack;
                 width=5;
@@ -546,7 +547,7 @@ public class ExampleJavaMod extends Mod{
                 trailLength=12;
                 trailWidth=2;
                 ammoMultiplier=5;
-                lifetime=160;
+                lifetime=140;
             }});
 
         }};
@@ -1668,7 +1669,7 @@ public class ExampleJavaMod extends Mod{
         ModUnits.unitType1=new UnitType("unit-type-1"){{
             canBoost=true;
             constructor=TankUnit::create;
-            weapons.add(new Weapon("tutorial-weapon"){{
+            weapons.add(new Weapon("t-weapon"){{
                 bullet = new BasicBulletType(2.5f, 9);
                 reload=5;
             }});
@@ -1724,6 +1725,8 @@ public class ExampleJavaMod extends Mod{
                 reload=90;
                 shake=5;
                 rotate=true;
+                x=0;
+                y=0;
             }});
             engineSize=3.6f;
             canBoost=true;
@@ -1834,6 +1837,7 @@ public class ExampleJavaMod extends Mod{
                 shake=0.2f;
                 rotate=false;
                 bullet=new LaserBoltBulletType(6.4f,18){{
+                    autoTarget=true;
                     collidesTeam=true;
                     backColor=frontColor=hitColor=Pal.heal;
                     healPercent=4.8f;
