@@ -5,6 +5,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
+import arc.math.Interp;
 import arc.struct.Seq;
 import arc.util.*;
 import mindustry.content.*;
@@ -47,10 +48,7 @@ import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.HeaterGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
-import mindustry.world.blocks.production.Drill;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.production.HeatCrafter;
-import mindustry.world.blocks.production.Separator;
+import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.consumers.ConsumeItemRadioactive;
 import mindustry.world.draw.*;
@@ -243,7 +241,7 @@ public class ExampleJavaMod extends Mod{
             craftTime=60;
             requirements(Category.crafting,with(Items.copper,55,Items.titanium,40,Items.graphite,20));
             consumePower(3f);
-            consumeLiquid(Liquids.water,0.5f);
+            consumeLiquid(Liquids.water,0.2f);
             outputItems=ItemStack.with(ModItems.rock,1);
             craftEffect = Fx.pulverize;
         }};
@@ -313,6 +311,19 @@ public class ExampleJavaMod extends Mod{
             consumeLiquids(LiquidStack.with(ModLiquids.lava,0.2f));
             drawer=new DrawMulti(new DrawRegion("-b"),new DrawLiquidTile(ModLiquids.lava),new DrawDefault());
             results=ItemStack.with(new Object[]{Items.thorium,1,ModItems.zinc,1,ModItems.tin,2,ModItems.gold,1});
+        }};
+        ModBlocks.mechanicalGenerator=new ConsumeGenerator("mechanical-generator"){{
+            size=1;
+            health=260;
+            requirements(Category.power,with(Items.copper,50,Items.graphite,30,Items.lead,50,Items.silicon,20));
+            powerProduction=0.75f;
+        }};
+        ModBlocks.hydroelectricGenerator=new ConsumeGenerator("hydroelectric-generator"){{
+            health=300;
+            size=2;
+            powerProduction=2.5f;
+            consumeLiquids(LiquidStack.with(Liquids.water,0.3f));
+            requirements(Category.power,with(Items.lead,60,Items.graphite,30,Items.silicon,20,Items.metaglass,30));
         }};
 
 
@@ -393,10 +404,17 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.smallDrillBit=new Drill("small-drill-bit"){{
             health=65;
             size=1;
+            tier=3;
             requirements(Category.production,with(Items.copper,10,Items.graphite,5));
             drillTime=400f;
-            blockedItems=Seq.with(ModItems.uranium,Items.thorium);
             hardnessDrillMultiplier=2;
+        }};
+        ModBlocks.modBeamDrill=new BeamDrill("mod-beam-drill"){{
+            requirements(Category.production,with(Items.titanium,40,Items.silicon,30,ModItems.siliconSteel,20,Items.lead,20));
+            size=2;
+            tier=4;
+            consumePower(0.15f);
+            range=4;
         }};
 
 
@@ -459,8 +477,8 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
-        ModBlocks.outpostCore=new CoreBlock("outpost-core"){{
-            requirements(Category.effect, BuildVisibility.shown,with(Items.titanium,2000,Items.copper,1800,Items.silicon,1200));
+        ModBlocks.outpostCore=new OutPostCoreBlock("outpost-core"){{
+            requirements(Category.effect, BuildVisibility.shown,with(Items.titanium,1000,Items.copper,1200,Items.silicon,800,ModItems.siliconSteel,500));
             health=1200;
             size=3;
             unitType = UnitTypes.alpha;
@@ -894,7 +912,7 @@ public class ExampleJavaMod extends Mod{
                 lifetime=60;
                 width=12f;
                 hitSize=20;
-                shootEffect=new MultiEffect(new Effect[]{Fx.shootBigColor,Fx.colorSparkBig});
+                shootEffect=new MultiEffect(Fx.shootBigColor,Fx.colorSparkBig);
                 ammoMultiplier=3;
                 trailWidth=2.8f;
                 trailLength=10;
@@ -999,7 +1017,7 @@ public class ExampleJavaMod extends Mod{
                 width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
-                shootEffect=Fx.shootBig2;
+                shootEffect=Fx.sparkShoot;
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.techBlue;
                 trailEffect=Fx.disperseTrail;
@@ -1014,7 +1032,7 @@ public class ExampleJavaMod extends Mod{
                 width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
-                shootEffect=Fx.shootBig2;
+                shootEffect=Fx.sparkShoot;
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.techBlue;
                 trailEffect=Fx.disperseTrail;
@@ -1024,12 +1042,12 @@ public class ExampleJavaMod extends Mod{
                 backColor=trailColor=hitColor=Pal.techBlue;
                 ammoMultiplier=2f;
                 lifetime=40;
-            }},Items.graphite,new BasicBulletType(8.5f,38){{
+            }},Items.graphite,new BasicBulletType(8.5f,36){{
                 height=14;
                 width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
-                shootEffect=Fx.shootBig2;
+                shootEffect=Fx.sparkShoot;
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.graphiteAmmoFront;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
@@ -1042,7 +1060,7 @@ public class ExampleJavaMod extends Mod{
                 width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
-                shootEffect=Fx.shootBig2;
+                shootEffect=Fx.sparkShoot;
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.graphiteAmmoFront;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
@@ -1050,17 +1068,29 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=4f;
                 lifetime=40;
                 trailLength=6;
-                homingPower=5;
+                homingPower=0.8f;
                 homingRange=200;
                 splashDamage=5;
                 splashDamageRadius=12;
+                drawer=new DrawMulti(){{parts.addAll(new FlarePart(){{
+                    progress=PartProgress.life.slope().curve(Interp.pow2In);
+                    x=0;
+                    y=0;
+                    sides=4;
+                    radius=2;
+                    radiusTo=6;
+                    stroke=2;
+                    rotation=45;
+                    followRotation=true;
+                }});
+                }};
             }},Items.thorium,new BasicBulletType(8.2f,45){{
                 reloadMultiplier=0.8f;
                 height=14;
                 width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
-                shootEffect=Fx.shootBig2;
+                shootEffect=Fx.sparkShoot;
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.thoriumAmmoFront;
                 trailEffect=Fx.disperseTrail;
@@ -1075,7 +1105,7 @@ public class ExampleJavaMod extends Mod{
                 width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
-                shootEffect=Fx.shootBig2;
+                shootEffect = Fx.sparkShoot;
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.plastaniumFront;
                 trailEffect=Fx.disperseTrail;
@@ -1089,7 +1119,7 @@ public class ExampleJavaMod extends Mod{
                     width=height=16;
                     velocityRnd=0.1f;
                     collidesTiles=false;
-                    shootEffect=Fx.shootBig2;
+                    shootEffect = Fx.sparkShoot;
                     smokeEffect=Fx.shootSmokeDisperse;
                     frontColor=Pal.plastaniumFront;
                     trailEffect=Fx.disperseTrail;
@@ -1097,7 +1127,7 @@ public class ExampleJavaMod extends Mod{
                     trailSpread=1f;
                     hitEffect=despawnEffect=Fx.hitBulletColor;
                     backColor=trailColor=hitColor=Pal.plastaniumBack;
-                    lifetime=8;
+                    lifetime=3;
                 }};
             }},Items.blastCompound,new BasicBulletType(8.2f,45){{
                 splashDamage=30;
@@ -1107,7 +1137,7 @@ public class ExampleJavaMod extends Mod{
                 width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
-                shootEffect=Fx.shootBig2;
+                shootEffect=Fx.sparkShoot;
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.blastAmmoFront;
                 trailEffect=Fx.disperseTrail;
@@ -1123,7 +1153,7 @@ public class ExampleJavaMod extends Mod{
                 width=4;
                 velocityRnd=0.1f;
                 collidesTiles=false;
-                shootEffect=Fx.shootBig2;
+                shootEffect=Fx.sparkShoot;
                 smokeEffect=Fx.shootSmokeDisperse;
                 frontColor=Pal.surgeAmmoFront;
                 trailEffect=Fx.disperseTrail;
@@ -1947,6 +1977,9 @@ public class ExampleJavaMod extends Mod{
                 node(ModBlocks.laserEnergyNode,()->{
                     node(ModBlocks.fluidThermalEnergyGenerator,()->{
                         node(ModBlocks.dieselGenerator);
+                    });
+                    node(ModBlocks.mechanicalGenerator,()->{
+                        node(ModBlocks.hydroelectricGenerator);
                     });
                 });
             });

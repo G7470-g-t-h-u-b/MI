@@ -10,10 +10,7 @@ import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.HeaterGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
-import mindustry.world.blocks.production.Drill;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.production.HeatCrafter;
-import mindustry.world.blocks.production.Separator;
+import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
 
 public class ModBlocks {
@@ -26,6 +23,7 @@ public class ModBlocks {
     public static Block oreTin;
     public static Block oreUranium;
     public static Drill smallDrillBit;
+    public static BeamDrill modBeamDrill;
     public static GenericCrafter electrolyticSeparator;
     public static GenericCrafter rockDrilling;
     public static GenericCrafter rockCrusher;
@@ -42,6 +40,8 @@ public class ModBlocks {
     public static NuclearReactor largeThoriumReactor;
     public static HeatProducer electricHeater;
     public static HeaterGenerator fissionReactor;
+    public static ConsumeGenerator mechanicalGenerator;
+    public static ConsumeGenerator hydroelectricGenerator;
     public static ConsumeGenerator fluidThermalEnergyGenerator;
     public static ConsumeGenerator dieselGenerator;
     public static ConsumeGenerator canyonBatteryGenerator;
