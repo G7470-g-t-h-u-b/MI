@@ -10,7 +10,7 @@ public class OutPostCoreBlock extends CoreBlock {
         super(name);
     }
     public boolean canReplace(Block other){
-        return other.alwaysReplace;
+        return true;
     }
     public boolean canPlaceOn(Tile tile, Team team, int rotation) {
         return true;

@@ -321,7 +321,7 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.hydroelectricGenerator=new ConsumeGenerator("hydroelectric-generator"){{
             health=300;
             size=2;
-            powerProduction=2.5f;
+            powerProduction=2.25f;
             consumeLiquids(LiquidStack.with(Liquids.water,0.3f));
             requirements(Category.power,with(Items.lead,60,Items.graphite,30,Items.silicon,20,Items.metaglass,30));
         }};
@@ -1067,7 +1067,7 @@ public class ExampleJavaMod extends Mod{
                 backColor=trailColor=hitColor=Pal.graphiteAmmoBack;
                 ammoMultiplier=4f;
                 lifetime=40;
-                trailLength=6;
+                trailLength=4;
                 homingPower=0.8f;
                 homingRange=200;
                 splashDamage=5;
@@ -1077,9 +1077,9 @@ public class ExampleJavaMod extends Mod{
                     x=0;
                     y=0;
                     sides=4;
-                    radius=2;
-                    radiusTo=6;
-                    stroke=2;
+                    radius=3;
+                    radiusTo=9;
+                    stroke=3.2f;
                     rotation=45;
                     followRotation=true;
                 }});
@@ -1195,34 +1195,30 @@ public class ExampleJavaMod extends Mod{
                 radius=0;
                 radiusTo=10;
                 rotateSpeed=3;
-            }},new HaloPart(){{
-                sides=4;
-                tri=true;
+            }},new ShapePart(){{
                 y=-12;
                 color=Color.HSVtoRGB(214,28,74);
                 hollow=true;
+                circle=false;
                 stroke=0;
                 strokeTo=1.8f;
                 radius=0;
-                radiusTo=8;
-                triLength=0;
-                triLengthTo=10;
-                haloRotateSpeed=3;
-                haloRadius=16;
-            }},new HaloPart(){{
-                sides=4;
-                tri=true;
+                radiusTo=10;
+                rotateSpeed=2;
+                sides=3;
+                rotation=0;
+            }},new ShapePart(){{
                 y=-12;
                 color=Color.HSVtoRGB(214,28,74);
                 hollow=true;
+                circle=false;
                 stroke=0;
                 strokeTo=1.8f;
                 radius=0;
-                radiusTo=8;
-                triLength=0;
-                triLengthTo=10;
-                haloRotateSpeed=-3;
-                haloRadius=16;
+                radiusTo=10;
+                rotateSpeed=2;
+                sides=3;
+                rotation=180;
             }}
             );}};
             shoot=new ShootAlternate(){{
@@ -1523,14 +1519,17 @@ public class ExampleJavaMod extends Mod{
                 y=haloY;
                 haloRadius=20;
             }},new RegionPart(){{
+                layerOffset = -0.3F;
                 suffix="-a-l";
                 moveX=-2f;
                 moveY=1;
             }},new RegionPart(){{
+                layerOffset = -0.3F;
                 suffix="-a-r";
                 moveX=2f;
                 moveY=1;
             }},new RegionPart(){{
+                layerOffset = -0.3F;
                 layer=20;
                 mirror=true;
                 progress=PartProgress.warmup;
@@ -1540,6 +1539,7 @@ public class ExampleJavaMod extends Mod{
                 rotation=15;
                 moveX=4.8f;
             }},new RegionPart(){{
+                layerOffset = -0.3F;
                 layer=20;
                 mirror=true;
                 progress=PartProgress.warmup;
@@ -1549,6 +1549,7 @@ public class ExampleJavaMod extends Mod{
                 rotation=15;
                 moveX=4.8f;
             }},new RegionPart(){{
+                layerOffset = -0.3F;
                 layer=20;
                 mirror=true;
                 progress=PartProgress.warmup;
@@ -1994,6 +1995,7 @@ public class ExampleJavaMod extends Mod{
                 node(ModUnits.mysticSnail);
             });
             node(ModBlocks.explosive);
+            node(ModBlocks.outpostCore);
             nodeProduce(Items.copper, () -> {
                 nodeProduce(Items.lead, () -> {
                     nodeProduce(ModItems.canyonBattery,()->{
