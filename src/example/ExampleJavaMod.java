@@ -544,6 +544,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
         }};
         ModTurrets.sharpSpear=new ItemTurret("sharp-spear"){{
+            shootSound=ModSounds.shootSharpSpear;
             targetGround=false;
             range=240;
             inaccuracy=3f;
@@ -1829,7 +1830,7 @@ public class ExampleJavaMod extends Mod{
             accel=0.06f;
             flying=true;
             hitSize=30f;
-            health=560;
+            health=1200;
             speed=2f;
             constructor=UnitEntity::create;
             targetAir=false;
