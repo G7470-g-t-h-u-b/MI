@@ -134,7 +134,7 @@ public class ExampleJavaMod extends Mod{
         });
         ModFx.shootFireFx= (new Effect(120, 80.0F, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 13, e.finpow() * 60.0F, e.rotation, 10.0F, (x, y) -> Fill.circle(e.x + x, e.y + y, 0.7F + e.fout() * 1.5F));
+            Angles.randLenVectors(e.id, 12, e.finpow() * 70.0F, e.rotation, 10.0F, (x, y) -> Fill.circle(e.x + x, e.y + y, 0.65F + e.fout() * 1.5F));
         })).followParent(false);
 
 
@@ -1009,7 +1009,7 @@ public class ExampleJavaMod extends Mod{
             ammoUseEffect=Fx.none;
             health=380;
             coolant=this.consumeCoolant(0.15F);
-            ammo(Items.coal,new BulletType(5,22){{
+            ammo(Items.coal,new BulletType(6,22){{
                 size=2;
                 ammoMultiplier=5;
                 lifetime=120;
@@ -1023,7 +1023,7 @@ public class ExampleJavaMod extends Mod{
                 status=StatusEffects.burning;
                 hittable=false;
                 keepVelocity=false;
-            }},Items.pyratite,new BulletType(5.2f,35){{
+            }},Items.pyratite,new BulletType(6.2f,35){{
                 ammoMultiplier=5;
                 lifetime=120;
                 hitSize=7.2f;
@@ -1036,7 +1036,7 @@ public class ExampleJavaMod extends Mod{
                 status=StatusEffects.burning;
                 hittable=false;
                 keepVelocity=false;
-            }},Items.blastCompound,new BulletType(5.2f,55){{
+            }},Items.blastCompound,new BulletType(6.2f,55){{
                 ammoMultiplier=5;
                 lifetime=120;
                 hitSize=7.5f;
@@ -1051,7 +1051,7 @@ public class ExampleJavaMod extends Mod{
                 status=StatusEffects.burning;
                 hittable=false;
                 keepVelocity=false;
-            }},ModItems.experimentalExplosives,new BulletType(5.2f,65){{
+            }},ModItems.experimentalExplosives,new BulletType(6.2f,65){{
                 ammoMultiplier=5;
                 lifetime=120;
                 hitSize=7.5f;
@@ -1912,7 +1912,7 @@ public class ExampleJavaMod extends Mod{
 
         ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
             generator=new SerpuloPlanetGenerator();
-            new NoiseMesh(Planets.serpulo,1,1,Color.sky,
+            new NoiseMesh(Planets.serpulo,2,1,Color.sky,
                     1,1,1f,1f,1f);
             meshLoader = () -> new HexMesh(Planets.serpulo, 6);
             cloudMeshLoader = () -> new MultiMesh(new HexSkyMesh(this, 11, 0.15F, 0.13F, 5, (new Color()).set(Pal.spore).mul(0.9F).a(0.75F), 2, 0.45F, 0.9F, 0.38F), new HexSkyMesh(this, 1, 0.6F, 0.16F, 5, Color.white.cpy().lerp(Pal.spore, 0.55F).a(0.75F), 2, 0.45F, 1.0F, 0.41F));
@@ -1929,10 +1929,12 @@ public class ExampleJavaMod extends Mod{
         }};
         ModSectorPresets.testSector=new SectorPreset("043", ModPlanets.planetEee, 172);
         ModSectorPresets.t174=new SectorPreset("t174",ModPlanets.planetEee,174);
+        ModSectorPresets.Sector15=new SectorPreset("15",Planets.serpulo,15);
 
 
         nodeRoot("e",Blocks.coreShard,()->{
             node(ModTurrets.sharpSpear,()->{
+                node(ModTurrets.longsword);
                 node(ModTurrets.blaze);
                 node(ModTurrets.puncture,()->{
                     node(ModTurrets.burst);
@@ -2039,6 +2041,7 @@ public class ExampleJavaMod extends Mod{
                     nodeProduce(Liquids.hydrogen, () -> {});
                 });
             });
+            node(ModSectorPresets.Sector15);
         });
 
 
