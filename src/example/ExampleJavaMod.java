@@ -1945,7 +1945,6 @@ public class ExampleJavaMod extends Mod{
                     node(ModTurrets.itemTurret5,()->{
                         node(ModTurrets.frost);
                         node(ModTurrets.disaster);
-                        node(ModTurrets.ash);
                     });
                 });
             });
