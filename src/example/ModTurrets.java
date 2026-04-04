@@ -9,6 +9,7 @@ public class ModTurrets {
     public static ItemTurret itemTurret2;
     public static ItemTurret sharpSpear;
     public static ItemTurret itemTurret5;
+    public static ItemTurret longsword;
     public static ItemTurret burst;
     public static ItemTurret ash;
     public static ItemTurret puncture;
@@ -19,6 +20,5 @@ public class ModTurrets {
     public static LiquidTurret frost;
     public static PowerTurret powerTurret4;
     public static PowerTurret powerTurret6;
-    public static PowerTurret powerTurret7;
     public static PowerTurret disaster;
 }

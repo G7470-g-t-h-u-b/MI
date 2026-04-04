@@ -8,4 +8,5 @@ public class ModFx {
     public static Effect shapeEffect1;
     public static Effect shapeEffect2;
     public static Effect teachBlueBomb;
+    public static Effect shootFireFx;
 }
