@@ -134,7 +134,8 @@ public class ExampleJavaMod extends Mod{
         });
         ModFx.shootFireFx= (new Effect(120, 80.0F, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 12, e.finpow() * 70.0F, e.rotation, 10.0F, (x, y) -> Fill.circle(e.x + x, e.y + y, 0.65F + e.fout() * 1.5F));
+            Angles.randLenVectors(e.id, 10,2+e.fin()*8, e.rotation, 10.0F, (x, y) ->
+                    Fill.circle(e.x + x, e.y + y, 0.65F + e.fout() * 1.5F));
         })).followParent(false);
 
 
@@ -580,6 +581,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
             reload=27f;
             range=125f;
+            alwaysUnlocked=true;
             final float len=range+10;
             ammo(Items.titanium,new ShrapnelBulletType(){{
                 reloadMultiplier=1.4f;
@@ -1009,6 +1011,7 @@ public class ExampleJavaMod extends Mod{
             ammoUseEffect=Fx.none;
             health=380;
             coolant=this.consumeCoolant(0.15F);
+            maxAmmo=60;
             ammo(Items.coal,new BulletType(6,22){{
                 size=2;
                 ammoMultiplier=5;
