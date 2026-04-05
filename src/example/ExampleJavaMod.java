@@ -491,8 +491,12 @@ public class ExampleJavaMod extends Mod{
 
         ModBlocks.overclockStateFieldProjection=new StateFieldProjection("overclock-state-field-projection"){{
             size=2;
+            requirements(Category.effect,with(Items.lead,80,Items.titanium,50,Items.silicon,30));
             statusEffect=StatusEffects.overclock;
             consumePower(2f);
+            duration=150f;
+            reload=120f;
+            range=80;
         }};
 //        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher"){{
 //            health=100;
@@ -1994,6 +1998,7 @@ public class ExampleJavaMod extends Mod{
                     });
                 });
                 node(ModBlocks.laserEnergyNode,()->{
+                    node(ModBlocks.overclockStateFieldProjection);
                     node(ModBlocks.fluidThermalEnergyGenerator,()->{
                         node(ModBlocks.dieselGenerator);
                     });
