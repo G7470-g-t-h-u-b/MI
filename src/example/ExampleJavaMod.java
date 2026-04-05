@@ -489,16 +489,21 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
-        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher"){{
-            health=100;
-            size=1;
-            requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
-            consumePower(2);
-            plans=Seq.with(
-                    new ItemPlan(new ItemStack(Items.copper,1),40f,with(Items.lead,1)),
-                    new ItemPlan(new ItemStack(Items.lead,1),60f,with(Items.copper,1))
-            );
+        ModBlocks.overclockStateFieldProjection=new StateFieldProjection("overclock-state-field-projection"){{
+            size=2;
+            statusEffect=StatusEffects.overclock;
+            consumePower(2f);
         }};
+//        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher"){{
+//            health=100;
+//            size=1;
+//            requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
+//            consumePower(2);
+//            plans=Seq.with(
+//                    new ItemPlan(new ItemStack(Items.copper,1),40f,with(Items.lead,1)),
+//                    new ItemPlan(new ItemStack(Items.lead,1),60f,with(Items.copper,1))
+//            );
+//        }};
 
 
         //1x1

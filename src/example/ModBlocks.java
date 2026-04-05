@@ -54,5 +54,6 @@ public class ModBlocks {
     public static CoreBlock outpostCore;
     public static CoreBlock sentinelCore;
     public static MultiFormulaFactory metalCrusher;
+    public static StateFieldProjection overclockStateFieldProjection;
 }
 //
