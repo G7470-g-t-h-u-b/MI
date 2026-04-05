@@ -23,7 +23,7 @@ public class ModBlocks {
     public static Block oreTin;
     public static Block oreUranium;
     public static Drill smallDrillBit;
-    public static BeamDrill modBeamDrill;
+    public static BeamDrill laserBeamDrill;
     public static GenericCrafter electrolyticSeparator;
     public static GenericCrafter rockDrilling;
     public static GenericCrafter rockCrusher;

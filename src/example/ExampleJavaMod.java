@@ -134,7 +134,7 @@ public class ExampleJavaMod extends Mod{
         });
         ModFx.shootFireFx= (new Effect(120, 80.0F, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 10,2+e.fin()*8, e.rotation, 10.0F, (x, y) ->
+            Angles.randLenVectors(e.id, 10,2+e.fin()*85, e.rotation, 10.0F, (x, y) ->
                     Fill.circle(e.x + x, e.y + y, 0.65F + e.fout() * 1.5F));
         })).followParent(false);
 
@@ -413,7 +413,7 @@ public class ExampleJavaMod extends Mod{
             drillTime=400f;
             hardnessDrillMultiplier=2;
         }};
-        ModBlocks.modBeamDrill=new BeamDrill("mod-beam-drill"){{
+        ModBlocks.laserBeamDrill =new BeamDrill("laser-beam-drill"){{
             requirements(Category.production,with(Items.titanium,40,Items.silicon,30,ModItems.siliconSteel,20,Items.lead,20));
             size=2;
             tier=4;
@@ -1976,7 +1976,9 @@ public class ExampleJavaMod extends Mod{
                     node(ModBlocks.archipelagoBatteryGenerator);
                 });
                 node(ModBlocks.largeThoriumReactor);
-                node(ModBlocks.smallDrillBit);
+                node(ModBlocks.smallDrillBit,()->{
+                    node(ModBlocks.laserBeamDrill);
+                });
                 node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
                     node(ModBlocks.photoLithographyMachine);
                     node(ModBlocks.aromatizationMachine);
