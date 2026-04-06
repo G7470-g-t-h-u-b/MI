@@ -40,12 +40,13 @@ public class StateFieldProjection extends Block {
             stats.add(Stat.reload,reload/60,StatUnit.seconds);
         }
         public void updateTile(){
-            timer_+= Time.delta;
+            timer_+=1;
             if (timer_>=reload){
                 Units.nearby(this.team, this.x, this.y, range, (other) -> {
                     other.apply(statusEffect,duration);
                     applyEffect.at(other, parentizeEffects);
                 });
+                timer_=0;
             }
         }
 
