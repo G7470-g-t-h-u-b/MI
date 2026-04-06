@@ -132,9 +132,9 @@ public class ExampleJavaMod extends Mod{
                 }
             });
         });
-        ModFx.shootFireFx= (new Effect(100, 80.0F, (e) -> {
+        ModFx.shootFireFx= (new Effect(90, 80.0F, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 10,2+e.fin()*180, e.rotation, 10.0F, (x, y) ->
+            Angles.randLenVectors(e.id, 10,60+e.fin()*180, e.rotation, 10.0F, (x, y) ->
                     Fill.circle(e.x + x, e.y + y, 0.65F + e.fout() * 1.5F));
         })).followParent(false);
 
@@ -419,6 +419,18 @@ public class ExampleJavaMod extends Mod{
             tier=4;
             consumePower(0.15f);
             range=4;
+        }};
+        ModBlocks.percussionDrilling=new BurstDrill(""){{
+            requirements(Category.production,with(Items.copper,30,Items.graphite,40,ModItems.siliconSteel,30,Items.silicon,30));
+            size=4;
+            tier=5;
+            drillTime=600f;
+            shake=4f;
+            hasPower=true;
+            drillEffect = new MultiEffect(Fx.mineImpact, Fx.drillSteam, Fx.mineImpactWave.wrap(Pal.redLight, 40.0F));
+            consumePower(2.6666667f);
+            consumeLiquid(Liquids.water,4f);
+            consumeLiquid(Liquids.cryofluid,2f).boost();
         }};
 
 
