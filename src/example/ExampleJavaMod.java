@@ -424,15 +424,15 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.production,with(Items.copper,30,Items.graphite,40,ModItems.siliconSteel,30,Items.silicon,30));
             size=4;
             tier=5;
-            drillTime=600f;
-            shake=4f;
+            drillTime=360f;
+            shake=4.2f;
             hasPower=true;
             itemCapacity=30;
             arrows=1;
             drillEffect = new MultiEffect(Fx.mineImpact, Fx.drillSteam, Fx.mineImpactWave.wrap(Pal.redLight, 40.0F));
             consumePower(2.6666667f);
-            consumeLiquid(Liquids.water,4f);
-            consumeLiquid(Liquids.hydrogen,2f).boost();
+            consumeLiquid(Liquids.water,1f);
+            consumeLiquid(Liquids.hydrogen,0.0125f).boost();
         }};
 
 
@@ -2000,7 +2000,9 @@ public class ExampleJavaMod extends Mod{
                 });
                 node(ModBlocks.largeThoriumReactor);
                 node(ModBlocks.smallDrillBit,()->{
-                    node(ModBlocks.laserBeamDrill);
+                    node(ModBlocks.laserBeamDrill,()->{
+                        node(ModBlocks.percussionDrilling);
+                    });
                 });
                 node(ModBlocks.siliconSteelMixer, () -> {//硅钢混合机
                     node(ModBlocks.photoLithographyMachine);
