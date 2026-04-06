@@ -132,9 +132,9 @@ public class ExampleJavaMod extends Mod{
                 }
             });
         });
-        ModFx.shootFireFx= (new Effect(120, 80.0F, (e) -> {
+        ModFx.shootFireFx= (new Effect(100, 80.0F, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 10,2+e.fin()*85, e.rotation, 10.0F, (x, y) ->
+            Angles.randLenVectors(e.id, 10,2+e.fin()*180, e.rotation, 10.0F, (x, y) ->
                     Fill.circle(e.x + x, e.y + y, 0.65F + e.fout() * 1.5F));
         })).followParent(false);
 
@@ -1015,7 +1015,7 @@ public class ExampleJavaMod extends Mod{
             reload=2;
             recoil=1;
             coolantMultiplier=3;
-            range=180;
+            range=200;
             shootCone=45;
             ammoUseEffect=Fx.none;
             health=380;
