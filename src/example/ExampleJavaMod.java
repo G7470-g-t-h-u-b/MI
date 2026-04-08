@@ -132,9 +132,9 @@ public class ExampleJavaMod extends Mod{
                 }
             });
         });
-        ModFx.shootFireFx= (new Effect(90, 80.0F, (e) -> {
+        ModFx.shootFireFx= (new Effect(100, 80.0F, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 10,60+e.fin()*190, e.rotation, 10.0F, (x, y) ->
+            Angles.randLenVectors(e.id, 15,70+e.fin()*190, e.rotation, 10.0F, (x, y) ->
                     Fill.circle(e.x + x, e.y + y, 0.7F + e.fout() * 1.5F));
         })).followParent(false);
 
@@ -159,7 +159,7 @@ public class ExampleJavaMod extends Mod{
             hardness=4;
         }};
         ModItems.tin=new Item("tin",Color.HSVtoRGB(233,16,44)){{
-            hardness=0;
+            hardness=1;
         }};
         ModItems.zinc=new Item("zinc",Color.HSVtoRGB(240,12,71)){{
             hardness=2;
@@ -182,12 +182,12 @@ public class ExampleJavaMod extends Mod{
             lightColor=Color.HSVtoRGB(29,56,100);
         }};
         ModLiquids.kerosene=new Liquid("kerosene",Color.HSVtoRGB(29,43,97)){{
-            flammability=1.2f;
+            flammability=1.4f;
             explosiveness=1.2f;
         }};//煤油
         ModLiquids.diesel=new Liquid("diesel",Color.HSVtoRGB(32,63,91)){{
             flammability=0.2f;
-            explosiveness=0.4f;
+            explosiveness=0.8f;
         }};//柴油
         ModLiquids.gasoline=new Liquid("gasoline",Color.HSVtoRGB(32,81,86)){{
             flammability=1;
@@ -421,14 +421,15 @@ public class ExampleJavaMod extends Mod{
             range=4;
         }};
         ModBlocks.percussionDrilling=new BurstDrill("percussion-drilling"){{
-            requirements(Category.production,with(Items.copper,30,Items.graphite,40,ModItems.siliconSteel,30,Items.silicon,30));
+            requirements(Category.production,with(Items.copper,30,Items.graphite,40,Items.titanium,50,ModItems.siliconSteel,30,Items.silicon,30,Items.plastanium,30));
             size=4;
             tier=5;
-            drillTime=360f;
+            drillTime=280f;
             shake=4.2f;
             hasPower=true;
-            itemCapacity=30;
+            itemCapacity=50;
             arrows=1;
+            liquidBoostIntensity=4.2f;
             drillEffect = new MultiEffect(Fx.mineImpact, Fx.drillSteam, Fx.mineImpactWave.wrap(Pal.redLight, 40.0F));
             consumePower(2.6666667f);
             consumeLiquid(Liquids.water,1f);

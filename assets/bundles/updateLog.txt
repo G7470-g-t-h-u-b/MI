@@ -1,0 +1,18 @@
+
+0.1.23d-fix2:{
+    Fx:
+        [=]shootFireFx
+    Items:
+        [=]tin:
+            [=]hardness 0->1
+    Liquids:
+        [=]diesel:
+            [=]explosiveness 0.4f->0.8f
+        [=]kerosene:
+            flammability 1.2f->1.4f
+    Blocks:
+        [=]percussionDrilling:
+            [=]requirements
+            [=]drillTime 300f->280f
+            [+]liquidBoostIntensity=4.2f
+}
