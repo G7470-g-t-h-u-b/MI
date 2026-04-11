@@ -1,4 +1,22 @@
 
+0.1.24a:{
+    Fx:
+        [=]shootFireFx
+    Items:
+        [+]metaglassBottle
+        [+]wateryMetaglassBottle
+    [+]Attribute:
+        [+]metal
+    Blocks:
+        [+]glassAssemblyMachine
+        [+]waterTankFillingMachine
+        [+]waterDispenser
+        [=]highTemperatureMeltingFurnace:
+            [=]consumePower 2f->1.5f
+        [=]percussionDrilling:
+            [=]氢气消耗 0.0125f->2f
+}
+
 0.1.23d-fix2:{
     Fx:
         [=]shootFireFx

@@ -12,6 +12,8 @@ public class ModItems {
     public static Item gold;
     public static Item rock;
     public static Item iron;
+    public static Item metaglassBottle;
+    public static Item wateryMetaglassBottle;
     public static Item frostAlloy;
     public static Item canyonBattery;
     public static Item archipelagoBattery;
