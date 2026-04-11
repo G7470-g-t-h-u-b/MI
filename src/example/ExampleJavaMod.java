@@ -132,9 +132,9 @@ public class ExampleJavaMod extends Mod{
                 }
             });
         });
-        ModFx.shootFireFx= (new Effect(95, 80.0F, (e) -> {
+        ModFx.shootFireFx= (new Effect(100, 80.0F, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 16,90+e.fin()*190, e.rotation, 10.0F, (x, y) ->
+            Angles.randLenVectors(e.id, 14,80+e.fin()*190, e.rotation, 25.0F, (x, y) ->
                     Fill.circle(e.x + x, e.y + y, 0.7F + e.fout() * 1.5F));
         })).followParent(false);
 
@@ -436,7 +436,7 @@ public class ExampleJavaMod extends Mod{
             arrows=1;
             liquidBoostIntensity=4.2f;
             drillEffect = new MultiEffect(Fx.mineImpact, Fx.drillSteam, Fx.mineImpactWave.wrap(Pal.redLight, 40.0F));
-            consumePower(2.6666667f);
+            consumePower(3f);
             consumeLiquid(Liquids.water,1f);
             consumeLiquid(Liquids.hydrogen,0.2f).boost();
         }};

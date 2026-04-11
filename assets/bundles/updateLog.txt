@@ -3,6 +3,28 @@
 [=]:修改
 [f]:修复
 
+todo:{
+    bundle-zh-cn
+    bundle
+    强化废墙
+    工业废料
+    铁
+    钢
+    青铜
+    齐射-alpha
+    高效冷却液
+    钋
+    建造塔
+    再生投影
+    铝
+    StateEffects...
+}
+
+0.1.24a-fix2:{
+    Fx:
+        [=]shootFireFx
+}
+
 0.1.24a-fix1:{
     Block:
         [=]percussionDrilling:
