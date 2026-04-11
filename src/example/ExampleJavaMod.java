@@ -438,7 +438,7 @@ public class ExampleJavaMod extends Mod{
             drillEffect = new MultiEffect(Fx.mineImpact, Fx.drillSteam, Fx.mineImpactWave.wrap(Pal.redLight, 40.0F));
             consumePower(2.6666667f);
             consumeLiquid(Liquids.water,1f);
-            consumeLiquid(Liquids.hydrogen,2f).boost();
+            consumeLiquid(Liquids.hydrogen,0.2f).boost();
         }};
 
 
