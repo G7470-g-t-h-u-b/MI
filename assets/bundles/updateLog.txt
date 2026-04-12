@@ -19,6 +19,11 @@ todo:{
     铝
     StateEffects...
 }
+0.1.25b:{
+    Block:
+        [+]增加炮塔射击声音
+}
+
 0.1.25a:{
     Block:
         [f]longsword

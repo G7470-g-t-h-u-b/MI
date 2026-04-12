@@ -565,7 +565,7 @@ public class ExampleJavaMod extends Mod{
             size=2;
         }};
         ModTurrets.sharpSpear=new ItemTurret("sharp-spear"){{
-//            shootSound=ModSounds.shootSharpSpear;
+            shootSound=Sounds.shootScatter;
             targetGround=false;
             range=240;
             inaccuracy=3f;
@@ -596,7 +596,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.turret,ItemStack.with(Items.copper,30,Items.graphite,20,Items.thorium,30,ModItems.bronze,30));
             maxAmmo=60;
             size=2;
-            reload=27f;
+            reload=10f;
             range=125f;
             final float len=range+10;
             shootSound= Sounds.shootFuse;
@@ -606,13 +606,13 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=4;
                 width=17f;
                 length=len;
-                shootEffect=smokeEffect=Fx.shootTitan;
             }},ModItems.bronze,new ShrapnelBulletType(){{
                 damage=80;
                 ammoMultiplier=5;
                 width=17f;
                 length=len+40f;
                 rangeChange=36;
+                toColor=Pal.thoriumPink;
                 shootEffect=smokeEffect=ModFx.bronzeShoot;
 
             }},Items.thorium,new ShrapnelBulletType(){{
@@ -620,6 +620,7 @@ public class ExampleJavaMod extends Mod{
                 ammoMultiplier=6;
                 width=17f;
                 length=len;
+                toColor=TIColor.bronzeLight;
                 shootEffect=smokeEffect=Fx.thoriumShoot;
             }});
             coolant=consumeCoolant(0.5f);
@@ -656,6 +657,7 @@ public class ExampleJavaMod extends Mod{
             range=280;
             drawer=new DrawTurret(){{parts.addAll();}};
             targetHealing=true;
+            shootSound=Sounds.shootAlpha;
             shootType=new LaserBoltBulletType(6.2f,15){{
                 buildingDamageMultiplier=0.5f;
                 lifetime=60;
@@ -769,6 +771,7 @@ public class ExampleJavaMod extends Mod{
             reload=15;
             maxAmmo=30;
             drawer=new DrawTurret(){{parts.addAll();}};
+            shootSound=Sounds.shootBreach;
             ammo(Items.titanium,new BasicBulletType(6f,25){{
                 lifetime=60;
                 width=12f;
@@ -903,6 +906,7 @@ public class ExampleJavaMod extends Mod{
             coolant = consumeCoolant(0.2f);
             heatRequirement=24;
             ammoUseEffect = Fx.casing3;
+            shootSound=Sounds.shootDisperse;
             requirements(Category.turret,with(Items.copper,800,Items.lead,100,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50,ModItems.processor,20));
             ammo(Items.lead,new BasicBulletType(8f,12){{
                 height=14;
@@ -1120,6 +1124,7 @@ public class ExampleJavaMod extends Mod{
             }};
         }};
         ModTurrets.daytime=new ItemTurret("daytime"){{
+            shootSound=Sounds.shootAfflict;
             recoil=3.2f;
             shake=6;
             inaccuracy=1;
@@ -1304,6 +1309,7 @@ public class ExampleJavaMod extends Mod{
             consumesPower=true;
             consumePower(30F);
             maxAmmo=120;
+            shootSound=Sounds.shootMalign;
             final float circleRotSpeed=3.5f;
             final DrawPart.PartProgress haloProgress = DrawPart.PartProgress.warmup;
             final float circleY = 20f;
@@ -1461,6 +1467,7 @@ public class ExampleJavaMod extends Mod{
             final float circleStroke = 1.4F;
             final float haloY=-10f;
             final float circleRotSpeed=3.5f;
+            shootSound=Sounds.shootCorvus;
             requirements(Category.turret,with(Items.thorium,40,Items.titanium,35,Items.silicon,20,Items.metaglass,20));
             consumePower(18f);
             range=450;
