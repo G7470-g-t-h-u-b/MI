@@ -1,5 +1,6 @@
 package example;
 
+import arc.graphics.Color;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -18,6 +19,10 @@ import mindustry.world.blocks.power.HeaterGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.draw.DrawBlock;
+import mindustry.world.draw.DrawDefault;
+import mindustry.world.draw.DrawFlame;
+import mindustry.world.draw.DrawMulti;
 
 public class ModBlocks {
     public static RemoveWall explosive;
@@ -35,6 +40,7 @@ public class ModBlocks {
     public static GenericCrafter glassAssemblyMachine;
     public static GenericCrafter waterTankFillingMachine;
     public static GenericCrafter waterDispenser;
+    public static GenericCrafter bronzeSmelter;
     public static GenericCrafter rockDrilling;
     public static GenericCrafter rockCrusher;
     public static GenericCrafter highTemperatureMeltingFurnace;
@@ -92,6 +98,14 @@ public class ModBlocks {
             consumeItem(ModItems.wateryMetaglassBottle,1);
             outputItems=ItemStack.with(ModItems.metaglassBottle,1);
             outputLiquids=LiquidStack.with(Liquids.water,0.8f);
+        }};
+        bronzeSmelter=new GenericCrafter("bronze-smelter"){{
+            size=2;
+            craftTime=60f;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
+            consumeItems(ItemStack.with(Items.copper,3,ModItems.tin,1));
+            outputItems=ItemStack.with(ModItems.bronze,4);
+            requirements(Category.crafting,ItemStack.with(Items.copper,40,Items.lead,30,Items.graphite,40,Items.silicon,30));
         }};
     }
 }

@@ -19,6 +19,20 @@ todo:{
     铝
     StateEffects...
 }
+0.1.24b:{
+    Item:
+        [+]青铜
+    Block:
+        [+]青铜冶炼厂
+        [=]修改部分建筑建材
+        [=]longsword:
+            增加弹药类型:黄铜
+            fix
+            todo:Sounds
+    Fx:
+        [=]shootFireFx
+}
+
 0.1.24a-fix3:{
     Block:
         [=]longsword

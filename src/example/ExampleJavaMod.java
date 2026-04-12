@@ -21,10 +21,7 @@ import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.game.EventType.*;
-import mindustry.gen.ElevationMoveUnit;
-import mindustry.gen.TankUnit;
-import mindustry.gen.UnitEntity;
-import mindustry.gen.UnitWaterMove;
+import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
@@ -132,9 +129,9 @@ public class ExampleJavaMod extends Mod{
                 }
             });
         });
-        ModFx.shootFireFx= (new Effect(50, (e) -> {
+        ModFx.shootFireFx= (new Effect(70, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 16,105+e.fin()*180, e.rotation, 18.0F, (x, y) ->
+            Angles.randLenVectors(e.id, 18,105+e.fin()*180, e.rotation, 18.0F, (x, y) ->
                     Fill.circle(e.x + x, e.y + y, 0.2F + e.fout() * 1.5F));
         })).followParent(false);
 
@@ -148,6 +145,7 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
+        ModItems.load();
         ModItems.experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
             explosiveness=2.8f;
             flammability=1.8f;
@@ -158,22 +156,10 @@ public class ExampleJavaMod extends Mod{
             radioactivity=1.5f;
             hardness=4;
         }};
-        ModItems.tin=new Item("tin",Color.HSVtoRGB(233,16,44)){{
-            hardness=1;
-        }};
-        ModItems.zinc=new Item("zinc",Color.HSVtoRGB(240,12,71)){{
-            hardness=2;
-        }};
-        ModItems.siliconSteel=new Item("silicon-steel",Color.HSVtoRGB(240,14,53));
-        ModItems.gold=new Item("gold",Color.HSVtoRGB(50,93,100)){{
-            hardness=1;
-        }};
         ModItems.rock=new Item("rock",Color.HSVtoRGB(240,7,50));
         ModItems.iron=new Item("iron",Color.HSVtoRGB(233,16,25));
-
         ModItems.metaglassBottle=new Item("metaglass-bottle",Color.HSVtoRGB(240,7,88));
         ModItems.wateryMetaglassBottle=new Item("watery-metaglass-bottle",Color.HSVtoRGB(232,52,91));
-
         ModItems.frostAlloy=new Item("frost-alloy",Color.HSVtoRGB(196,46,89));
         ModItems.canyonBattery=new Item("canyon-battery",Color.HSVtoRGB(232,47,77)){{charge=0.4f;}};
         ModItems.archipelagoBattery=new Item("archipelago-battery",Color.HSVtoRGB(97,58,75)){{charge=0.6f;}};
@@ -481,9 +467,9 @@ public class ExampleJavaMod extends Mod{
 
 
         ModBlocks.itemTrack=new Duct("item-track"){{
-            requirements(Category.distribution,with(Items.phaseFabric,2));
+            requirements(Category.distribution,with(Items.phaseFabric,1));
             health=60;
-            speed=100;
+            speed=0.19f;
         }};
         ModBlocks.logisticsPipeline=new Duct("logistics-pipeline"){{
             requirements(Category.distribution,with(Items.titanium,1,Items.copper,1,ModItems.siliconSteel,1));
@@ -502,7 +488,7 @@ public class ExampleJavaMod extends Mod{
 
 
         ModBlocks.outpostCore=new OutPostCoreBlock("outpost-core"){{
-            requirements(Category.effect, BuildVisibility.shown,with(Items.titanium,1000,Items.copper,1200,Items.silicon,800,ModItems.siliconSteel,500));
+            requirements(Category.effect, BuildVisibility.shown,with(Items.titanium,1000,Items.copper,1200,Items.silicon,800,ModItems.bronze,400));
             health=1200;
             size=3;
             unitType = UnitTypes.alpha;
@@ -511,7 +497,7 @@ public class ExampleJavaMod extends Mod{
 
         ModBlocks.overclockStateFieldProjection=new StateFieldProjection("overclock-state-field-projection"){{
             size=2;
-            requirements(Category.effect,with(Items.lead,80,Items.titanium,50,Items.silicon,30));
+            requirements(Category.effect,with(Items.lead,80,Items.titanium,50,Items.silicon,30,ModItems.processor,10,ModItems.bronze,20));
             statusEffect=StatusEffects.overclock;
             consumePower(2f);
             duration=150f;
@@ -607,18 +593,28 @@ public class ExampleJavaMod extends Mod{
             ammoUseEffect=Fx.casing2;
         }};
         ModTurrets.longsword=new ItemTurret("longsword"){{
+            requirements(Category.turret,ItemStack.with(Items.copper,30,Items.graphite,20,Items.thorium,30,ModItems.bronze));
             maxAmmo=60;
             size=2;
             reload=27f;
             range=125f;
             final float len=range+10;
+            shootSound= Sounds.shootFuse;
             ammo(Items.titanium,new ShrapnelBulletType(){{
                 reloadMultiplier=1.4f;
-                damage=84;
+                damage=90;
                 ammoMultiplier=4;
                 width=17f;
                 length=len;
                 shootEffect=smokeEffect=Fx.shootTitan;
+            }},ModItems.bronze,new ShrapnelBulletType(){{
+                damage=80;
+                ammoMultiplier=5;
+                width=17f;
+                length=len+40f;
+                rangeChange=36;
+                shootEffect=smokeEffect=ModFx.bronzeShoot;
+
             }},Items.thorium,new ShrapnelBulletType(){{
                 damage=180;
                 ammoMultiplier=6;
@@ -1783,7 +1779,9 @@ public class ExampleJavaMod extends Mod{
                     node(ModBlocks.rockCrusher);
                     node(ModBlocks.highTemperatureSmeltingPlant);
                     node(ModBlocks.highTemperatureMeltingFurnace, () -> {
-                        node(ModBlocks.highSpeedDisassembler);
+                        node(ModBlocks.highSpeedDisassembler,()->{
+                            node(ModBlocks.bronzeSmelter);
+                        });
                     });
                 });
                 node(ModBlocks.assemblyMachine,()->{
@@ -1855,7 +1853,9 @@ public class ExampleJavaMod extends Mod{
                 nodeProduce(ModItems.metaglassBottle,()->{
                     nodeProduce(ModItems.wateryMetaglassBottle,()->{});
                 });
-                nodeProduce(ModItems.tin, () -> {});
+                nodeProduce(ModItems.tin, () -> {
+                    nodeProduce(ModItems.bronze,()->{});
+                });
                 nodeProduce(ModItems.zinc, () -> {});
                 nodeProduce(Items.coal, () -> {
                     nodeProduce(Items.sand, () -> {
