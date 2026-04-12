@@ -10,4 +10,5 @@ public class ModUnits {
     public static UnitType raid;
     public static UnitType mysticSnail;
     public static ErekirUnitType charge;
+    public static UnitType anvil;
 }

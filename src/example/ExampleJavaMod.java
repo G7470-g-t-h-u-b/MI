@@ -7,7 +7,6 @@ import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Angles;
 import arc.math.Interp;
-import arc.struct.Seq;
 import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.Effect;
@@ -30,6 +29,7 @@ import mindustry.mod.*;
 import mindustry.type.*;
 import mindustry.type.unit.ErekirUnitType;
 import mindustry.type.unit.TankUnitType;
+import mindustry.type.weapons.PointDefenseBulletWeapon;
 import mindustry.ui.dialogs.*;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
@@ -612,15 +612,14 @@ public class ExampleJavaMod extends Mod{
                 width=17f;
                 length=len+40f;
                 rangeChange=36;
-                toColor=Pal.thoriumPink;
+                toColor=TIColor.bronzeLight;
                 shootEffect=smokeEffect=ModFx.bronzeShoot;
-
             }},Items.thorium,new ShrapnelBulletType(){{
                 damage=180;
                 ammoMultiplier=6;
                 width=17f;
                 length=len;
-                toColor=TIColor.bronzeLight;
+                toColor=Pal.thoriumPink;
                 shootEffect=smokeEffect=Fx.thoriumShoot;
             }});
             coolant=consumeCoolant(0.5f);
@@ -1728,6 +1727,71 @@ public class ExampleJavaMod extends Mod{
                     colors=new Color[]{Pal.heal};
                 }};
             }});
+        }};
+        ModUnits.anvil=new UnitType("anvil"){{
+            constructor=PayloadUnit::create;
+            drag=0.015f;
+            hitSize=8*1.6f;
+            health=800f;
+            armor=16f;
+            buildSpeed=3;
+            buildRange=8*20;
+            mineTier=3;
+            mineSpeed=4f;
+            flying=true;
+            speed=3.6f;
+            circleTarget=true;
+            faceTarget=true;
+            coreUnitDock=true;
+            payloadCapacity=4096;
+            trailLength=14;
+            weapons.add(new PointDefenseBulletWeapon(){{
+                range=80;
+            }});
+            abilities.add(new RegenAbility());
+            abilities.add(new SuppressionFieldAbility());
+            weapons.add(new Weapon(){{
+                reload=10;
+                mirror=false;
+                x=0;
+                y=0;
+                rotate=false;
+                bullet=new MissileBulletType(9,50){{
+                    splashDamage=160;
+                    splashDamageRadius=24;
+                    homingDelay=30;
+                    homingPower=0.5f;
+                    homingRange=200;
+                    trailEffect=Fx.none;
+                    trailLength=8;
+                    trailWidth=1.6f;
+                    shootEffect=Fx.none;
+                    trailColor=TIColor.bronzeColor;
+                    frontColor=backColor=TIColor.bronzeColor;
+                    hitEffect = new ExplosionEffect() {{
+                        lifetime=36;
+                        sparks=10;
+                        sparkRad=28;
+                        sparkStroke=1.2f;
+                        sparkLen=15;
+                        waveStroke=3;
+                        waveLife=6;
+                        waveRadBase=0.8f;
+                        waveColor=TIColor.bronzeColor;
+                        waveRad=26;
+                        smokes=11;
+                        smokeColor=sparkColor=TIColor.bronzeColor.cpy().a(0.85f);
+                    }};
+                }};
+            }});
+            immunities.addAll(
+                    StatusEffects.wet,StatusEffects.freezing,
+                    StatusEffects.burning,StatusEffects.melting,
+                    StatusEffects.disarmed,StatusEffects.electrified,
+                    StatusEffects.sapped,StatusEffects.slow,
+                    StatusEffects.tarred,StatusEffects.unmoving,
+                    StatusEffects.sporeSlowed,StatusEffects.corroded
+            );
         }};
 
 

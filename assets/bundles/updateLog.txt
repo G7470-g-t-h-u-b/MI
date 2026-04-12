@@ -19,6 +19,14 @@ todo:{
     铝
     StateEffects...
 }
+0.1.25c:{
+    Block:
+        [f]longsword
+    UnitTypes:
+        [+]anvil
+        todo:重绘贴图
+}
+
 0.1.25b:{
     Block:
         [+]增加炮塔射击声音
@@ -38,7 +46,6 @@ todo:{
         [=]longsword:
             增加弹药类型:黄铜
             fix
-            todo:Sounds
     Fx:
         [=]shootFireFx
 }
