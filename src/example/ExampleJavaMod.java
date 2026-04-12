@@ -132,10 +132,10 @@ public class ExampleJavaMod extends Mod{
                 }
             });
         });
-        ModFx.shootFireFx= (new Effect(100, 80.0F, (e) -> {
+        ModFx.shootFireFx= (new Effect(50, (e) -> {
             Draw.color(Pal.lightFlame, Pal.darkFlame, Color.gray, e.fin());
-            Angles.randLenVectors(e.id, 14,80+e.fin()*190, e.rotation, 25.0F, (x, y) ->
-                    Fill.circle(e.x + x, e.y + y, 0.7F + e.fout() * 1.5F));
+            Angles.randLenVectors(e.id, 16,105+e.fin()*180, e.rotation, 18.0F, (x, y) ->
+                    Fill.circle(e.x + x, e.y + y, 0.2F + e.fout() * 1.5F));
         })).followParent(false);
 
 
@@ -604,13 +604,13 @@ public class ExampleJavaMod extends Mod{
                 lifetime=140;
             }});
             coolant=consumeCoolant(1.4f);
+            ammoUseEffect=Fx.casing2;
         }};
         ModTurrets.longsword=new ItemTurret("longsword"){{
             maxAmmo=60;
             size=2;
             reload=27f;
             range=125f;
-            alwaysUnlocked=true;
             final float len=range+10;
             ammo(Items.titanium,new ShrapnelBulletType(){{
                 reloadMultiplier=1.4f;
@@ -626,7 +626,7 @@ public class ExampleJavaMod extends Mod{
                 length=len;
                 shootEffect=smokeEffect=Fx.thoriumShoot;
             }});
-            coolant=consumeCoolant(0.8f);
+            coolant=consumeCoolant(0.5f);
         }};
         //2x2-Power
         ModTurrets.powerTurret4 =new PowerTurret("power-turret-4"){{
@@ -647,6 +647,8 @@ public class ExampleJavaMod extends Mod{
                 hitSize=4f;
                 range=176;
                 maxRange=28;
+                status=StatusEffects.freezing;
+                statusDuration=60f;
             }};
         }};
         ModTurrets.powerTurret6=new PowerTurret("power-turret-6"){{
@@ -904,6 +906,7 @@ public class ExampleJavaMod extends Mod{
             range=320;
             coolant = consumeCoolant(0.2f);
             heatRequirement=24;
+            ammoUseEffect = Fx.casing3;
             requirements(Category.turret,with(Items.copper,800,Items.lead,100,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50,ModItems.processor,20));
             ammo(Items.lead,new BasicBulletType(8f,12){{
                 height=14;

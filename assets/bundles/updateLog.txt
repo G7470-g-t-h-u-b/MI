@@ -19,6 +19,18 @@ todo:{
     铝
     StateEffects...
 }
+0.1.24a-fix3:{
+    Block:
+        [=]longsword
+        [=]powerTurret4:
+            [+]状态效果:冻结,1s
+        [=]pureEmptiness:
+            [+]弹壳特效
+        [=]sharpSpear
+            [+]弹壳特效
+    Other:
+        [=]bundle-zh-cn
+}
 
 0.1.24a-fix2:{
     Fx:
