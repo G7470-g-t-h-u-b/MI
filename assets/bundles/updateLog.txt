@@ -19,6 +19,11 @@ todo:{
     铝
     StateEffects...
 }
+0.1.25a:{
+    Block:
+        [f]longsword
+}
+
 0.1.24b:{
     Item:
         [+]青铜

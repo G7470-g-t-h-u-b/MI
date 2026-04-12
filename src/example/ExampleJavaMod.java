@@ -593,7 +593,7 @@ public class ExampleJavaMod extends Mod{
             ammoUseEffect=Fx.casing2;
         }};
         ModTurrets.longsword=new ItemTurret("longsword"){{
-            requirements(Category.turret,ItemStack.with(Items.copper,30,Items.graphite,20,Items.thorium,30,ModItems.bronze));
+            requirements(Category.turret,ItemStack.with(Items.copper,30,Items.graphite,20,Items.thorium,30,ModItems.bronze,30));
             maxAmmo=60;
             size=2;
             reload=27f;
