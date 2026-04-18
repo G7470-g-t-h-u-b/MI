@@ -493,9 +493,9 @@ public class ExampleJavaMod extends Mod{
 
         ModUnits.anvil=new UnitType("anvil"){{
             targetFlags=new BlockFlag[]{BlockFlag.battery,BlockFlag.generator,BlockFlag.factory,BlockFlag.core};
-            accel=0.04f;
+            accel=0.03f;
             constructor=PayloadUnit::create;
-            drag=0.1f;
+            drag=0.02f;
             hitSize=8*1.8f;
             health=800f;
             armor=16f;
@@ -505,7 +505,7 @@ public class ExampleJavaMod extends Mod{
             mineSpeed=6f;
             mineRange=80;
             flying=true;
-            speed=5f;
+            speed=5.2f;
             circleTarget=true;
             faceTarget=true;
             coreUnitDock=true;
@@ -733,7 +733,7 @@ public class ExampleJavaMod extends Mod{
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 hitColor=backColor=trailColor=Pal.graphiteAmmoBack;
                 frontColor=Pal.graphiteAmmoFront;
-            }},ModItems.bronze,new BasicBulletType(){{
+            }},ModItems.bronze,new BasicBulletType(4.3f,25){{
                 width=7;
                 height=9f;
                 lifetime=50;
@@ -748,7 +748,7 @@ public class ExampleJavaMod extends Mod{
                 hitColor=backColor=trailColor=Pal.techBlue;
                 hitEffect=despawnEffect=Fx.hitBulletColor;
                 lifetime=50;
-            }},Items.pyratite,new BasicBulletType(4.2f,22){{
+            }},Items.pyratite,new BasicBulletType(4.2f,26){{
                 width=10;
                 height=12;
                 makeFire=true;
@@ -1924,7 +1924,9 @@ public class ExampleJavaMod extends Mod{
                     node(ModBlocks.bronzeWallLarge);
                 });
                 node(ModTurrets.longsword);
-                node(ModTurrets.blaze);
+                node(ModTurrets.blaze,()->{
+                    node(ModTurrets.salvoAlpha);
+                });
                 node(ModTurrets.puncture,()->{
                     node(ModTurrets.burst);
                     node(ModTurrets.pureEmptiness);
