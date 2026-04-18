@@ -1,5 +1,5 @@
 {
-  "displayName": "热力工业-Thermal Industry",
+  "displayName": "热力工业-ThermalIndustry",
 
   "name": "thermal-industry",
 
@@ -7,9 +7,9 @@
 
   "main": "example.ExampleJavaMod",
 
-  "description": "热力工业-Thermal Industry  v0.1",
+  "description": "热力工业-ThermalIndustry v0.2",
 
-  "version": "0.1.25c",
+  "version": "0.2.0a",
 
   "minGameVersion": "154",
 

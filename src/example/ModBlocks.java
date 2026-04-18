@@ -8,6 +8,7 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
+import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Duct;
 import mindustry.world.blocks.environment.RemoveWall;
@@ -19,7 +20,6 @@ import mindustry.world.blocks.power.HeaterGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.draw.DrawBlock;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawFlame;
 import mindustry.world.draw.DrawMulti;
@@ -104,8 +104,25 @@ public class ModBlocks {
             craftTime=60f;
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
             consumeItems(ItemStack.with(Items.copper,3,ModItems.tin,1));
+            consumePower(2f);
             outputItems=ItemStack.with(ModItems.bronze,4);
             requirements(Category.crafting,ItemStack.with(Items.copper,40,Items.lead,30,Items.graphite,40,Items.silicon,30));
+        }};
+    }
+    public static Wall bronzeWall;
+    public static Wall bronzeWallLarge;
+    public static void loadWall(){
+        bronzeWall=new Wall("bronze-wall"){{
+            size=1;
+            requirements(Category.defense,ItemStack.with(ModItems.bronze,6));
+            health=480;
+            armor=10;
+        }};
+        bronzeWallLarge=new Wall("bronze-wall-large"){{
+            size=2;
+            requirements(Category.defense,ItemStack.with(ModItems.bronze,24));
+            health=1730;
+            armor=14;
         }};
     }
 }

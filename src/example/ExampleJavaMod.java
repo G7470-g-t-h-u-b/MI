@@ -48,6 +48,7 @@ import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.consumers.ConsumeItemRadioactive;
 import mindustry.world.draw.*;
+import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.BuildVisibility;
 
 
@@ -188,6 +189,8 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.effect,with(Items.lead,50,Items.pyratite,30,Items.blastCompound,10));
         }};
 
+        ModBlocks.loadWall();
+
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
             health=180;
             size=2;
@@ -217,9 +220,9 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.electrolyticSeparator=new GenericCrafter("electrolytic-separator"){{
             health=180;
             size=2;
-            drawer=new DrawMulti(
-                    new DrawDefault(),
-                    new DrawLiquidTile(Liquids.hydrogen,2) );
+//            drawer=new DrawMulti(
+//                    new DrawDefault(),
+//                    new DrawLiquidTile(Liquids.hydrogen,2) );
             requirements(Category.crafting,with(Items.titanium,30,Items.graphite,25,Items.copper,20,Items.metaglass,20,ModItems.zinc,15));
             consumeLiquids(LiquidStack.with(Liquids.water,0.3f));
             consumePower(1f);
@@ -228,6 +231,7 @@ public class ExampleJavaMod extends Mod{
 //                new DrawDefault();
 //                new DrawLiquidTile(Liquids.water,1f);
 //            }};
+            drawer=new DrawMulti(new DrawRegion("-lowest"),new DrawLiquidTile(Liquids.hydrogen,2),new DrawDefault());
         }};
         ModBlocks.load1();
         ModBlocks.rockDrilling=new GenericCrafter("rock-drilling"){{
@@ -332,10 +336,10 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.fissionReactor=new HeaterGenerator("fission-reactor"){{
             size=3;
             requirements(Category.power,with(Items.lead,300,Items.metaglass,80,Items.titanium,100,Items.graphite,150,Items.thorium,60,Items.silicon,80,ModItems.heatConductionComponent,80));
-            powerProduction=12f;
+            powerProduction=14f;
             consume(new ConsumeItemRadioactive());
-            consumeLiquid(Liquids.cryofluid,0.75f);
-            heatOutput=32;
+            consumeLiquid(Liquids.cryofluid,0.2f);
+            heatOutput=48;
             drawer=new DrawMulti(new DrawDefault(),new DrawHeatOutput());
         }};
         ModBlocks.smallHeatTransmitter=new HeatConductor("small-heat-transmitter"){{
@@ -491,13 +495,13 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.effect, BuildVisibility.shown,with(Items.titanium,1000,Items.copper,1200,Items.silicon,800,ModItems.bronze,400));
             health=1200;
             size=3;
-            unitType = UnitTypes.alpha;
+            unitType=ModUnits.anvil;
         }};
 
 
         ModBlocks.overclockStateFieldProjection=new StateFieldProjection("overclock-state-field-projection"){{
             size=2;
-            requirements(Category.effect,with(Items.lead,80,Items.titanium,50,Items.silicon,30,ModItems.processor,10,ModItems.bronze,20));
+            requirements(Category.effect,with(Items.lead,80,Items.titanium,50,Items.silicon,30,ModItems.processor,10,ModItems.bronze,30));
             statusEffect=StatusEffects.overclock;
             consumePower(2f);
             duration=150f;
@@ -624,6 +628,81 @@ public class ExampleJavaMod extends Mod{
             }});
             coolant=consumeCoolant(0.5f);
         }};
+        ModTurrets.salvoAlpha=new ItemTurret("salvo-alpha"){{
+            requirements(Category.turret,ItemStack.with(ModItems.bronze,80,Items.graphite,40,Items.titanium,40));
+            shootSound=Sounds.shootSalvo;
+            size=2;
+            range=220;
+            ammoEjectBack=2f;
+            recoil=0.8f;
+            shoot.shots=6;
+            shoot.shotDelay=3;
+            reload=28;
+            ammoUseEffect=Fx.casing2;
+            coolant=consumeCoolant(0.2f);
+            ammo(Items.copper,new BasicBulletType(4.2f,13){{
+                width=7;
+                height=9f;
+                lifetime=50;
+                ammoMultiplier=2;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                hitColor=backColor=trailColor=Pal.copperAmmoBack;
+                frontColor=Pal.copperAmmoFront;
+            }},Items.graphite,new BasicBulletType(4.6f,24){{
+                width=8;
+                height=12;
+                ammoMultiplier=3;
+                lifetime=45;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                hitColor=backColor=trailColor=Pal.graphiteAmmoBack;
+                frontColor=Pal.graphiteAmmoFront;
+            }},ModItems.bronze,new BasicBulletType(){{
+                width=7;
+                height=9f;
+                lifetime=50;
+                ammoMultiplier=3;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                hitColor=backColor=trailColor=TIColor.bronzeLight;
+                frontColor=TIColor.bronzeColor;
+            }},Items.titanium,new BasicBulletType(4.2f,28){{
+                width=8;
+                height=10;
+                ammoMultiplier=3;
+                hitColor=backColor=trailColor=Pal.techBlue;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                lifetime=50;
+            }},Items.pyratite,new BasicBulletType(4.2f,22){{
+                width=10;
+                height=12;
+                makeFire=true;
+                ammoMultiplier=4;
+                status=StatusEffects.burning;
+                frontColor=hitColor=Pal.lightishOrange;
+                backColor=Pal.lightOrange;
+                splashDamage=12f;
+                splashDamageRadius=24;
+                lifetime=50;
+            }},Items.blastCompound,new BasicBulletType(4.2f,32){{
+                hitEffect=new MultiEffect(Fx.hitBulletColor,Fx.fireHit);
+                width=8;
+                height=10;
+                lifetime=50;
+                makeFire=true;
+                ammoMultiplier=5;
+                frontColor=hitColor=Pal.blastAmmoFront;
+                backColor=Pal.blastAmmoBack;
+                splashDamage=28;
+                splashDamageRadius=28;
+            }},Items.thorium,new BasicBulletType(4.5f,30){{
+                width=9;
+                height=10;
+                lifetime=50;
+                ammoMultiplier=4;
+                frontColor=hitColor=Pal.thoriumAmmoFront;
+                backColor=Pal.thoriumAmmoBack;
+                shootEffect=Fx.shootBig;
+            }});
+        }};
         //2x2-Power
         ModTurrets.powerTurret4 =new PowerTurret("power-turret-4"){{
             requirements(Category.turret,with(Items.copper,50,ModItems.siliconSteel,20,Items.titanium,15,ModItems.processor,10));
@@ -647,7 +726,7 @@ public class ExampleJavaMod extends Mod{
                 statusDuration=60f;
             }};
         }};
-        ModTurrets.powerTurret6=new PowerTurret("power-turret-6"){{
+        ModTurrets.fission=new PowerTurret("fission"){{
             requirements(Category.turret,with(Items.titanium,45,ModItems.siliconSteel,20,Items.metaglass,10));
             consumePower(6f);
             size=2;
@@ -906,7 +985,7 @@ public class ExampleJavaMod extends Mod{
             heatRequirement=24;
             ammoUseEffect = Fx.casing3;
             shootSound=Sounds.shootDisperse;
-            requirements(Category.turret,with(Items.copper,800,Items.lead,100,Items.thorium,80,Items.titanium,80,ModItems.siliconSteel,50,ModItems.processor,20));
+            requirements(Category.turret,with(Items.copper,800,Items.lead,160,Items.thorium,120,Items.titanium,120,ModItems.siliconSteel,60,ModItems.processor,20));
             ammo(Items.lead,new BasicBulletType(8f,12){{
                 height=14;
                 width=4;
@@ -1132,8 +1211,9 @@ public class ExampleJavaMod extends Mod{
             shootY=4;
             maxAmmo=20;
             reload=120;
-            final Effect sfe = new MultiEffect(new Effect[]{Fx.shootBigColor, Fx.colorSparkBig});
-            requirements(Category.turret,with(Items.copper,1000,Items.lead,400,Items.titanium,280,Items.plastanium,100,ModItems.siliconSteel,50,ModItems.processor,30));
+            final Effect sfe = new MultiEffect(Fx.shootBigColor, Fx.colorSparkBig);
+            requirements(Category.turret,with(Items.copper,1000,Items.lead,400,Items.titanium,280,Items.plastanium,100,
+                    ModItems.siliconSteel,50,ModItems.processor,30,ModItems.bronze,30));
             ammo(Items.titanium,new BasicBulletType(9.3f,20){{
                 inaccuracy=10;
                 velocityRnd=0.08f;
@@ -1516,14 +1596,14 @@ public class ExampleJavaMod extends Mod{
             }}, new RegionPart(){{
                 rotate=true;
                 suffix="-l";
-                moveX=-0.8f;
-                rotation=5;
+                moveX=-1f;
+//                rotation=5;
                 progress=PartProgress.warmup;
             }}, new RegionPart(){{
                 rotate=true;
                 suffix="-r";
-                moveX=0.8f;
-                rotation=-5;
+                moveX=1f;
+//                rotation=-5;
                 progress=PartProgress.warmup;
             }});
             }};
@@ -1729,24 +1809,33 @@ public class ExampleJavaMod extends Mod{
             }});
         }};
         ModUnits.anvil=new UnitType("anvil"){{
+            targetFlags=new BlockFlag[]{BlockFlag.battery,BlockFlag.generator,BlockFlag.factory,BlockFlag.core};
+            accel=0.04f;
             constructor=PayloadUnit::create;
-            drag=0.015f;
-            hitSize=8*1.6f;
+            drag=0.1f;
+            hitSize=8*1.8f;
             health=800f;
             armor=16f;
             buildSpeed=3;
             buildRange=8*20;
             mineTier=3;
-            mineSpeed=4f;
+            mineSpeed=6f;
+            mineRange=80;
             flying=true;
-            speed=3.6f;
+            speed=5f;
             circleTarget=true;
             faceTarget=true;
             coreUnitDock=true;
             payloadCapacity=4096;
             trailLength=14;
             weapons.add(new PointDefenseBulletWeapon(){{
-                range=80;
+                mirror=false;
+                x=0;
+                y=0;
+                reload=8;
+                bullet=new PointBulletType(){{
+                    lifetime=45;
+                }};
             }});
             abilities.add(new RegenAbility());
             abilities.add(new SuppressionFieldAbility());
@@ -1756,7 +1845,8 @@ public class ExampleJavaMod extends Mod{
                 x=0;
                 y=0;
                 rotate=false;
-                bullet=new MissileBulletType(9,50){{
+                lifetime=40;
+                bullet=new MissileBulletType(8,50){{
                     splashDamage=160;
                     splashDamageRadius=24;
                     homingDelay=30;
@@ -1829,6 +1919,9 @@ public class ExampleJavaMod extends Mod{
 
         nodeRoot("e",Blocks.coreShard,()->{
             node(ModTurrets.sharpSpear,()->{
+                node(ModBlocks.bronzeWall,()->{
+                    node(ModBlocks.bronzeWallLarge);
+                });
                 node(ModTurrets.longsword);
                 node(ModTurrets.blaze);
                 node(ModTurrets.puncture,()->{
@@ -1838,7 +1931,7 @@ public class ExampleJavaMod extends Mod{
                 });
                 node(ModTurrets.itemTurret2);
                 node(ModTurrets.powerTurret4,()->{
-                    node(ModTurrets.powerTurret6);
+                    node(ModTurrets.fission);
                     node(ModTurrets.itemTurret5,()->{
                         node(ModTurrets.frost);
                         node(ModTurrets.disaster);
@@ -2041,7 +2134,7 @@ public class ExampleJavaMod extends Mod{
 //                });
 //                node(Blocks.arc, () -> {
 //                    node(ModTurrets.powerTurret7, () -> {
-//                        node(ModTurrets.powerTurret6);
+//                        node(ModTurrets.fission);
 //                    });
 //                    node(Blocks.wave, () -> {
 //                    });

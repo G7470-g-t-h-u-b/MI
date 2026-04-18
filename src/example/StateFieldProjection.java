@@ -1,11 +1,13 @@
 package example;
 
-import arc.scene.ui.layout.Table;
-import arc.util.Time;
+import arc.math.Mathf;
+import arc.util.Tmp;
+import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.entities.Units;
 import mindustry.gen.Building;
+import mindustry.graphics.Drawf;
 import mindustry.logic.Ranged;
 import mindustry.type.StatusEffect;
 import mindustry.world.Block;
@@ -28,16 +30,21 @@ public class StateFieldProjection extends Block {
         update=true;
         hasPower=true;
     }
+    public void setStats(){
+        super.setStats();
+        stats.add(Stat.repairTime, (float)((int)(reload / 60.0F)), StatUnit.seconds);
+        stats.add(Stat.range, this.range / 8.0F, StatUnit.blocks);
+    }
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        super.drawPlace(x, y, rotation, valid);
+        Drawf.dashCircle((float)(x * 8) + this.offset, (float)(y * 8) + this.offset, this.range, TIColor.bronzeDark);
+        Vars.indexer.eachBlock(Vars.player.team(), (float)(x * 8) + this.offset, (float)(y * 8) + this.offset, this.range, (other) -> true, (other) -> Drawf.selected(other, Tmp.c1.set(TIColor.bronzeDark).a(Mathf.absin(4.0F, 1.0F))));
+    }
     public class StateFieldBuilding extends Building implements Ranged{
         public void consume() {
             for(Consume cons : this.block.consumers) {
                 cons.trigger(this);
             }
-
-        }
-        public void addStats(){
-            stats.add(Stat.range, range / 8.0f,StatUnit.blocks);
-            stats.add(Stat.reload,reload/60,StatUnit.seconds);
         }
         public void updateTile(){
             timer_+=1;

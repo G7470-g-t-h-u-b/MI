@@ -11,13 +11,29 @@ todo:{
     铁
     钢
     青铜
-    齐射-alpha
     高效冷却液
     钋
     建造塔
     再生投影
     铝
     StateEffects...
+    钴
+    钴传送带
+}
+0.2.0a:{
+    Blocks:
+        [+]齐射-alpha
+        [+]青铜墙
+        [f]重绘硅钢机、大型硅钢机贴图
+        [f]重绘电解分离机贴图
+        [=]修改部分建筑建材
+        [=]fissionReactor
+        [+]超载状态投影贴图
+        [f]disaster
+    UnitTypes:
+        [f]anvil
+    Other:
+        [=]bundle-zh-cn
 }
 0.1.25c:{
     Block:
