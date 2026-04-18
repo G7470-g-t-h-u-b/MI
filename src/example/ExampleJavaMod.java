@@ -491,6 +491,83 @@ public class ExampleJavaMod extends Mod{
         }};
 
 
+        ModUnits.anvil=new UnitType("anvil"){{
+            targetFlags=new BlockFlag[]{BlockFlag.battery,BlockFlag.generator,BlockFlag.factory,BlockFlag.core};
+            accel=0.04f;
+            constructor=PayloadUnit::create;
+            drag=0.1f;
+            hitSize=8*1.8f;
+            health=800f;
+            armor=16f;
+            buildSpeed=3;
+            buildRange=8*20;
+            mineTier=3;
+            mineSpeed=6f;
+            mineRange=80;
+            flying=true;
+            speed=5f;
+            circleTarget=true;
+            faceTarget=true;
+            coreUnitDock=true;
+            payloadCapacity=4096;
+            trailLength=14;
+            weapons.add(new PointDefenseBulletWeapon(){{
+                mirror=false;
+                x=0;
+                y=0;
+                reload=8;
+                bullet=new PointBulletType(){{
+                    lifetime=45;
+                }};
+            }});
+            abilities.add(new RegenAbility());
+            abilities.add(new SuppressionFieldAbility());
+            weapons.add(new Weapon(){{
+                reload=10;
+                mirror=false;
+                x=0;
+                y=0;
+                rotate=false;
+                lifetime=40;
+                bullet=new MissileBulletType(8,50){{
+                    splashDamage=160;
+                    splashDamageRadius=24;
+                    homingDelay=30;
+                    homingPower=0.5f;
+                    homingRange=200;
+                    trailEffect=Fx.none;
+                    trailLength=8;
+                    trailWidth=1.6f;
+                    shootEffect=Fx.none;
+                    trailColor=TIColor.bronzeColor;
+                    frontColor=backColor=TIColor.bronzeColor;
+                    hitEffect = new ExplosionEffect() {{
+                        lifetime=36;
+                        sparks=10;
+                        sparkRad=28;
+                        sparkStroke=1.2f;
+                        sparkLen=15;
+                        waveStroke=3;
+                        waveLife=6;
+                        waveRadBase=0.8f;
+                        waveColor=TIColor.bronzeColor;
+                        waveRad=26;
+                        smokes=11;
+                        smokeColor=sparkColor=TIColor.bronzeColor.cpy().a(0.85f);
+                    }};
+                }};
+            }});
+            immunities.addAll(
+                    StatusEffects.wet,StatusEffects.freezing,
+                    StatusEffects.burning,StatusEffects.melting,
+                    StatusEffects.disarmed,StatusEffects.electrified,
+                    StatusEffects.sapped,StatusEffects.slow,
+                    StatusEffects.tarred,StatusEffects.unmoving,
+                    StatusEffects.sporeSlowed,StatusEffects.corroded
+            );
+        }};
+
+
         ModBlocks.outpostCore=new OutPostCoreBlock("outpost-core"){{
             requirements(Category.effect, BuildVisibility.shown,with(Items.titanium,1000,Items.copper,1200,Items.silicon,800,ModItems.bronze,400));
             health=1200;
@@ -1610,8 +1687,6 @@ public class ExampleJavaMod extends Mod{
             recoil=3;
             coolant=consumeCoolant(0.3F);
         }};
-
-
         ModUnits.unitType1=new UnitType("unit-type-1"){{
             canBoost=true;
             constructor=TankUnit::create;
@@ -1808,81 +1883,7 @@ public class ExampleJavaMod extends Mod{
                 }};
             }});
         }};
-        ModUnits.anvil=new UnitType("anvil"){{
-            targetFlags=new BlockFlag[]{BlockFlag.battery,BlockFlag.generator,BlockFlag.factory,BlockFlag.core};
-            accel=0.04f;
-            constructor=PayloadUnit::create;
-            drag=0.1f;
-            hitSize=8*1.8f;
-            health=800f;
-            armor=16f;
-            buildSpeed=3;
-            buildRange=8*20;
-            mineTier=3;
-            mineSpeed=6f;
-            mineRange=80;
-            flying=true;
-            speed=5f;
-            circleTarget=true;
-            faceTarget=true;
-            coreUnitDock=true;
-            payloadCapacity=4096;
-            trailLength=14;
-            weapons.add(new PointDefenseBulletWeapon(){{
-                mirror=false;
-                x=0;
-                y=0;
-                reload=8;
-                bullet=new PointBulletType(){{
-                    lifetime=45;
-                }};
-            }});
-            abilities.add(new RegenAbility());
-            abilities.add(new SuppressionFieldAbility());
-            weapons.add(new Weapon(){{
-                reload=10;
-                mirror=false;
-                x=0;
-                y=0;
-                rotate=false;
-                lifetime=40;
-                bullet=new MissileBulletType(8,50){{
-                    splashDamage=160;
-                    splashDamageRadius=24;
-                    homingDelay=30;
-                    homingPower=0.5f;
-                    homingRange=200;
-                    trailEffect=Fx.none;
-                    trailLength=8;
-                    trailWidth=1.6f;
-                    shootEffect=Fx.none;
-                    trailColor=TIColor.bronzeColor;
-                    frontColor=backColor=TIColor.bronzeColor;
-                    hitEffect = new ExplosionEffect() {{
-                        lifetime=36;
-                        sparks=10;
-                        sparkRad=28;
-                        sparkStroke=1.2f;
-                        sparkLen=15;
-                        waveStroke=3;
-                        waveLife=6;
-                        waveRadBase=0.8f;
-                        waveColor=TIColor.bronzeColor;
-                        waveRad=26;
-                        smokes=11;
-                        smokeColor=sparkColor=TIColor.bronzeColor.cpy().a(0.85f);
-                    }};
-                }};
-            }});
-            immunities.addAll(
-                    StatusEffects.wet,StatusEffects.freezing,
-                    StatusEffects.burning,StatusEffects.melting,
-                    StatusEffects.disarmed,StatusEffects.electrified,
-                    StatusEffects.sapped,StatusEffects.slow,
-                    StatusEffects.tarred,StatusEffects.unmoving,
-                    StatusEffects.sporeSlowed,StatusEffects.corroded
-            );
-        }};
+
 
 
         ModBlocks.sentinelCore=new CoreBlock("sentinel-core"){{
