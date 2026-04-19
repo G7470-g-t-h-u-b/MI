@@ -2009,6 +2009,9 @@ public class ExampleJavaMod extends Mod{
             });
             node(Blocks.titaniumConveyor,()->{
                 node(ModBlocks.fastItemBridge,()->{
+                    node(ModBlocks.loaderPoint,()->{
+                        node(ModBlocks.unloadPoint);
+                    });
                     node(ModBlocks.itemTrack);
                     node(ModBlocks.logisticsPipeline);
                 });
