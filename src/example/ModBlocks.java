@@ -11,6 +11,7 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Duct;
+import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.RemoveWall;
 import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
@@ -37,10 +38,13 @@ public class ModBlocks {
     public static BeamDrill laserBeamDrill;
     public static BurstDrill percussionDrilling;
     public static GenericCrafter electrolyticSeparator;
+
     public static GenericCrafter glassAssemblyMachine;
     public static GenericCrafter waterTankFillingMachine;
     public static GenericCrafter waterDispenser;
     public static GenericCrafter bronzeSmelter;
+    public static GenericCrafter blastFurnace;
+
     public static GenericCrafter rockDrilling;
     public static GenericCrafter rockCrusher;
     public static GenericCrafter highTemperatureMeltingFurnace;
@@ -108,9 +112,26 @@ public class ModBlocks {
             outputItems=ItemStack.with(ModItems.bronze,4);
             requirements(Category.crafting,ItemStack.with(Items.copper,40,Items.lead,30,Items.graphite,40,Items.silicon,30));
         }};
+        blastFurnace=new GenericCrafter("blast-furnace"){{
+            size=3;
+            craftTime=120;
+            drawer=new DrawMulti(new DrawDefault(),new DrawFlame());
+            consumeItems(ItemStack.with(ModItems.hematite,3,Items.coal,2));
+            consumePower(3.5f);
+            outputItems=ItemStack.with(ModItems.ferrum,1);
+            requirements(Category.crafting,ItemStack.with(Items.lead,40,ModItems.siliconSteel,30,ModItems.bronze,40,Items.titanium,30));
+        }};
+    }
+    public static Floor hematiteFloor;
+    public static void loadFloor(){
+        hematiteFloor=new Floor("hematite-floor"){{
+            itemDrop=ModItems.hematite;
+        }};
     }
     public static Wall bronzeWall;
     public static Wall bronzeWallLarge;
+    public static Wall ironWall;
+    public static Wall ironWallLarge;
     public static void loadWall(){
         bronzeWall=new Wall("bronze-wall"){{
             size=1;
@@ -123,6 +144,18 @@ public class ModBlocks {
             requirements(Category.defense,ItemStack.with(ModItems.bronze,24));
             health=1730;
             armor=14;
+        }};
+        ironWall=new Wall("iron-wall"){{
+            size=1;
+            requirements(Category.defense,ItemStack.with(ModItems.ferrum,6));
+            health=740;
+            armor=5;
+        }};
+        ironWallLarge=new Wall("iron-wall-large"){{
+            size=2;
+            requirements(Category.defense,ItemStack.with(ModItems.ferrum,24));
+            health=3000;
+            armor=12;
         }};
     }
 }

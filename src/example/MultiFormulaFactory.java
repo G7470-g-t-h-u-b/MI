@@ -15,6 +15,7 @@ import mindustry.ctype.UnlockableContent;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.*;
 import mindustry.graphics.Pal;
+import mindustry.io.TypeIO;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
@@ -269,8 +270,8 @@ public class MultiFormulaFactory extends GenericCrafter {
 
         public void write(Writes write) {
             super.write(write);
-            write.f(this.progress);
-            write.s(this.currentPlan);
+            write.f(progress);
+            write.s(currentPlan);
         }
 
         public void read(Reads read, byte revision) {

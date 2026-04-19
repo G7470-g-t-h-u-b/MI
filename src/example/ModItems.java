@@ -11,7 +11,8 @@ public class ModItems {
     public static Item siliconSteel;
     public static Item gold;
     public static Item rock;
-    public static Item iron;
+    public static Item hematite;
+    public static Item ferrum;
     public static Item metaglassBottle;
     public static Item wateryMetaglassBottle;
     public static Item frostAlloy;
@@ -20,6 +21,12 @@ public class ModItems {
     public static Item heatConductionComponent;
     public static Item processor;
     public static Item bronze;
+    public static void load2(){
+        ModItems.hematite=new Item("hematite",Color.HSVtoRGB(11,35,49)){{
+            hardness=3;
+            cost=1.2f;
+        }};
+    }
     public static void load(){
         ModItems.tin=new Item("tin",Color.HSVtoRGB(233,16,44)){{
             cost=0.8f;

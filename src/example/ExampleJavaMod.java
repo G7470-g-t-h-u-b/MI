@@ -158,7 +158,8 @@ public class ExampleJavaMod extends Mod{
             hardness=4;
         }};
         ModItems.rock=new Item("rock",Color.HSVtoRGB(240,7,50));
-        ModItems.iron=new Item("iron",Color.HSVtoRGB(233,16,25));
+        ModItems.load2();
+        ModItems.ferrum =new Item("ferrum",Color.HSVtoRGB(233,16,25));
         ModItems.metaglassBottle=new Item("metaglass-bottle",Color.HSVtoRGB(240,7,88));
         ModItems.wateryMetaglassBottle=new Item("watery-metaglass-bottle",Color.HSVtoRGB(232,52,91));
         ModItems.frostAlloy=new Item("frost-alloy",Color.HSVtoRGB(196,46,89));
@@ -189,6 +190,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.effect,with(Items.lead,50,Items.pyratite,30,Items.blastCompound,10));
         }};
 
+        ModBlocks.loadFloor();
         ModBlocks.loadWall();
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
@@ -396,7 +398,7 @@ public class ExampleJavaMod extends Mod{
             health=100;
             size=1;
             requirements(Category.power, with(Items.copper, 8,Items.lead,5,ModItems.zinc,5));
-            range=15;
+            range=18;
             consumesPower=outputsPower=true;
             consumePowerBuffered(1000f);
         }};
@@ -493,7 +495,7 @@ public class ExampleJavaMod extends Mod{
 
         ModUnits.anvil=new UnitType("anvil"){{
             targetFlags=new BlockFlag[]{BlockFlag.battery,BlockFlag.generator,BlockFlag.factory,BlockFlag.core};
-            accel=0.03f;
+            accel=0.04f;
             constructor=PayloadUnit::create;
             drag=0.02f;
             hitSize=8*1.8f;
@@ -1062,7 +1064,7 @@ public class ExampleJavaMod extends Mod{
             heatRequirement=24;
             ammoUseEffect = Fx.casing3;
             shootSound=Sounds.shootDisperse;
-            requirements(Category.turret,with(Items.copper,800,Items.lead,160,Items.thorium,120,Items.titanium,120,ModItems.siliconSteel,60,ModItems.processor,20));
+            requirements(Category.turret,with(Items.copper,800,Items.lead,160,Items.thorium,120,Items.titanium,120,ModItems.siliconSteel,60,ModItems.ferrum,50,ModItems.processor,20));
             ammo(Items.lead,new BasicBulletType(8f,12){{
                 height=14;
                 width=4;
@@ -1921,7 +1923,11 @@ public class ExampleJavaMod extends Mod{
         nodeRoot("e",Blocks.coreShard,()->{
             node(ModTurrets.sharpSpear,()->{
                 node(ModBlocks.bronzeWall,()->{
-                    node(ModBlocks.bronzeWallLarge);
+                    node(ModBlocks.bronzeWallLarge,()->{
+                        node(ModBlocks.ironWall,()->{
+                            node(ModBlocks.ironWallLarge);
+                        });
+                    });
                 });
                 node(ModTurrets.longsword);
                 node(ModTurrets.blaze,()->{
@@ -1947,7 +1953,9 @@ public class ExampleJavaMod extends Mod{
                     node(ModBlocks.highTemperatureSmeltingPlant);
                     node(ModBlocks.highTemperatureMeltingFurnace, () -> {
                         node(ModBlocks.highSpeedDisassembler,()->{
-                            node(ModBlocks.bronzeSmelter);
+                            node(ModBlocks.bronzeSmelter,()->{
+                                node(ModBlocks.blastFurnace);
+                            });
                         });
                     });
                 });
@@ -2025,6 +2033,9 @@ public class ExampleJavaMod extends Mod{
                 });
                 nodeProduce(ModItems.zinc, () -> {});
                 nodeProduce(Items.coal, () -> {
+                    nodeProduce(ModItems.hematite,()->{
+                        nodeProduce(ModItems.ferrum,()->{});
+                    });
                     nodeProduce(Items.sand, () -> {
                         nodeProduce(Items.scrap, () -> {});
                         nodeProduce(ModItems.rock, () -> {});
