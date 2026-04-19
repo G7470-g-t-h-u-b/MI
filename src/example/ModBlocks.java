@@ -21,6 +21,8 @@ import mindustry.world.blocks.power.HeaterGenerator;
 import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.blocks.units.UnitCargoLoader;
+import mindustry.world.blocks.units.UnitCargoUnloadPoint;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawFlame;
 import mindustry.world.draw.DrawMulti;
@@ -73,7 +75,7 @@ public class ModBlocks {
     public static BufferedItemBridge fastItemBridge;
     public static CoreBlock outpostCore;
     public static CoreBlock sentinelCore;
-//    public static MultiFormulaFactory metalCrusher;
+    public static MultiFormulaFactory metalCrusher;
     public static StateFieldProjection overclockStateFieldProjection;
     public static void load1(){
         glassAssemblyMachine=new GenericCrafter("glass-assembly-machine"){{
@@ -122,6 +124,26 @@ public class ModBlocks {
             requirements(Category.crafting,ItemStack.with(Items.lead,40,ModItems.siliconSteel,30,ModItems.bronze,40,Items.titanium,30));
         }};
     }
+
+    public static UnitCargoLoader loaderPoint;
+    public static UnitCargoUnloadPoint unloadPoint;
+    public static void loadUnitCargoBlocks(){
+        loaderPoint=new UnitCargoLoader("loader-point"){{
+            size=2;
+            requirements(Category.distribution,ItemStack.with(Items.silicon,40,Items.titanium,40,ModItems.processor,20,ModItems.ferrum,30));
+            consumePower(2f);
+            unitBuildTime=60*15;
+            consumeLiquid(Liquids.hydrogen,0.2f);
+            itemCapacity=200;
+            unitType=ModUnits.drone;
+        }};
+        unloadPoint=new UnitCargoUnloadPoint("unload-point"){{
+            size=2;
+            requirements(Category.distribution,ItemStack.with(ModItems.siliconSteel,50,ModItems.ferrum,40));
+            itemCapacity=200;
+        }};
+    }
+
     public static Floor hematiteFloor;
     public static void loadFloor(){
         hematiteFloor=new Floor("hematite-floor"){{

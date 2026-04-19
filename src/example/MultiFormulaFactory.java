@@ -15,13 +15,11 @@ import mindustry.ctype.UnlockableContent;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.*;
 import mindustry.graphics.Pal;
-import mindustry.io.TypeIO;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.ui.Styles;
 import mindustry.world.blocks.ItemSelection;
-import mindustry.world.blocks.payloads.Payload;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.units.UnitFactory;
 import mindustry.world.consumers.ConsumeItems;
@@ -186,10 +184,6 @@ public class MultiFormulaFactory extends GenericCrafter {
             ItemSelection.buildTable(MultiFormulaFactory.this, table, Vars.content.items(), () -> this.outputItem, this::configure, MultiFormulaFactory.this.selectionRows, MultiFormulaFactory.this.selectionColumns);
         }
 
-        public boolean acceptPayload(Building source, Payload payload) {
-            return false;
-        }
-
         public void display(Table table) {
             super.display(table);
             TextureRegionDrawable reg = new TextureRegionDrawable();
@@ -206,7 +200,7 @@ public class MultiFormulaFactory extends GenericCrafter {
         }
 
         public Object config() {
-            return this.currentPlan;
+            return currentPlan;
         }
 
         public void draw() {
@@ -215,10 +209,10 @@ public class MultiFormulaFactory extends GenericCrafter {
 
         public void updateTile() {
             if (!configurable) {
-                this.currentPlan = 0;
+                currentPlan = 0;
             }
-            if (this.currentPlan < 0 || this.currentPlan >= plans.size) {
-                this.currentPlan = -1;
+            if (currentPlan < 0 || currentPlan >= plans.size) {
+                currentPlan = -1;
             }
 
             ItemPlan plan=plans.get(currentPlan);
@@ -276,8 +270,8 @@ public class MultiFormulaFactory extends GenericCrafter {
 
         public void read(Reads read, byte revision) {
             super.read(read, revision);
-            this.progress = read.f();
-            this.currentPlan = read.s();
+            progress = read.f();
+            currentPlan = read.s();
         }
     }
 }

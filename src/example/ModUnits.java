@@ -1,5 +1,6 @@
 package example;
 
+import mindustry.ai.types.CargoAI;
 import mindustry.type.UnitType;
 import mindustry.type.unit.ErekirUnitType;
 
@@ -11,4 +12,19 @@ public class ModUnits {
     public static UnitType mysticSnail;
     public static ErekirUnitType charge;
     public static UnitType anvil;
+    public static UnitType drone;
+    public static void loadDrone(){
+        drone=new UnitType("drone"){{
+            controller=u->new CargoAI();
+            flying=true;
+            speed=3.8f;
+            drag=0.06f;
+            accel=1;
+            rotateSpeed=12f;
+            itemCapacity=120;
+            hitSize=12;
+            health=180;
+
+        }};
+    }
 }

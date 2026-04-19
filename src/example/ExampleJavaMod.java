@@ -7,6 +7,7 @@ import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Angles;
 import arc.math.Interp;
+import arc.struct.Seq;
 import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.Effect;
@@ -185,6 +186,7 @@ public class ExampleJavaMod extends Mod{
             flammability=1;
             explosiveness=0.9f;
         }};//汽油
+
 
         ModBlocks.explosive=new RemoveWall("explosive"){{
             requirements(Category.effect,with(Items.lead,50,Items.pyratite,30,Items.blastCompound,10));
@@ -491,6 +493,8 @@ public class ExampleJavaMod extends Mod{
             arrowSpacing=6;
             bufferCapacity=15;
         }};
+        ModUnits.loadDrone();
+        ModBlocks.loadUnitCargoBlocks();
 
 
         ModUnits.anvil=new UnitType("anvil"){{
@@ -587,16 +591,16 @@ public class ExampleJavaMod extends Mod{
             reload=120f;
             range=80;
         }};
-//        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher"){{
-//            health=100;
-//            size=1;
-//            requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
-//            consumePower(2);
-//            plans=Seq.with(
-//                    new ItemPlan(new ItemStack(Items.copper,1),40f,with(Items.lead,1)),
-//                    new ItemPlan(new ItemStack(Items.lead,1),60f,with(Items.copper,1))
-//            );
-//        }};
+        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher"){{
+            health=100;
+            size=1;
+            requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
+            consumePower(2);
+            plans=Seq.with(
+                    new ItemPlan(new ItemStack(Items.copper,1),40f,with(Items.lead,1)),
+                    new ItemPlan(new ItemStack(Items.lead,1),60f,with(Items.copper,1))
+            );
+        }};
 
 
         //1x1
