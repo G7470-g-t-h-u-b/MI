@@ -1,6 +1,7 @@
 package example;
 
 import mindustry.ai.types.CargoAI;
+import mindustry.gen.UnitEntity;
 import mindustry.type.UnitType;
 import mindustry.type.unit.ErekirUnitType;
 
@@ -15,6 +16,7 @@ public class ModUnits {
     public static UnitType drone;
     public static void loadDrone(){
         drone=new UnitType("drone"){{
+            constructor= UnitEntity::create;
             controller=u->new CargoAI();
             flying=true;
             speed=3.8f;
