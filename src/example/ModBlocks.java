@@ -135,7 +135,7 @@ public class ModBlocks {
             unitBuildTime=60*15;
             consumeLiquid(Liquids.hydrogen,0.2f);
             itemCapacity=200;
-            unitType=ModUnits.drone;
+//            unitType=ModUnits.drone;
         }};
         unloadPoint=new UnitCargoUnloadPoint("unload-point"){{
             size=2;

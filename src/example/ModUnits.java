@@ -15,7 +15,9 @@ public class ModUnits {
     public static UnitType anvil;
     public static UnitType drone;
     public static void loadDrone(){
-        drone=new UnitType("drone"){{
+        drone=new ErekirUnitType("drone"){{
+            envDisabled=0;
+            isEnemy=false;
             constructor= UnitEntity::create;
             controller=u->new CargoAI();
             flying=true;
@@ -26,7 +28,6 @@ public class ModUnits {
             itemCapacity=120;
             hitSize=12;
             health=180;
-
         }};
     }
 }
