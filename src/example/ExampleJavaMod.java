@@ -160,8 +160,8 @@ public class ExampleJavaMod extends Mod{
 
         ModItems.load();
         ModItems.experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
-            explosiveness=2.8f;
-            flammability=1.8f;
+            explosiveness=3f;
+            flammability=1.6f;
             hardness=0;
         }};
         ModItems.uranium=new Item("uranium",Color.HSVtoRGB(125,47,70)){{
@@ -1482,7 +1482,7 @@ public class ExampleJavaMod extends Mod{
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
             shake=1;
-            reload=12f;
+            reload=16f;
             shoot.shots=5;
             shoot.shotDelay=2;
             recoil=0;
@@ -1696,7 +1696,7 @@ public class ExampleJavaMod extends Mod{
                 triLength=(8*2 + 8*4 + 22);
                 triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
                 y=8*3;
-                x=8*4-6;
+                x=-(8*4-6);
                 color=turretColor;
                 layer=51;
                 haloRotation=240;

@@ -37,7 +37,7 @@ public class StateFieldProjection extends Block {
     }
     public void drawPlace(int x, int y, int rotation, boolean valid) {
         super.drawPlace(x, y, rotation, valid);
-        Drawf.dashCircle((float)(x * 8) + this.offset, (float)(y * 8) + this.offset, this.range, TIColor.bronzeDark);
+        Drawf.dashCircle((float)(x * 8) + this.offset, (float)(y * 8) + offset, range, TIColor.bronzeDark);
         Vars.indexer.eachBlock(Vars.player.team(), (float)(x * 8) + this.offset, (float)(y * 8) + this.offset, this.range, (other) -> true, (other) -> Drawf.selected(other, Tmp.c1.set(TIColor.bronzeDark).a(Mathf.absin(4.0F, 1.0F))));
     }
     public class StateFieldBuilding extends Building implements Ranged{
