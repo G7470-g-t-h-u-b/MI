@@ -3,5 +3,5 @@ package example;
 import mindustry.type.Planet;
 
 public class ModPlanets {
-    public static Planet planetEee ;
+    public static Planet kroos;
 }

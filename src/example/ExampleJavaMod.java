@@ -21,6 +21,7 @@ import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.game.EventType.*;
+import mindustry.game.Objectives;
 import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
@@ -106,13 +107,22 @@ public class ExampleJavaMod extends Mod{
             });
         });
         ModFx.shapeEffect2=new Effect(45,e->{
-            e.scaled(45,b->{
+            e.scaled(25,b->{
                 Draw.color(Color.sky);
-                Fill.circle(e.x,e.y,3);
-                Lines.circle(e.x,e.y,32);
+                Fill.circle(e.x,e.y,2);
                 Lines.circle(e.x,e.y,40);
                 Lines.square(e.x,e.y,56,0);
                 Lines.square(e.x,e.y,56,45);
+
+                for(int i=0;i<4;i++){
+                    Drawf.tri(e.x,e.y,4,60,(float) i*90);
+                }
+
+                Draw.color();
+
+                for(int i=0;i<4;i++){
+                    Drawf.tri(e.x,e.y,1.8f,36,(float) i*90);
+                }
             });
         });
         ModFx.teachBlueBomb=new Effect(30,100,e->{
@@ -145,6 +155,7 @@ public class ExampleJavaMod extends Mod{
             damage=0.2f;
             color=Color.HSVtoRGB(296,60,37);
         }};
+        ModStatusEffects.load();
 
 
         ModItems.load();
@@ -192,7 +203,9 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.effect,with(Items.lead,50,Items.pyratite,30,Items.blastCompound,10));
         }};
 
+        ModBlocks.load2();
         ModBlocks.loadFloor();
+
         ModBlocks.loadWall();
 
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
@@ -587,7 +600,7 @@ public class ExampleJavaMod extends Mod{
             requirements(Category.effect,with(Items.lead,80,Items.titanium,50,Items.silicon,30,ModItems.processor,10,ModItems.bronze,30));
             statusEffect=StatusEffects.overclock;
             consumePower(2f);
-            duration=150f;
+            duration=60*10;
             reload=120f;
             range=80;
         }};
@@ -703,11 +716,18 @@ public class ExampleJavaMod extends Mod{
                 shootEffect=smokeEffect=ModFx.bronzeShoot;
             }},Items.thorium,new ShrapnelBulletType(){{
                 damage=180;
-                ammoMultiplier=6;
+                ammoMultiplier=4;
                 width=17f;
                 length=len;
                 toColor=Pal.thoriumPink;
                 shootEffect=smokeEffect=Fx.thoriumShoot;
+            }},ModItems.ferrum,new ShrapnelBulletType(){{
+                damage=190;
+                ammoMultiplier=6;
+                width=17f;
+                length=len;
+                toColor=TIColor.feLight;
+                shootEffect=smokeEffect=ModFx.feShoot;
             }});
             coolant=consumeCoolant(0.5f);
         }};
@@ -1461,6 +1481,8 @@ public class ExampleJavaMod extends Mod{
             }};
         }};
         ModTurrets.frost=new LiquidTurret("frost"){{
+            shake=1;
+            reload=12f;
             recoil=0;
             inaccuracy=5;
             xRand=2f;
@@ -1476,6 +1498,7 @@ public class ExampleJavaMod extends Mod{
             final DrawPart.PartProgress haloProgress = DrawPart.PartProgress.warmup;
             final float circleY = 20f;
             final DrawPart.PartProgress circleProgress = DrawPart.PartProgress.warmup.delay(0.9F);
+            final Color turretColor=Pal.techBlue;
             final float circleRad = 11.0F;
             final float circleStroke = 1.6F;
             final float haloY=-12f;
@@ -1490,14 +1513,28 @@ public class ExampleJavaMod extends Mod{
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
                 smokeEffect=Fx.shootSmokeDisperse;
-                hitColor=trailColor=lightningColor=Color.sky;
+                hitColor=trailColor=lightningColor=frontColor=backColor=turretColor;
                 trailWidth=2.5f;
                 trailLength=20;
                 homingDelay=18f;
                 homingRange=240f;
                 homingPower=3;
+                status=StatusEffects.freezing;
+                statusDuration=60*5;
+                drawer=new DrawMulti(){{parts.addAll(new FlarePart(){{
+                    progress=PartProgress.life.slope().curve(Interp.pow2In);
+                    x=0;
+                    y=0;
+                    sides=4;
+                    radius=3;
+                    radiusTo=9;
+                    stroke=3.2f;
+                    rotation=45;
+                    followRotation=true;
+                }});
+                }};
                 fragBullet=new LaserBulletType(55f){{
-                    colors= new Color[]{Color.sky};
+                    colors=new Color[]{turretColor};
                     buildingDamageMultiplier=0.5f;
                     hitEffect=Fx.hitLancer;
                     sideAngle=175.0F;
@@ -1522,7 +1559,7 @@ public class ExampleJavaMod extends Mod{
             drawer=new DrawTurret(){{parts.addAll(new ShapePart(){{
                 rotateSpeed=circleRotSpeed;
                 progress=haloProgress;
-                color=Color.sky;
+                color=turretColor;
                 circle=true;
                 hollow=true;
                 stroke=0;
@@ -1531,7 +1568,7 @@ public class ExampleJavaMod extends Mod{
                 y=haloY;
             }}, new ShapePart(){{
                 progress=haloProgress;
-                color=Color.sky;
+                color=turretColor;
                 circle=false;
                 hollow=true;
                 stroke=0;
@@ -1543,7 +1580,7 @@ public class ExampleJavaMod extends Mod{
                 rotation=0;
             }}, new ShapePart(){{
                 progress=haloProgress;
-                color=Color.sky;
+                color=turretColor;
                 circle=false;
                 hollow=true;
                 stroke=0;
@@ -1556,7 +1593,7 @@ public class ExampleJavaMod extends Mod{
             }}, new ShapePart(){{
                 rotateSpeed=circleRotSpeed;
                 progress=haloProgress;
-                color=Color.sky;
+                color=turretColor;
                 circle=false;
                 hollow=true;
                 stroke=0;
@@ -1569,7 +1606,7 @@ public class ExampleJavaMod extends Mod{
                 progress=haloProgress;
                 shapes=3;
                 tri=true;
-                color=Color.sky;
+                color=turretColor;
                 hollow=true;
                 stroke=0;
                 strokeTo=2;
@@ -1590,34 +1627,95 @@ public class ExampleJavaMod extends Mod{
                 moveY=1;
             }}, new RegionPart(){{
                 layerOffset = -0.3F;
-                layer=20;
+//                layer=20;
+                under=true;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-1";
-                color=Color.sky;
+                color=turretColor;
                 outline=true;
                 rotation=15;
                 moveX=4.8f;
             }}, new RegionPart(){{
                 layerOffset = -0.3F;
-                layer=20;
+//                layer=20;
+                under=true;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-2";
-                color=Color.sky;
+                color=turretColor;
                 outline=true;
                 rotation=15;
                 moveX=4.8f;
             }}, new RegionPart(){{
                 layerOffset = -0.3F;
-                layer=20;
+//                layer=20;
+                under=true;
                 mirror=true;
                 progress=PartProgress.warmup;
                 suffix="-b-3";
-                color=Color.sky;
+                color=turretColor;
                 outline=true;
                 moveX=4.8f;
                 rotation=45;
+            }},new HaloPart(){{
+                hollow=false;
+                tri=true;
+                radius=0;
+                radiusTo=2;
+                triLength=(8*2 + 8*4 + 22);
+                triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
+                y=8*3;
+                x=-8*4-3;
+                color=turretColor;
+                layer=51;
+            }},new HaloPart(){{
+                hollow=false;
+                tri=true;
+                radius=0;
+                radiusTo=2;
+                triLength=(8*2 + 8*4 + 22);
+                triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
+                y=8*3;
+                x=8*4-3;
+                color=turretColor;
+                layer=51;
+            }},new HaloPart(){{
+                hollow=false;
+                tri=true;
+                radius=4;
+                radiusTo=7;
+                triLength=4;
+                triLengthTo=13;
+                haloRadius=0;
+                x=0;
+                y=8*2 + 8*4;
+                color=turretColor;
+                layer=51;
+            }},new HaloPart(){{
+                hollow=false;
+                tri=true;
+                radius=4;
+                radiusTo=7;
+                triLength=4;
+                triLengthTo=13;
+                haloRadius=0;
+                x=0;
+                y=8*2 + 8*4 + 22;
+                color=turretColor;
+                layer=51;
+            }},new HaloPart(){{
+                hollow=false;
+                tri=true;
+                radius=4;
+                radiusTo=7;
+                triLength=4;
+                triLengthTo=13;
+                haloRadius=0;
+                x=0;
+                y=8*2 + 8*4 + 22*2;
+                color=turretColor;
+                layer=51;
             }});
             }};
         }};
@@ -1634,6 +1732,8 @@ public class ExampleJavaMod extends Mod{
             consumePower(18f);
             range=450;
             shootType=new LaserBulletType(){{
+                status=ModStatusEffects.interference;
+                statusDuration=60*4;
                 shake=6;
                 length=460;
                 width=70;
@@ -1902,7 +2002,7 @@ public class ExampleJavaMod extends Mod{
 
         ModUnitBlocks.load();
 
-        ModPlanets.planetEee=new Planet("planet-eee", Planets.sun, 1f, 3){{
+        ModPlanets.kroos =new Planet("kroos", Planets.sun, 1f, 3){{
             generator=new SerpuloPlanetGenerator();
             new NoiseMesh(Planets.serpulo,2,1,Color.sky,
                     1,1,1f,1f,1f);
@@ -1916,11 +2016,11 @@ public class ExampleJavaMod extends Mod{
             iconColor=Color.HSVtoRGB(210,44,92);
             allowLaunchSchematics=true;
         }};
-        ModSectorPresets.t1=new SectorPreset("testSector",ModPlanets.planetEee,0){{
+        ModSectorPresets.t1=new SectorPreset("testSector",ModPlanets.kroos,0){{
             alwaysUnlocked=true;
         }};
-        ModSectorPresets.testSector=new SectorPreset("043", ModPlanets.planetEee, 172);
-        ModSectorPresets.t174=new SectorPreset("t174",ModPlanets.planetEee,174);
+        ModSectorPresets.testSector=new SectorPreset("043", ModPlanets.kroos, 172);
+        ModSectorPresets.t174=new SectorPreset("t174",ModPlanets.kroos,174);
         ModSectorPresets.Sector15=new SectorPreset("15",Planets.serpulo,15);
 
 
@@ -1979,7 +2079,7 @@ public class ExampleJavaMod extends Mod{
                 });
                 node(ModBlocks.largeThoriumReactor);
                 node(ModBlocks.smallDrillBit,()->{
-                    node(ModBlocks.laserBeamDrill,()->{
+                    node(ModBlocks.laserBeamDrill,Seq.with(new Objectives.OnSector(ModSectorPresets.Sector15)),()->{
                         node(ModBlocks.percussionDrilling);
                     });
                 });
@@ -2020,7 +2120,14 @@ public class ExampleJavaMod extends Mod{
                 node(ModUnits.raid);
                 node(ModUnits.mysticSnail);
             });
-            node(ModBlocks.explosive);
+            node(ModBlocks.explosive,()->{
+                node(Blocks.sand,()->{
+                    node(Blocks.metalFloor,()->{
+                        node(Blocks.metalFloor2);
+                    });
+                    node(Blocks.sandWall);
+                });
+            });
             node(ModBlocks.outpostCore);
             nodeProduce(Items.copper, () -> {
                 nodeProduce(Items.lead, () -> {
@@ -2071,8 +2178,8 @@ public class ExampleJavaMod extends Mod{
         });
 
 
-        ModPlanets.planetEee.techTree=TechTree.nodeRoot("PlanetEee",ModBlocks.sentinelCore,()->{});
-//        ModPlanets.planetEee.techTree= TechTree.nodeRoot("eee", Blocks.coreShard, () -> {
+        ModPlanets.kroos.techTree=TechTree.nodeRoot("PlanetEee",ModBlocks.sentinelCore,()->{});
+//        ModPlanets.kroos.techTree= TechTree.nodeRoot("eee", Blocks.coreShard, () -> {
 //            node(ModSectorPresets.t1, () -> {
 //                node(ModSectorPresets.testSector, () -> {
 //                    node(ModSectorPresets.t174);

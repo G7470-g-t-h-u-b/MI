@@ -1,6 +1,7 @@
 package example;
 
 import arc.graphics.Color;
+import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -77,6 +78,13 @@ public class ModBlocks {
     public static CoreBlock sentinelCore;
     public static MultiFormulaFactory metalCrusher;
     public static StateFieldProjection overclockStateFieldProjection;
+    public static void load2(){
+        Blocks.sand.requirements(Category.effect,ItemStack.with(Items.sand,1000,ModItems.rock,200));
+        Blocks.metalFloor.requirements(Category.effect,ItemStack.with(Items.titanium,700,Items.scrap,800));
+        Blocks.metalFloor2.requirements(Category.effect,ItemStack.with(Items.titanium,700,Items.scrap,800));
+        Blocks.coreZone.requirements(Category.effect,ItemStack.with(Items.thorium,1000,Items.titanium,800,Items.silicon,500,ModItems.ferrum,600));
+        Blocks.sandWall.requirements(Category.effect,ItemStack.with(Items.sand,1400,ModItems.rock,300));
+    }
     public static void load1(){
         glassAssemblyMachine=new GenericCrafter("glass-assembly-machine"){{
             size=2;

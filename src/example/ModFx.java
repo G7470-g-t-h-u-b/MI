@@ -18,6 +18,11 @@ public class ModFx {
     public static final Effect bronzeShoot = new Effect(12.0F, (e) -> {
         Draw.color(Color.white, TIColor.bronzeColor, e.fin());
         Lines.stroke(e.fout() * 1.2F + 0.5F);
-        Angles.randLenVectors((long)e.id, 7, 25.0F * e.finpow(), e.rotation, 50.0F, (x, y) -> Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fin() * 5.0F + 2.0F));
+        Angles.randLenVectors(e.id, 7, 25.0F * e.finpow(), e.rotation, 50.0F, (x, y) -> Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fin() * 5.0F + 2.0F));
+    });
+    public static final Effect feShoot = new Effect(12.0F, (e) -> {
+        Draw.color(Color.white, TIColor.feColor, e.fin());
+        Lines.stroke(e.fout() * 1.2F + 0.5F);
+        Angles.randLenVectors(e.id, 7, 25.0F * e.finpow(), e.rotation, 50.0F, (x, y) -> Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fin() * 5.0F + 2.0F));
     });
 }
