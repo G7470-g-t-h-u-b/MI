@@ -108,7 +108,7 @@ public class ExampleJavaMod extends Mod{
         });
         ModFx.shapeEffect2=new Effect(45,e->{
             e.scaled(25,b->{
-                Draw.color(Color.sky);
+                Draw.color(Pal.techBlue);
                 Fill.circle(e.x,e.y,2);
                 Lines.circle(e.x,e.y,40);
                 Lines.square(e.x,e.y,56,0);
@@ -1483,6 +1483,8 @@ public class ExampleJavaMod extends Mod{
         ModTurrets.frost=new LiquidTurret("frost"){{
             shake=1;
             reload=12f;
+            shoot.shots=5;
+            shoot.shotDelay=2;
             recoil=0;
             inaccuracy=5;
             xRand=2f;
@@ -1526,9 +1528,9 @@ public class ExampleJavaMod extends Mod{
                     x=0;
                     y=0;
                     sides=4;
-                    radius=3;
-                    radiusTo=9;
-                    stroke=3.2f;
+                    radius=8;
+                    radiusTo=20;
+                    stroke=6f;
                     rotation=45;
                     followRotation=true;
                 }});
@@ -1543,6 +1545,9 @@ public class ExampleJavaMod extends Mod{
                     lifetime=25f;
                     drawSize=400f;
                     pierceCap=2;
+                    fragSpread=0;
+                    fragOffsetMin=0;
+                    fragOffsetMax=0;
                 }};
                 intervalBullets=8;
                 bulletInterval=10f;
@@ -1659,28 +1664,57 @@ public class ExampleJavaMod extends Mod{
                 moveX=4.8f;
                 rotation=45;
             }},new HaloPart(){{
+                shapes=1;
                 hollow=false;
                 tri=true;
-                radius=0;
-                radiusTo=2;
+                radius=2;
+                radiusTo=4;
                 triLength=(8*2 + 8*4 + 22);
                 triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
                 y=8*3;
-                x=-8*4-3;
+                x=-8*4-6;
                 color=turretColor;
                 layer=51;
             }},new HaloPart(){{
+                shapes=1;
                 hollow=false;
                 tri=true;
-                radius=0;
-                radiusTo=2;
+                radius=2;
+                radiusTo=4;
                 triLength=(8*2 + 8*4 + 22);
                 triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
                 y=8*3;
-                x=8*4-3;
+                x=8*4-6;
                 color=turretColor;
                 layer=51;
             }},new HaloPart(){{
+                shapes=1;
+                hollow=false;
+                tri=true;
+                radius=2;
+                radiusTo=4;
+                triLength=(8*2 + 8*4 + 22);
+                triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
+                y=8*3;
+                x=8*4-6;
+                color=turretColor;
+                layer=51;
+                haloRotation=240;
+            }},new HaloPart(){{
+                shapes=1;
+                hollow=false;
+                tri=true;
+                radius=2;
+                radiusTo=4;
+                triLength=(8*2 + 8*4 + 22);
+                triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
+                y=8*3;
+                x=8*4-6;
+                color=turretColor;
+                layer=51;
+                haloRotation=120;
+            }},new HaloPart(){{
+                shapes=1;
                 hollow=false;
                 tri=true;
                 radius=4;
@@ -1693,6 +1727,7 @@ public class ExampleJavaMod extends Mod{
                 color=turretColor;
                 layer=51;
             }},new HaloPart(){{
+                shapes=1;
                 hollow=false;
                 tri=true;
                 radius=4;
@@ -1705,6 +1740,7 @@ public class ExampleJavaMod extends Mod{
                 color=turretColor;
                 layer=51;
             }},new HaloPart(){{
+                shapes=1;
                 hollow=false;
                 tri=true;
                 radius=4;

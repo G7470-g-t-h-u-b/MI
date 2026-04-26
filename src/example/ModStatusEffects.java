@@ -9,7 +9,7 @@ public class ModStatusEffects {
     public static StatusEffect interference;
     public static void load(){
         interference=new StatusEffect("interference"){{
-            damage=5;
+            damage=1;
             reloadMultiplier=0.7f;
             damageMultiplier=0.65f;
             speedMultiplier=0.7f;
