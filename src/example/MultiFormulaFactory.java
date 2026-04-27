@@ -28,6 +28,8 @@ import mindustry.world.draw.DrawDefault;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatValues;
 
+import static mindustry.Vars.state;
+
 public class MultiFormulaFactory extends GenericCrafter {
     public DrawBlock drawer = new DrawDefault();
     public int[] capacities = new int[0];
@@ -43,6 +45,7 @@ public class MultiFormulaFactory extends GenericCrafter {
     public LiquidStack[] outputLiquids;
     public MultiFormulaFactory(String name) {
         super(name);
+        itemCapacity=20;
         update = true;
         hasPower = true;
         hasItems = true;
@@ -74,23 +77,19 @@ public class MultiFormulaFactory extends GenericCrafter {
         super.afterPatch();
     }
 
-    public void initCapacities() {
-        capacities = new int[Vars.content.items().size];
-        itemCapacity = 10;
-
-        for(ItemPlan plan : this.plans) {
-            for(ItemStack stack : plan.requirements) {
-                this.capacities[stack.item.id] = Math.max(this.capacities[stack.item.id], stack.amount * 2);
-                this.itemCapacity = Math.max(this.itemCapacity, stack.amount * 2);
+    public void initCapacities(){
+        capacities=new int[Vars.content.items().size];
+        itemCapacity=10;
+        for(MultiFormulaFactory.ItemPlan plan : plans){
+            for(ItemStack stack:plan.requirements){
+                capacities[stack.item.id] = Math.max(capacities[stack.item.id], stack.amount * 2);
+                itemCapacity=Math.max(itemCapacity, stack.amount * 2);
             }
         }
 
-        this.consumeBuilder.each((c) -> c.multiplier = (b) -> Vars.state.rules.unitCost(b.team));
+        consumeBuilder.each(c -> c.multiplier = b -> state.rules.unitCost(b.team));
     }
 
-    public void setBars() {
-        super.setBars();
-    }
 
     public boolean outputsItems() {
         return true;
@@ -184,27 +183,27 @@ public class MultiFormulaFactory extends GenericCrafter {
             ItemSelection.buildTable(MultiFormulaFactory.this, table, Vars.content.items(), () -> this.outputItem, this::configure, MultiFormulaFactory.this.selectionRows, MultiFormulaFactory.this.selectionColumns);
         }
 
-        public void display(Table table) {
-            super.display(table);
-            TextureRegionDrawable reg = new TextureRegionDrawable();
-            table.row();
-            table.table((t) -> {
-                t.left();
-                t.image().update((i) -> {
-                    i.setDrawable(this.currentPlan == -1 ? Icon.cancel : reg.set(((ItemPlan)MultiFormulaFactory.this.plans.get(this.currentPlan)).item.item.uiIcon));
-                    i.setScaling(Scaling.fit);
-                    i.setColor(this.currentPlan == -1 ? Color.lightGray : Color.white);
-                }).size(32.0F).padBottom(-4.0F).padRight(2.0F);
-                t.label(() -> this.currentPlan == -1 ? "@none" : ((ItemPlan)MultiFormulaFactory.this.plans.get(this.currentPlan)).item.item.localizedName).wrap().width(230.0F).color(Color.lightGray);
-            }).left();
-        }
+//        public void display(Table table) {
+//            super.display(table);
+//            TextureRegionDrawable reg = new TextureRegionDrawable();
+//            table.row();
+//            table.table((t) -> {
+//                t.left();
+//                t.image().update((i) -> {
+//                    i.setDrawable(this.currentPlan == -1 ? Icon.cancel : reg.set(((ItemPlan)MultiFormulaFactory.this.plans.get(this.currentPlan)).item.item.uiIcon));
+//                    i.setScaling(Scaling.fit);
+//                    i.setColor(this.currentPlan == -1 ? Color.lightGray : Color.white);
+//                }).size(32.0F).padBottom(-4.0F).padRight(2.0F);
+//                t.label(() -> this.currentPlan == -1 ? "@none" : ((ItemPlan)MultiFormulaFactory.this.plans.get(this.currentPlan)).item.item.localizedName).wrap().width(230.0F).color(Color.lightGray);
+//            }).left();
+//        }
 
         public Object config() {
             return currentPlan;
         }
 
         public void draw() {
-            MultiFormulaFactory.this.drawer.draw(this);
+            super.draw();
         }
 
         public void updateTile() {

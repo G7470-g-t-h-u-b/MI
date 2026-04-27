@@ -604,7 +604,7 @@ public class ExampleJavaMod extends Mod{
             reload=120f;
             range=80;
         }};
-        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher"){{
+        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher-v0-0-1"){{
             health=100;
             size=1;
             requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
@@ -1696,7 +1696,7 @@ public class ExampleJavaMod extends Mod{
                 triLength=(8*2 + 8*4 + 22);
                 triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
                 y=8*3;
-                x=-(8*4-6);
+                x=(8*4-6);
                 color=turretColor;
                 layer=51;
                 haloRotation=240;
@@ -1709,7 +1709,7 @@ public class ExampleJavaMod extends Mod{
                 triLength=(8*2 + 8*4 + 22);
                 triLengthTo=(8*2 + 8*4 + 22)+(8*5.5f);
                 y=8*3;
-                x=8*4-6;
+                x=-(8*4-6);
                 color=turretColor;
                 layer=51;
                 haloRotation=120;
