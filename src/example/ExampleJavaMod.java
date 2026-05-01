@@ -535,8 +535,13 @@ public class ExampleJavaMod extends Mod{
                 x=0;
                 y=0;
                 reload=8;
-                bullet=new PointBulletType(){{
-                    lifetime=45;
+                range=80;
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 80f;
+                    damage=40f;
                 }};
             }});
             abilities.add(new RegenAbility());
@@ -549,6 +554,7 @@ public class ExampleJavaMod extends Mod{
                 rotate=false;
                 lifetime=40;
                 bullet=new MissileBulletType(8,50){{
+                    status=ModStatusEffects.interference;
                     splashDamage=160;
                     splashDamageRadius=24;
                     homingDelay=30;
@@ -592,6 +598,7 @@ public class ExampleJavaMod extends Mod{
             health=1200;
             size=3;
             unitType=ModUnits.anvil;
+            itemCapacity=1000;
         }};
 
 
@@ -1177,6 +1184,22 @@ public class ExampleJavaMod extends Mod{
                 backColor=trailColor=hitColor=Pal.thoriumAmmoBack;
                 ammoMultiplier=3f;
                 lifetime=40;
+            }},ModItems.ferrum,new BasicBulletType(8.2f,47){{
+                pierceCap=1;
+                height=14;
+                width=4;
+                velocityRnd=0.1f;
+                collidesTiles=false;
+                shootEffect=Fx.sparkShoot;
+                smokeEffect=Fx.shootSmokeDisperse;
+                frontColor=TIColor.feLight;
+                trailEffect=Fx.disperseTrail;
+                trailChance=0.4f;
+                trailSpread=1f;
+                hitEffect=despawnEffect=Fx.hitBulletColor;
+                backColor=trailColor=hitColor=TIColor.feLight;
+                ammoMultiplier=2f;
+                lifetime=40;
             }},Items.plastanium,new BasicBulletType(8.2f,24){{
                 height=14;
                 width=4;
@@ -1327,7 +1350,7 @@ public class ExampleJavaMod extends Mod{
                 shootEffect=sfe;
                 smokeEffect=Fx.shootBigSmoke;
                 pierce=true;
-                pierceCap=5;
+                pierceCap=4;
                 hittable=false;
                 ammoMultiplier=1f;
                 reloadMultiplier=0.6f;
@@ -1340,7 +1363,30 @@ public class ExampleJavaMod extends Mod{
                 hitEffect=despawnEffect = Fx.hitBulletColor;
                 buildingDamageMultiplier = 0.5f;
                 trailRotation=true;
-            }},Items.surgeAlloy,new BasicBulletType(9f,50){{
+            }},ModItems.ferrum,new BasicBulletType(9f,56){{
+                inaccuracy=10;
+                velocityRnd=0.08f;
+                shootCone=10;
+                width = 10.0F;
+                height = 21.0F;
+                hitSize = 7.0F;
+                shootEffect=sfe;
+                smokeEffect=Fx.shootBigSmoke;
+                pierce=true;
+                pierceCap=7;
+                hittable=false;
+                ammoMultiplier=1f;
+                reloadMultiplier=0.6f;
+                hitColor=backColor=trailColor=TIColor.feLight;
+                frontColor = Color.white;
+                trailWidth = 2.2F;
+                trailLength = 11;
+                trailEffect = Fx.disperseTrail;
+                trailInterval = 2.0F;
+                hitEffect=despawnEffect = Fx.hitBulletColor;
+                buildingDamageMultiplier = 0.5f;
+                trailRotation=true;
+            }},Items.surgeAlloy,new BasicBulletType(9f,64){{
                 inaccuracy=10;
                 velocityRnd=0.08f;
                 shootCone=10;
@@ -2159,7 +2205,9 @@ public class ExampleJavaMod extends Mod{
             node(ModBlocks.explosive,()->{
                 node(Blocks.sand,()->{
                     node(Blocks.metalFloor,()->{
-                        node(Blocks.metalFloor2);
+                        node(Blocks.metalFloor2,()->{
+                            node(Blocks.metalFloor3);
+                        });
                     });
                     node(Blocks.sandWall);
                 });
