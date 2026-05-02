@@ -208,6 +208,8 @@ public class ExampleJavaMod extends Mod{
 
         ModBlocks.loadWall();
 
+        ModBlocks.load3();
+
         ModBlocks.laboratory=new GenericCrafter("laboratory"){{
             health=180;
             size=2;
@@ -611,7 +613,7 @@ public class ExampleJavaMod extends Mod{
             reload=120f;
             range=80;
         }};
-        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher-v0-0-1"){{
+        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher-v0-0-2"){{
             health=100;
             size=1;
             requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
@@ -2107,6 +2109,9 @@ public class ExampleJavaMod extends Mod{
 
 
         nodeRoot("e",Blocks.coreShard,()->{
+            node(ModBlocks.smallLaunchPad,()->{
+                node(ModBlocks.smallLandingPad);
+            });
             node(ModTurrets.sharpSpear,()->{
                 node(ModBlocks.bronzeWall,()->{
                     node(ModBlocks.bronzeWallLarge,()->{
@@ -2262,7 +2267,7 @@ public class ExampleJavaMod extends Mod{
         });
 
 
-        ModPlanets.kroos.techTree=TechTree.nodeRoot("PlanetEee",ModBlocks.sentinelCore,()->{});
+        ModPlanets.kroos.techTree=TechTree.nodeRoot("kroos",ModBlocks.sentinelCore,()->{});
 //        ModPlanets.kroos.techTree= TechTree.nodeRoot("eee", Blocks.coreShard, () -> {
 //            node(ModSectorPresets.t1, () -> {
 //                node(ModSectorPresets.testSector, () -> {
