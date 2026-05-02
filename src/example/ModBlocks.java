@@ -9,6 +9,8 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
+import mindustry.world.blocks.campaign.LandingPad;
+import mindustry.world.blocks.campaign.LaunchPad;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.blocks.distribution.Duct;
@@ -168,26 +170,47 @@ public class ModBlocks {
             size=1;
             requirements(Category.defense,ItemStack.with(ModItems.bronze,6));
             health=480;
-            armor=10;
+            armor=6;
         }};
         bronzeWallLarge=new Wall("bronze-wall-large"){{
             size=2;
             requirements(Category.defense,ItemStack.with(ModItems.bronze,24));
             health=1730;
-            armor=14;
+            armor=10;
         }};
         ironWall=new Wall("iron-wall"){{
+            placeableLiquid=true;
             size=1;
             requirements(Category.defense,ItemStack.with(ModItems.ferrum,6));
             health=740;
-            armor=5;
+            armor=7;
         }};
         ironWallLarge=new Wall("iron-wall-large"){{
+            placeableLiquid=true;
             size=2;
             requirements(Category.defense,ItemStack.with(ModItems.ferrum,24));
             health=3000;
-            armor=12;
+            armor=14;
         }};
+    }
+    public static LaunchPad smallLaunchPad;
+    public static LandingPad smallLandingPad;
+    public static void load3(){
+        smallLaunchPad=new LaunchPad("small-launch-pad"){{
+            size=3;
+            itemCapacity=20;
+            launchTime=60*10;
+            consumePower(6f);
+            hasPower=true;
+            requirements(Category.effect,ItemStack.with(Items.copper,100,Items.titanium,60,Items.silicon,30,Items.graphite,20));
+        }};
+        smallLandingPad=new LandingPad("small-landing-pad"){{
+            size=3;
+            requirements(Category.effect,ItemStack.with(Items.copper,100,Items.titanium,60,Items.graphite,60));
+            consumeLiquidAmount=30;
+            liquidCapacity=120;
+            cooldownTime=60*10;
+        }};//接收台
     }
 }
 //
