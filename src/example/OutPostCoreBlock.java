@@ -12,6 +12,9 @@ public class OutPostCoreBlock extends CoreBlock {
     public boolean canReplace(Block other){
         return true;
     }
+    public boolean canBreak(Tile tile){
+        return true;
+    }
     public boolean canPlaceOn(Tile tile, Team team, int rotation) {
         return true;
     }
