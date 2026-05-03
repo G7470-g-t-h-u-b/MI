@@ -13,6 +13,7 @@ import mindustry.world.blocks.campaign.LandingPad;
 import mindustry.world.blocks.campaign.LaunchPad;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
+import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.Duct;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.RemoveWall;
@@ -29,6 +30,10 @@ import mindustry.world.blocks.units.UnitCargoUnloadPoint;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawFlame;
 import mindustry.world.draw.DrawMulti;
+import mindustry.world.meta.Attribute;
+import mindustry.world.modules.ItemModule;
+
+import static mindustry.type.ItemStack.with;
 
 public class ModBlocks {
     public static RemoveWall explosive;
@@ -73,8 +78,29 @@ public class ModBlocks {
     public static ConsumeGenerator archipelagoBatteryGenerator;
     public static Separator highSpeedDisassembler;
     public static BeamNode laserEnergyNode;
+
     public static Duct itemTrack;
     public static Duct logisticsPipeline;
+    public static Conveyor phaseFabricConveyor;
+
+    public static void loadDistribution(){
+        ModBlocks.itemTrack=new Duct("item-track"){{
+            requirements(Category.distribution,with(Items.phaseFabric,1));
+            health=60;
+            speed=0.08f;
+        }};
+        ModBlocks.logisticsPipeline=new Duct("logistics-pipeline"){{
+            requirements(Category.distribution,with(Items.titanium,1,Items.copper,1,ModItems.siliconSteel,1));
+            health=80;
+            speed=4f;
+        }};
+        phaseFabricConveyor=new Conveyor("phase-fabric-conveyor"){{
+            requirements(Category.distribution,with(Items.phaseFabric,1,ModItems.ferrum,1,Items.plastanium,1));
+            health=100;
+            speed=0.2f;
+        }};
+    }
+
     public static BufferedItemBridge fastItemBridge;
     public static CoreBlock outpostCore;
     public static CoreBlock sentinelCore;
@@ -88,6 +114,7 @@ public class ModBlocks {
         Blocks.metalFloor3.requirements(Category.effect,ItemStack.with(Items.titanium,700,Items.scrap,800));
         Blocks.coreZone.requirements(Category.effect,ItemStack.with(Items.thorium,1000,Items.titanium,800,Items.silicon,500,ModItems.ferrum,600));
     }
+    public static RemotAccessBox remotAccessBox;
     public static void load1(){
         glassAssemblyMachine=new GenericCrafter("glass-assembly-machine"){{
             size=2;
@@ -134,6 +161,11 @@ public class ModBlocks {
             outputItems=ItemStack.with(ModItems.ferrum,1);
             requirements(Category.crafting,ItemStack.with(Items.lead,40,ModItems.siliconSteel,30,ModItems.bronze,40,Items.titanium,30));
         }};
+        remotAccessBox=new RemotAccessBox("remot-access-box"){{
+            size=2;
+            itemCapacity=100;
+            requirements(Category.effect,ItemStack.with(Items.titanium,100,Items.silicon,60));
+        }};
     }
 
     public static UnitCargoLoader loaderPoint;
@@ -156,9 +188,13 @@ public class ModBlocks {
     }
 
     public static Floor hematiteFloor;
+    public static Floor tuffFloor;
     public static void loadFloor(){
         hematiteFloor=new Floor("hematite-floor"){{
             itemDrop=ModItems.hematite;
+        }};
+        tuffFloor=new Floor("tuff-floor"){{
+            attributes.set(Attribute.oil,0.7f);
         }};
     }
     public static Wall bronzeWall;
@@ -210,6 +246,7 @@ public class ModBlocks {
             consumeLiquidAmount=30;
             liquidCapacity=120;
             cooldownTime=60*10;
+            itemCapacity=20;
         }};//接收台
     }
 }

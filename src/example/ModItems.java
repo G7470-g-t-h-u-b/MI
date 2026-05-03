@@ -4,7 +4,7 @@ import arc.graphics.Color;
 import mindustry.type.Item;
 
 public class ModItems {
-    public static Item experimentalExplosives;
+    public static Item industrialExplosives;
     public static Item tin;
     public static Item uranium;
     public static Item zinc;

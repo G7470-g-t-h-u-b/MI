@@ -8,7 +8,7 @@ todo:{
     bundle
     强化废墙
     工业废料
-    钢
+    装甲钢
     高效冷却液
     钋
     建造塔
@@ -20,9 +20,17 @@ todo:{
 }
 
 0.2.3a:{
+    Items:
+        [+]实验型爆炸物->工业炸药(alpha7)
+        [=]工业炸药 explosiveness 2.8f->3f(alpha2)
+        [=]工业炸药 flammability 1.8f->1.6f(alpha2)
     Blocks:
-        [+]部分地板科技
-        [+]小型发射台、接收台
+        [+]相织布传送带(alpha7)
+        [+]部分地板科技(alpha4)
+        [+]小型发射台、接收台(alpha5)
+        [+][t]远程访问箱(alpha7)
+        [=]寒霜特效修改(alpha1,2)
+        [=]重绘金矿、锌矿贴图(alpha6)
 }
 0.2.2b:{
     Blocks:

@@ -26,6 +26,7 @@ import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
+import mindustry.maps.planet.AsteroidGenerator;
 import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.mod.*;
 import mindustry.type.*;
@@ -37,7 +38,6 @@ import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.distribution.BufferedItemBridge;
-import mindustry.world.blocks.distribution.Duct;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.environment.RemoveWall;
 import mindustry.world.blocks.heat.HeatConductor;
@@ -159,7 +159,7 @@ public class ExampleJavaMod extends Mod{
 
 
         ModItems.load();
-        ModItems.experimentalExplosives=new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
+        ModItems.industrialExplosives =new Item("experimental-explosives", Color.HSVtoRGB(4,100,60)){{
             explosiveness=3f;
             flammability=1.6f;
             hardness=0;
@@ -217,7 +217,7 @@ public class ExampleJavaMod extends Mod{
             consumeItem(Items.blastCompound,2);
             consumeLiquid(Liquids.oil,0.1f);
             consumePower(1f);
-            outputItems = new ItemStack[]{(new ItemStack(ModItems.experimentalExplosives,2))};
+            outputItems = new ItemStack[]{(new ItemStack(ModItems.industrialExplosives,2))};
         }};
         ModBlocks.siliconSteelMixer=new GenericCrafter("silicon-steel-mixer"){{
             health=180;
@@ -489,16 +489,7 @@ public class ExampleJavaMod extends Mod{
         ModBlocks.oreUranium=new OreBlock("ore-uranium",ModItems.uranium);
 
 
-        ModBlocks.itemTrack=new Duct("item-track"){{
-            requirements(Category.distribution,with(Items.phaseFabric,1));
-            health=60;
-            speed=0.19f;
-        }};
-        ModBlocks.logisticsPipeline=new Duct("logistics-pipeline"){{
-            requirements(Category.distribution,with(Items.titanium,1,Items.copper,1,ModItems.siliconSteel,1));
-            health=80;
-            speed=5f;
-        }};
+        ModBlocks.loadDistribution();
         ModBlocks.fastItemBridge=new BufferedItemBridge("titanium-conveyor-bridge"){{
             requirements(Category.distribution,with(Items.titanium,5,Items.copper,5,Items.silicon,5));
             health=60;
@@ -628,7 +619,7 @@ public class ExampleJavaMod extends Mod{
         //1x1
         ModTurrets.itemTurret1=new ItemTurret("item-turret-1"){{
             requirements(Category.turret, with(Items.copper, 40,ModItems.zinc,10,ModItems.gold,5));
-            ammo(ModItems.experimentalExplosives, new MissileBulletType(1.5f,32){{
+            ammo(ModItems.industrialExplosives, new MissileBulletType(1.5f,32){{
                 ammoMultiplier=2;
                 splashDamage=4.5f;
                 splashDamageRadius=2.5f;
@@ -1067,7 +1058,7 @@ public class ExampleJavaMod extends Mod{
                 status=StatusEffects.burning;
                 hittable=false;
                 keepVelocity=false;
-            }},ModItems.experimentalExplosives,new BulletType(6.2f,65){{
+            }},ModItems.industrialExplosives,new BulletType(6.2f,65){{
                 ammoMultiplier=5;
                 lifetime=120;
                 hitSize=7.5f;
@@ -2099,6 +2090,13 @@ public class ExampleJavaMod extends Mod{
             allowSectorInvasion=true;
             iconColor=Color.HSVtoRGB(210,44,92);
             allowLaunchSchematics=true;
+            prebuildBase=true;
+        }};
+        ModPlanets.eee=new Planet("eee",Planets.sun,1f,3){{
+            generator=new AsteroidGenerator();
+            new NoiseMesh(Planets.verilus,2,1,Color.sky,0.4f,1,1f,1f,1);
+            meshLoader=()->new HexMesh(Planets.verilus,6);
+            cloudMesh=null;
         }};
         ModSectorPresets.t1=new SectorPreset("testSector",ModPlanets.kroos,0){{
             alwaysUnlocked=true;
@@ -2202,6 +2200,7 @@ public class ExampleJavaMod extends Mod{
                     });
                     node(ModBlocks.itemTrack);
                     node(ModBlocks.logisticsPipeline);
+                    node(ModBlocks.phaseFabricConveyor);
                 });
             });
             node(ModUnitBlocks.secondaryModificationFactory,()->{
@@ -2324,7 +2323,7 @@ public class ExampleJavaMod extends Mod{
 //                    node(ModBlocks.fastItemBridge);
 //                });
 //            });
-//            nodeProduce(ModItems.experimentalExplosives, () -> {
+//            nodeProduce(ModItems.industrialExplosives, () -> {
 //            });
 //            node(ModBlocks.laboratory, () -> {
 //            });
