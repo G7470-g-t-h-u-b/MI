@@ -2217,7 +2217,9 @@ public class ExampleJavaMod extends Mod{
                     node(Blocks.sandWall);
                 });
             });
-            node(ModBlocks.outpostCore);
+            node(ModBlocks.outpostCore,()->{
+                node(ModBlocks.remotAccessBox);
+            });
             nodeProduce(Items.copper, () -> {
                 nodeProduce(Items.lead, () -> {
                     nodeProduce(ModItems.canyonBattery,()->{

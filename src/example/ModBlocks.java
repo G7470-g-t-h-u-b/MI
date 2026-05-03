@@ -160,7 +160,7 @@ public class ModBlocks {
             unitType= UnitTypes.alpha;
             size=2;
             itemCapacity=100;
-            requirements(Category.effect,ItemStack.with(Items.titanium,100,Items.silicon,60));
+            requirements(Category.effect,ItemStack.with(Items.titanium,100,Items.silicon,100));
         }};
     }
 
