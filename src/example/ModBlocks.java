@@ -1,10 +1,7 @@
 package example;
 
 import arc.graphics.Color;
-import mindustry.content.Blocks;
-import mindustry.content.Fx;
-import mindustry.content.Items;
-import mindustry.content.Liquids;
+import mindustry.content.*;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
@@ -31,8 +28,6 @@ import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawFlame;
 import mindustry.world.draw.DrawMulti;
 import mindustry.world.meta.Attribute;
-import mindustry.world.modules.ItemModule;
-
 import static mindustry.type.ItemStack.with;
 
 public class ModBlocks {
@@ -162,6 +157,7 @@ public class ModBlocks {
             requirements(Category.crafting,ItemStack.with(Items.lead,40,ModItems.siliconSteel,30,ModItems.bronze,40,Items.titanium,30));
         }};
         remotAccessBox=new RemotAccessBox("remot-access-box"){{
+            unitType= UnitTypes.alpha;
             size=2;
             itemCapacity=100;
             requirements(Category.effect,ItemStack.with(Items.titanium,100,Items.silicon,60));
