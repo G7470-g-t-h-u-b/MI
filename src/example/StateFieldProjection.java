@@ -33,7 +33,7 @@ public class StateFieldProjection extends Block {
     public void setStats(){
         super.setStats();
         stats.add(Stat.reload, (float)((int)(reload / 60.0F)), StatUnit.seconds);
-        stats.add(Stat.range, this.range / 8.0F, StatUnit.blocks);
+        stats.add(Stat.range, range / 8.0F, StatUnit.blocks);
     }
     public void drawPlace(int x, int y, int rotation, boolean valid) {
         super.drawPlace(x, y, rotation, valid);

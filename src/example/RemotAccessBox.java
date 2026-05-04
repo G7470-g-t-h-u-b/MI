@@ -10,6 +10,7 @@ public class RemotAccessBox extends CoreBlock {
         unitCapModifier=0;
         allowSpawn=false;
         unitType=null;
+        drawArrow=false;
     }
     public boolean canPlaceOn(Tile tile,Team team,int rotation){
         return true;

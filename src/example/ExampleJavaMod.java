@@ -604,7 +604,7 @@ public class ExampleJavaMod extends Mod{
             reload=120f;
             range=80;
         }};
-        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher-v0-0-2"){{
+        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher-v0-0-3"){{
             health=100;
             size=1;
             requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
@@ -1549,7 +1549,7 @@ public class ExampleJavaMod extends Mod{
             shootY=12;
             ammo(Liquids.hydrogen,new FlakBulletType(8.9f,75f){{
                 buildingDamageMultiplier=0.5f;
-                lifetime=180f;
+                lifetime=160f;
                 hitEffect=ModFx.shapeEffect2;
                 shootEffect=Fx.shootSmokeSquareBig;
                 trailEffect=Fx.colorSpark;
@@ -1999,8 +1999,8 @@ public class ExampleJavaMod extends Mod{
             drag=0.05f;
             accel=0.06f;
             flying=true;
-            hitSize=30f;
-            health=1200;
+            hitSize=28f;
+            health=1000;
             speed=2f;
             constructor=UnitEntity::create;
             targetAir=false;

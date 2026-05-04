@@ -256,16 +256,19 @@ public class MultiFormulaFactory extends GenericCrafter {
             return this.currentPlan == -1 ? null : MultiFormulaFactory.this.plans.get(this.currentPlan).item;
         }
 
+        @Override
         public byte version() {
             return 3;
         }
 
+        @Override
         public void write(Writes write) {
             super.write(write);
             write.f(progress);
             write.s(currentPlan);
         }
 
+        @Override
         public void read(Reads read, byte revision) {
             super.read(read, revision);
             progress = read.f();
