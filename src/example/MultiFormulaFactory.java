@@ -44,6 +44,8 @@ public class MultiFormulaFactory extends GenericCrafter {
     public LiquidStack[] outputLiquids;
     public MultiFormulaFactory(String name) {
         super(name);
+        saveConfig=false;
+        copyConfig=true;
         itemCapacity=20;
         update = true;
         hasPower = true;
@@ -258,7 +260,7 @@ public class MultiFormulaFactory extends GenericCrafter {
 
         @Override
         public byte version() {
-            return 3;
+            return 1;
         }
 
         @Override
@@ -271,8 +273,10 @@ public class MultiFormulaFactory extends GenericCrafter {
         @Override
         public void read(Reads read, byte revision) {
             super.read(read, revision);
-            progress = read.f();
-            currentPlan = read.s();
+            if (revision>=1) {
+                progress = read.f();
+                currentPlan = read.s();
+            }
         }
     }
 }

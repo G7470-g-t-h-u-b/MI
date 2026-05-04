@@ -604,7 +604,7 @@ public class ExampleJavaMod extends Mod{
             reload=120f;
             range=80;
         }};
-        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher-v0-0-3"){{
+        ModBlocks.metalCrusher=new MultiFormulaFactory("metal-crusher-v0-0-4"){{
             health=100;
             size=1;
             requirements(Category.crafting,with(Items.copper,10,Items.lead,8,Items.graphite,5));
