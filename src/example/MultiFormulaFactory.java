@@ -213,20 +213,22 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
             if (efficiency>0){
                 progress += getProgressIncrease(craftTime);
             }
-            if(progress>1) {
-                if (plan.item!=null){
-                    for(var output : plans.items){
-                        for(int i = 0; i < plan.requirements[currentPlan].amount; i++){
-                            offload(output.item.item);
+            if (currentPlan!=-1) {
+                if(progress>=plan.time) {
+                    if (plan.item!=null){
+                        for(var output : plans.items){
+                            for(int i = 0; i < plan.requirements[currentPlan].amount; i++){
+                                offload(output.item.item);
+                            }
                         }
                     }
-                }
 
-                if (wasVisible){
-                    craftEffect.at(x,y);
-                }
+                    if (wasVisible){
+                        craftEffect.at(x,y);
+                    }
 
-                consume();
+                    consume();
+                }
             }
             dumpOutputs();
         }
