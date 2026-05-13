@@ -170,7 +170,6 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
     }
 
     public class MultiFormulaFactoryBuild extends Building {
-        public int configure;
         public float progress;
         public Item outputItem;
         public int currentPlan = -1;
@@ -180,7 +179,7 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
             this.drawItemSelection(this.outputItem);
         }
 
-        public void buildConfiguration(Table table) {
+        public void buildConfiguration(Table table) {//坏了
             Seq<Item> items=Seq.with(plans).map(i ->i.item.item).removeAll(i->i.unlockedNow() && !i.isBanned());
 
             if (items.any()){
@@ -202,18 +201,18 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
         }
 
         public void updateTile() {
-            if (!configurable) {
+            if (!configurable) {//坏了坏了
                 currentPlan = 0;
             }
             if (currentPlan < 0 || currentPlan >= plans.size) {
                 currentPlan = -1;
             }
 
-            ItemPlan plan=plans.get(currentPlan);//todo:error
             if (efficiency>0){
                 progress += getProgressIncrease(craftTime);
             }
             if (currentPlan!=-1) {
+                ItemPlan plan=plans.get(currentPlan);
                 if(progress>=plan.time) {
                     if (plan.item!=null){
                         for(var output : plans.items){
@@ -231,7 +230,8 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
                 }
             }
             dumpOutputs();
-        }
+        }//(x) oh no!
+        //'ThermalIndustry'(thermal-industry)has caused Mindustry to crash
 
         public void dumpOutputs() {
             if (MultiFormulaFactory.this.outputItems != null && this.timer(MultiFormulaFactory.this.timerDump, (float)MultiFormulaFactory.this.dumpTime / this.timeScale)) {
@@ -253,13 +253,13 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
         public ItemStack item() {
             return this.currentPlan == -1 ? null : MultiFormulaFactory.this.plans.get(this.currentPlan).item;
         }
-        //坏了
+
         @Override
         public byte version() {
             return 1;
         }
 
-        @Override//坏了坏了
+        @Override
         public void write(Writes write) {
             super.write(write);
             write.f(progress);
@@ -273,7 +273,6 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
                 progress = read.f();
                 currentPlan = read.s();
             }
-        }//(x) oh no!
-        //'ThermalIndustry'(thermal-industry)has caused Mindustry to crash
+        }
     }
 }
