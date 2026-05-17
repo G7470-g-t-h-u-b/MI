@@ -1,8 +1,11 @@
 package example;
 
 import mindustry.ai.types.CargoAI;
+import mindustry.content.StatusEffects;
 import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.bullet.LaserBoltBulletType;
 import mindustry.gen.UnitEntity;
+import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.unit.ErekirUnitType;
@@ -23,12 +26,15 @@ public class ModUnits {
             armor=30;
             speed=1.12f;
             constructor=UnitEntity::create;
-            hitSize=14;
+            hitSize=12;
             itemCapacity=20;
             flying=true;
             weapons.add(new Weapon(){{
-                mirror=false;
-                bullet=new BasicBulletType(4.2f,20){{
+                mirror=true;
+                reload=5;
+                bullet=new LaserBoltBulletType(4.2f,20){{
+                    lightColor= Pal.meltdownHit;
+                    status=StatusEffects.melting;
 //                    killShooter=true;
 //                    fragBullets=5;
 //                    fragRandomSpread=360;

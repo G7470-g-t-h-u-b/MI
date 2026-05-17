@@ -591,7 +591,7 @@ public class ExampleJavaMod extends Mod{
             health=1200;
             size=3;
             unitType=ModUnits.anvil;
-            itemCapacity=1000;
+            itemCapacity=800;
         }};
 
 
@@ -1347,7 +1347,7 @@ public class ExampleJavaMod extends Mod{
                 hittable=false;
                 ammoMultiplier=1f;
                 reloadMultiplier=0.6f;
-                hitColor=backColor=trailColor=Color.sky;
+                hitColor=backColor=trailColor=Pal.techBlue;
                 frontColor = Color.white;
                 trailWidth = 2.2F;
                 trailLength = 11;

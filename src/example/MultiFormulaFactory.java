@@ -176,10 +176,10 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
         public MultiFormulaFactoryBuild() {}
         public void drawSelect() {
             super.drawSelect();
-            this.drawItemSelection(this.outputItem);
+            this.drawItemSelection(outputItem);
         }
 
-        public void buildConfiguration(Table table) {//坏了
+        public void buildConfiguration(Table table) {//坏了.
             Seq<Item> items=Seq.with(plans).map(i ->i.item.item).removeAll(i->i.unlockedNow() && !i.isBanned());
 
             if (items.any()){

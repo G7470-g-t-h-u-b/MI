@@ -3,10 +3,12 @@ package example;
 import mindustry.game.Team;
 import mindustry.world.Tile;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.meta.BlockGroup;
 
 public class RemotAccessBox extends CoreBlock {
     public RemotAccessBox(String name) {
         super(name);
+        group=BlockGroup.transportation;
         unitCapModifier=0;
         allowSpawn=false;
         unitType=null;

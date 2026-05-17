@@ -12,7 +12,7 @@ public class ModTurrets {
     public static ItemTurret longsword;
     public static ItemTurret salvoAlpha;
     public static ItemTurret burst;
-    public static ItemTurret ash;
+//    public static ItemTurret ash;
     public static ItemTurret puncture;
     public static ItemTurret blaze;
     public static ItemTurret pureEmptiness;
