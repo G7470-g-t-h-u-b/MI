@@ -25,6 +25,7 @@ import mindustry.game.Objectives;
 import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
+import mindustry.graphics.Trail;
 import mindustry.graphics.g3d.*;
 import mindustry.maps.planet.AsteroidGenerator;
 import mindustry.maps.planet.SerpuloPlanetGenerator;
@@ -692,6 +693,52 @@ public class ExampleJavaMod extends Mod{
             }});
             coolant=consumeCoolant(1.4f);
             ammoUseEffect=Fx.casing2;
+        }};
+        ModTurrets.magneticSpear=new ItemTurret("magnetic-spear"){{
+            requirements(Category.turret,ItemStack.with(Items.lead,60,Items.graphite,30,Items.silicon,40,Items.metaglass,50));
+            maxAmmo=60;
+            size=2;
+            reload=3f;
+            range=28*8;
+            shootSound=Sounds.shootBreach;
+            Effect t_s = new MultiEffect(Fx.shootBigColor, Fx.colorSparkBig);
+            ammo(Items.copper,new BasicBulletType(7.6f,16){{
+                lifetime=40;
+                ammoMultiplier=1;
+                shootEffect=t_s;
+                width=6;
+                height=16;
+                hitSize=6;
+                smokeEffect=Fx.shootSmallSmoke;
+                trailWidth=4;
+                trailLength=8;
+                buildingDamageMultiplier=0.4f;
+                hitColor=backColor=trailColor=Pal.copperAmmoBack;
+                frontColor=Pal.copperAmmoFront;
+            }},Items.metaglass,new BasicBulletType(7.9f,10){{
+                lifetime=40;
+                ammoMultiplier=1;
+                shootEffect=t_s;
+                width=6;
+                height=16;
+                hitSize=7;
+                smokeEffect=Fx.shootSmallSmoke;
+                trailWidth=4;
+                trailLength=8;
+                buildingDamageMultiplier=0.4f;
+                hitColor=backColor=trailColor=Pal.glassAmmoBack;
+                frontColor=Pal.glassAmmoFront;
+                fragBullets=3;
+                fragBullet=new BasicBulletType(4f,5){{
+                    lifetime=40;
+                    width=0.1f;
+                    height=0.1f;
+                    shootEffect=Fx.none;
+                    hitColor=backColor=trailColor=Pal.glassAmmoBack;
+                    frontColor=Pal.glassAmmoFront;
+                }};
+            }});
+            consumePower(0.15f);
         }};
         ModTurrets.longsword=new ItemTurret("longsword"){{
             requirements(Category.turret,ItemStack.with(Items.copper,30,Items.graphite,20,Items.thorium,30,ModItems.bronze,30));
@@ -2123,6 +2170,7 @@ public class ExampleJavaMod extends Mod{
                 });
                 node(ModTurrets.longsword);
                 node(ModTurrets.blaze,()->{
+                    node(ModTurrets.magneticSpear);
                     node(ModTurrets.salvoAlpha);
                 });
                 node(ModTurrets.puncture,()->{

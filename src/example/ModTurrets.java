@@ -9,6 +9,7 @@ public class ModTurrets {
     public static ItemTurret itemTurret2;
     public static ItemTurret sharpSpear;
     public static ItemTurret itemTurret5;
+    public static ItemTurret magneticSpear;
     public static ItemTurret longsword;
     public static ItemTurret salvoAlpha;
     public static ItemTurret burst;
