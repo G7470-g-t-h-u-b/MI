@@ -411,6 +411,7 @@ public class ExampleJavaMod extends Mod{
             consumeItems(ItemStack.with(Items.silicon,6));
             outputItems=ItemStack.with(ModItems.processor,5);
         }};
+        ModBlocks.loadBattery();
         ModBlocks.laserEnergyNode =new BeamNode("laser-energy-node"){{
             health=100;
             size=1;

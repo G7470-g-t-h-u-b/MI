@@ -16,10 +16,7 @@ import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.RemoveWall;
 import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
-import mindustry.world.blocks.power.BeamNode;
-import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.power.HeaterGenerator;
-import mindustry.world.blocks.power.NuclearReactor;
+import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.units.UnitCargoLoader;
@@ -77,6 +74,17 @@ public class ModBlocks {
     public static Duct itemTrack;
     public static Duct logisticsPipeline;
     public static Conveyor phaseFabricConveyor;
+
+    public static Battery smallArmoredBattery;
+    public static void loadBattery(){
+        smallArmoredBattery=new Battery("small-armored-battery"){{
+            size=1;
+            health=90;
+            armor=18;
+            consumePowerBuffered(4000f);
+            requirements(Category.power,ItemStack.with(Items.titanium,30,Items.lead,50,ModItems.ferrum,40));
+        }};
+    }
 
     public static void loadDistribution(){
         ModBlocks.itemTrack=new Duct("item-track"){{
