@@ -7,6 +7,7 @@ import arc.math.Angles;
 import arc.math.Mathf;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.*;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 
 public class ModFx {
@@ -15,6 +16,12 @@ public class ModFx {
     public static Effect shapeEffect2;
     public static Effect teachBlueBomb;
     public static Effect shootFireFx;
+    public static final Effect hitLaserMeltdown = new Effect(8f,e->{
+        Draw.color(Color.white, Pal.meltdownHit, e.fin());
+        Lines.stroke(0.5F + e.fout());
+        Lines.circle(e.x, e.y, e.fin() * 5.0F);
+        Drawf.light(e.x, e.y, 23.0F, Pal.meltdownHit, e.fout() * 0.7F);
+    });
     public static final Effect bronzeShoot = new Effect(12.0F, (e) -> {
         Draw.color(Color.white, TIColor.bronzeColor, e.fin());
         Lines.stroke(e.fout() * 1.2F + 0.5F);

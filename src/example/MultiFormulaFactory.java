@@ -56,13 +56,13 @@ public class MultiFormulaFactory extends GenericCrafter {//模组，轻而易举
         rotate = true;
         regionRotated1 = 1;
         commandable = true;
-        config(Integer.class,(MultiFormulaFactory.MultiFormulaFactoryBuild build,Integer i)->{
-            if(!configurable) return;
-
-            if (build.currentPlan==i)return;
-            build.currentPlan = i < 0 || i >= plans.size ? -1 : i;
-            build.progress = 0;
-        });
+//        config(Integer.class,(MultiFormulaFactory.MultiFormulaFactoryBuild build,Integer i)->{
+//            if(!configurable) return;
+//
+//            if (build.currentPlan==i)return;
+//            build.currentPlan = i < 0 || i >= plans.size ? -1 : i;
+//            build.progress = 0;
+//        });
         config(Item.class, (MultiFormulaFactory.MultiFormulaFactoryBuild build, Item val) -> {
             if(!configurable) return;
 
