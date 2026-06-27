@@ -32,6 +32,7 @@ public class ModUnits {
                 mirror=true;
                 reload=5;
                 bullet=new LaserBoltBulletType(4.2f,20){{
+                    shootEffect=hitEffect=ModFx.hitLaserMeltdown;
                     lightColor= Pal.meltdownHit;
                     status=StatusEffects.melting;
 //                    killShooter=true;

@@ -710,7 +710,7 @@ public class ExampleJavaMod extends Mod{
                 height=16;
                 hitSize=6;
                 smokeEffect=Fx.shootSmallSmoke;
-                trailWidth=4;
+                trailWidth=2;
                 trailLength=8;
                 buildingDamageMultiplier=0.4f;
                 hitColor=backColor=trailColor=Pal.copperAmmoBack;
@@ -723,7 +723,7 @@ public class ExampleJavaMod extends Mod{
                 height=16;
                 hitSize=7;
                 smokeEffect=Fx.shootSmallSmoke;
-                trailWidth=4;
+                trailWidth=2;
                 trailLength=8;
                 buildingDamageMultiplier=0.4f;
                 hitColor=backColor=trailColor=Pal.glassAmmoBack;
@@ -739,6 +739,7 @@ public class ExampleJavaMod extends Mod{
                 }};
             }});
             consumePower(0.15f);
+            consumeCoolant(0.2f);
         }};
         ModTurrets.longsword=new ItemTurret("longsword"){{
             requirements(Category.turret,ItemStack.with(Items.copper,30,Items.graphite,20,Items.thorium,30,ModItems.bronze,30));
